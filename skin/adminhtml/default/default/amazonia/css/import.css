@@ -263,3 +263,40 @@ select[multiple], select[size] {
     background-image: -o-linear-gradient(315deg, transparent, transparent 33%, rgba(0, 0, 0, .12) 33%, rgba(0, 0, 0, .12) 66%, transparent 66%, transparent);
     background-image: linear-gradient(315deg, transparent, transparent 33%, rgba(0, 0, 0, .12) 33%, rgba(0, 0, 0, .12) 66%, transparent 66%, transparent);
 }
+
+
+@-webkit-keyframes bg-progress-bar {
+    0% {
+        background-position: 0 0
+    }
+    100% {
+        background-position: -16px 0
+    }
+}
+
+@-moz-keyframes bg-progress-bar {
+    0% {
+        background-position: 0 0
+    }
+    100% {
+        background-position: -16px 0
+    }
+}
+
+@-o-keyframes bg-progress-bar {
+    0% {
+        background-position: 0 0
+    }
+    100% {
+        background-position: -16px 0
+    }
+}
+
+@keyframes bg-progress-bar {
+    0% {
+        background-position: 0 0
+    }
+    100% {
+        background-position: -16px 0
+    }
+}
