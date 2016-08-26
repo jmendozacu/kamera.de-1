@@ -1,3 +1,15 @@
+/**
+ * Xhr Loading Handler
+ * -------------------
+ */
+$(document)
+    .bind("ajaxStart.mine", function () {
+        $("#loader").show();
+    })
+    .bind("ajaxStop.mine", function () {
+        $("#loader").hide();
+    });
+
 
 /**
  * Show Notification
