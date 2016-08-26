@@ -2,12 +2,12 @@
  * Xhr Loading Handler
  * -------------------
  */
-$(document)
+jQuery(document)
     .bind("ajaxStart.mine", function () {
-        $("#loader").show();
+        jQuery("#loader").show();
     })
     .bind("ajaxStop.mine", function () {
-        $("#loader").hide();
+        jQuery("#loader").hide();
     });
 
 
