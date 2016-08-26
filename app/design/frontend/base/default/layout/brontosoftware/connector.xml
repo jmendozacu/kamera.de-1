@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="before_body_end">
+          <block
+            type="core/template"
+            template="brontosoftware/connector/fiddle.phtml"
+            name="brontosoftware_site_fiddle"
+            as="brontosoftware_site_fiddle">
+            <label>Bronto Site Fiddle</label>
+          </block>
+        </reference>
+    </default>
+</layout>

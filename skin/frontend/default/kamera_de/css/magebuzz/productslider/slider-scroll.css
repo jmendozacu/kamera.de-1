@@ -1,0 +1,32 @@
+.container{
+	color:white;
+	margin-top:30px;
+	width:100%;
+	overflow:hidden;
+	
+	background:url(images/bg_dark.png) #28313b;
+	padding:20px 10px 10px;
+	-moz-border-radius:12px;
+	-khtml-border-radius: 12px;
+	-webkit-border-radius: 12px;
+	border-radius:12px;
+}
+.product{
+	width:370px;
+	height:150px;
+	background:url(images/product_bg.png) repeat-x;
+	padding-top:10px;
+	float:left;
+	
+	-moz-border-radius:12px;
+	-khtml-border-radius: 12px;
+	-webkit-border-radius: 12px;
+	border-radius:12px;
+}
+.product .pic{
+	float:left;
+	width:128px;
+	height:128px;
+	padding:0 10px 5px;
+	margin-top:-15px;
+}

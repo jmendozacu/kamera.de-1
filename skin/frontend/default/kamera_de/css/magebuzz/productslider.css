@@ -1,0 +1,28 @@
+/********All CSS Productslider ************/
+#product-slider{margin:0 0 20px;}
+#product-slider button.btn-cart {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    cursor: pointer;
+    margin: 0;
+    overflow: visible;
+    padding: 0;
+    width: auto;
+}
+#product-slider button.btn-cart span {
+    background: url(productslider/images/btn-cart.gif) no-repeat scroll left top transparent;
+    border: 0 none;
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    padding: 0;
+    width: 90px;
+}
+#product-slider button.btn-cart span span {
+    background: none repeat scroll 0 50% transparent;
+    color: #1E7EC8;
+    font-weight: bold;
+    padding-left: 20px;
+    width: auto;
+}
+#product-slider .price-box .price{color:#f4453c; font-size:15px;}

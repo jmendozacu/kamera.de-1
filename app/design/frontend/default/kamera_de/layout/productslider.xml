@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+		<reference name="content">
+			<block type="productslider/position" before="-" name="home.productslider"/>
+		</reference>	
+	</default>
+    <productslider_index_index>
+        <reference name="content">
+            <block type="productslider/productslider" name="productslider" template="productslider/productslider.phtml" />
+        </reference>
+    </productslider_index_index>
+	<productslider_random_index>
+		<remove name="right"/>
+		<remove name="left"/>
+		<reference name="root">
+			<action method="setTemplate"><template>page/1column.phtml</template></action>
+		</reference>
+        <reference name="content">
+            <block type="productslider/catalog_product_list_recentlyadd" name="productslider.recentlyadd" template="productslider/type/slider1.phtml">
+				<block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
+					<block type="page/html_pager" name="product_list_toolbar_pager"/>
+				</block>
+				<action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
+			</block>
+        </reference>
+    </productslider_random_index>
+</layout> 

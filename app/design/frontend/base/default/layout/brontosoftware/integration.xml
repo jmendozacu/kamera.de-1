@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <default>
+    <reference name="before_body_end">
+      <block type="core/template" template="brontosoftware/integration/popup.phtml" name="brontosoftware_popup_signup" as="brontosoftware_popup_signup">
+        <label>Bronto Pop-Up Manager</label>
+      </block>
+      <block type="brontosoftware_integration/recovery" name="brontosoftware_cart_recovery" as="brontosoftware_cart_recovery">
+        <label>Bronto Cart Recovery</label>
+      </block>
+    </reference>
+  </default>
+  <checkout_onepage_success>
+    <reference name="content">
+      <block type="brontosoftware_integration/redemption" name="brontosoftware_coupon_manager_redemption" as="brontosoftware_coupon_manager_redemption">
+        <label>Bronto Coupon Redemption</label>
+      </block>
+    </reference>
+  </checkout_onepage_success>
+</layout>

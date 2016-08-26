@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <newsletter_manage_index>
+    <reference name="my.account.wrapper">
+      <remove name="customer_newsletter"/>
+      <block
+        type="brontosoftware_optin/webform"
+        name="brontosoftware_optin_webform"
+        as="optin_webform" />
+    </reference>
+  </newsletter_manage_index>
+  <checkout_onepage_index>
+    <reference name="content">
+      <block type="brontosoftware_optin/checkout" name="brontosoftware.optin.checkout.billing" template="brontosoftware/optin/checkout.phtml" as="billing_subscribe">
+        <action method="setCheckoutType"><value>billing</value></action>
+        <action method="setDynamic"><value>1</value></action>
+        <block type="brontosoftware_optin/checkout" name="brontosoftware.optin.checkout.loader" template="brontosoftware/optin/loader.phtml" as="loader">
+          <action method="setCheckoutType"><value>billing</value></action>
+        </block>
+      </block>
+      <block type="brontosoftware_optin/checkout" name="brontosoftware.optin.checkout.shipping" template="brontosoftware/optin/checkout.phtml" as="shipping_subscribe">
+        <action method="setCheckoutType"><value>shipping</value></action>
+        <action method="setDynamic"><value>1</value></action>
+        <block type="brontosoftware_optin/checkout" name="brontosoftware.optin.checkout.loader" template="brontosoftware/optin/loader.phtml" as="loader">
+          <action method="setCheckoutType"><value>shipping</value></action>
+        </block>
+      </block>
+      <block type="brontosoftware_optin/checkout" name="brontosoftware.optin.checkout.custom" template="brontosoftware/optin/checkout.phtml" as="custom_subscribe">
+        <action method="setCheckoutType"><value>custom</value></action>
+      </block>
+    </reference>
+  </checkout_onepage_index>
+  <checkout_onepage_review>
+    <reference name="checkout.onepage.review.info.items.after">
+      <block type="brontosoftware_optin/checkout" name="brontosoftware.optin.checkout.review" template="brontosoftware/optin/checkout.phtml" as="review_subscribe">
+        <action method="setCheckoutType"><value>review</value></action>
+      </block>
+      <action method="setChild"><name>review_subscribe</name><block>brontosoftware.optin.checkout.review</block></action>
+    </reference>
+  </checkout_onepage_review>
+</layout>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <default>
+    <reference name="before_body_end">
+      <block type="core/template" template="brontosoftware/order/bta.phtml" name="brontosoftware_order_bta" as="brontosoftware_order_bta">
+        <label>Bronto BTA snippet</label>
+      </block>
+    </reference>
+  </default>
+</layout>

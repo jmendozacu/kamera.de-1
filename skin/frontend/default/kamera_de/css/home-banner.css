@@ -1,0 +1,14 @@
+.coin-slider { overflow: hidden; zoom: 1; position: relative;margin:12px 0 25px; }
+#home-slider{width:1022px;float:left;text-align:left;margin-bottom:10px; border: 1px solid #D5D5D5}
+.coin-slider .img {  }
+.coin-slider a{ text-decoration: none; outline: none; border: none; }
+.cs-buttons {}
+.cs-buttons a { margin-left: 5px; height: 14px; width: 14px; float: left;background: url(../images/cs-buttons-games-1-nohover.png) no-repeat left top; color: #B8C4CF; text-indent: -1000px; }
+.cs-active { background: url(../images/cs-buttons-games-1.png) no-repeat left top !important; color: #FFFFFF; }
+.cs-title { padding: 10px; background: #000000; color: #FFFFFF;}
+#cs-navigation-home-slider a.cs-prev{width:33px; height:27px; background: url(../images/btn-back-hover.png) top left no-repeat; cursor:pointer;top: 350px !important;right:44px !important;left: auto !important;}
+#cs-navigation-home-slider a.cs-prev:hover{width:33px; height:27px; background: url(../images/btn-back.png) top left no-repeat; cursor:pointer;}
+#cs-navigation-home-slider a.cs-prev span{display:none;}
+#cs-navigation-home-slider a.cs-next{width:33px; height:27px; background: url(../images/btn-next-hover.png) top left no-repeat; cursor:pointer;top: 350px !important;right:8px !important;}
+#cs-navigation-home-slider a.cs-next:hover{width:33px; height:27px; background: url(../images/btn-next.png) top left no-repeat; cursor:pointer;}
+#cs-navigation-home-slider a.cs-next span{display:none;}
