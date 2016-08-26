@@ -1,0 +1,15 @@
+/app/etc/local.xml
+
+/downloader/*.cfg
+/downloader/.cache/
+
+/.idea*
+*.DS_Store
+atlassian-ide-plugin.xml
+
+/includes
+/media
+/var
+/js/grunt/node_modules
+/vendor
+/js/bower

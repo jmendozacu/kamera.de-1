@@ -1,0 +1,18 @@
+{
+  "name": "kamera.de",
+  "license": "private",
+  "private": true,
+  "ignore": [
+    "**/.*"
+  ],
+  "dependencies": {
+    "jquery": "^1.x",
+    "bootstrap": "^3.3.6",
+    "html5shiv": "^3.7.3",
+    "font-awesome": "~4.2.0",
+    "select2": "^4.0.1",
+    "select2-bootstrap-theme": "^0.1.0-beta.4",
+    "notifIt": "notifit#*",
+    "jquery-ui": "^1.12.0"
+  }
+}
