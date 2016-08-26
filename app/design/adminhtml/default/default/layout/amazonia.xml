@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <amazonia_adminhtml_products_index>
+
+        <reference name="head">
+
+            <action method="addItem"><type>js_css</type><file>bower/bootstrap/dist/css/bootstrap.min.css</file></action>
+            <action method="addItem"><type>js_css</type><file>bower/notifIt/notifIt/css/notifIt.css</file></action>
+            <action method="addItem"><type>skin_css</type><file>amazonia/css/import.css</file></action>
+
+            <action method="addItem"><type>js</type><file>bower/jquery/dist/jquery.min.js</file></action>
+            <action method="addItem"><type>js</type><file>bower/jquery-ui/jquery-ui.min.js</file></action>
+            <action method="addItem"><type>skin_js</type><file>amazonia/js/jquery.noconflict.js</file></action>
+            <action method="addItem"><type>js</type><file>bower/notifIt/notifIt/js/notifIt.js</file></action>
+            <action method="addItem"><type>js</type><file>bower/bootstrap/dist/js/bootstrap.min.js</file></action>
+            <action method="addItem"><type>skin_js</type><file>amazonia/js/import.js</file></action>
+
+        </reference>
+
+        <reference name="content">
+            <block type="amazonia/adminhtml_products" name="amazon_products_import" template="amazonia/products-import.phtml"/>
+        </reference>
+
+    </amazonia_adminhtml_products_index>
+</layout>

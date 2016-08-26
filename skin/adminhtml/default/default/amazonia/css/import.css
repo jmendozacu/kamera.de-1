@@ -1,0 +1,241 @@
+ol, ul {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+body {
+    background: #e6e6e6;
+    color: inherit;
+    font: 12px/1.5em Arial, Helvetica, sans-serif;
+}
+
+button {
+    color: #fff;
+}
+
+dd, dt {
+    line-height: 2em;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    font-family: inherit;
+    font-weight: 600;
+    line-height: 1.1;
+    color: inherit;
+}
+
+#amazon-products-import .import-divider {
+    text-align: center;
+    margin: 25px 0;
+}
+
+#amazon-products-import .import-divider i {
+    color: #f8801a;
+    font-size: 24px;
+}
+
+#amazon-products-import select[multiple] option {
+    border-bottom: 1px solid #eee;
+    padding: 5px 7px;
+}
+
+#amazon-products-import select[multiple] option:last-child {
+    border-bottom: none;
+}
+
+#amazon-products-import .amazon-logo {
+    position: absolute;
+    right: -15px;
+    top: 15px;
+}
+
+.panel > .panel-heading {
+    position: relative;
+}
+
+form.direct-asin {
+    position: absolute;
+    right: -1px;
+    top: -1px;
+}
+
+form.direct-asin .input-group-addon {
+    padding: 12px 15px;
+    background: none;
+    border: 0;
+}
+
+form.direct-asin .input-group-addon + input.form-control {
+    height: 40px;
+    border-radius: 0;
+    border-right: none;
+    border-color: rgba(240, 173, 78, 0.42);
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+form.direct-asin .input-group-addon + input.form-control:focus {
+    border-color: rgba(240, 173, 78, 0.62);
+}
+
+form.direct-asin .form-group + .btn {
+    padding: 10px 12px;
+    float: right;
+    border-radius: 0 3px 3px 0;
+}
+
+.panel-warning {
+    border-color: rgba(240, 173, 78, 0.42);
+}
+
+button:hover {
+    background-image: none;
+}
+
+.text-muted {
+    font-weight: 100;
+}
+
+.amazon-message {
+    font-family: monospace;
+    color: #aaeab2;
+    background: #444;
+    white-space: normal;
+    border-radius: 5px;
+    overflow: auto;
+    box-shadow: 0 0 8px #000 inset;
+}
+
+select[multiple], select[size] {
+    height: 150px;
+}
+
+
+#ui_notifIt {
+    padding: 0 !important;
+    line-height: 26px;
+    box-shadow: -5px 5px 7px #ccc, 5px 5px 7px #ccc;
+    border-radius: 0;
+    width: 475px !important;
+    top: 15px;
+    cursor: default;
+    overflow: visible;
+}
+
+#ui_notifIt.error > p > strong {
+    background-color: #f9c5c5;
+    color: #ca1000;
+}
+
+#ui_notifIt.info > p > strong {
+    background-color: #9adef5;
+    color: #004258;
+}
+
+#ui_notifIt.success > p > strong {
+    background-color: #c6f9bc;
+    color: #273a02;
+}
+
+#ui_notifIt.warning > p > strong {
+    background-color: #ffe58c;
+    color: #ab5800;
+}
+
+#ui_notifIt > p {
+    text-align: left;
+    overflow: hidden;
+    background: #f5f5f5;
+    color: #666;
+}
+
+#ui_notifIt > p > span {
+    padding: 15px 25px;
+    display: block;
+    text-align: center;
+    font-weight: 100;
+    line-height: 24px;
+}
+
+#ui_notifIt > p > b {
+    color: #000;
+}
+
+#ui_notifIt > p > strong {
+    display: block;
+    padding: 8px 20px;
+}
+
+#ui_notifIt > p a,
+#ui_notifIt > p a:hover {
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    line-height: 20px;
+    color: #337ab7;
+    border-bottom: 1px solid #9bc3e4;
+}
+
+#notifIt_close {
+    position: absolute;
+    top: -5px;
+    padding: 0;
+    right: -5px;
+    border: 0;
+    height: 35px;
+    line-height: 35px;
+    width: 35px;
+    text-align: center;
+    background: inherit;
+    font-size: 24px;
+    cursor: pointer;
+    color: #fff;
+    opacity: 0.85;
+}
+
+#notifIt_close:hover {
+    opacity: 1;
+}
+
+#ui_notifIt.error #notifIt_close {
+    background-color: #da4444;
+}
+
+#ui_notifIt.info #notifIt_close {
+    background-color: #3fb1d8;
+}
+
+#ui_notifIt.success #notifIt_close {
+    background-color: #76c367;
+}
+
+#ui_notifIt.warning #notifIt_close {
+    background-color: #deb837;
+}
+
+#ui_notifIt pre {
+    background: #444;
+    border: 0;
+    box-shadow: 1px 1px 7px #000 inset;
+    color: #0eff00;
+    white-space: normal;
+    margin: 5px;
+    border-radius: 0;
+}
+
+#ui_notifIt dl {
+    max-height: 100%;
+    overflow: auto;
+}
+
+#ui_notifIt dl dt {
+    text-align: right;
+    border-bottom: 1px solid #e8e5e5;
+    line-height: 30px;
+}
+
+#ui_notifIt dl dd {
+    text-align: left;
+    border-bottom: 1px solid #e8e5e5;
+    line-height: 30px;
+}

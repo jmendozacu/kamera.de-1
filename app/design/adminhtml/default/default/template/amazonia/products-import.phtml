@@ -1,0 +1,144 @@
+<div id="amazon-products-import">
+
+
+    <div class="content-header">
+        <table cellspacing="0">
+            <tbody>
+            <tr>
+                <td>
+                    <h3 class="icon-head head-products">Amazon. Products Import</h3>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-5">
+
+                <div class="panel panel-<?php echo $this->getAmazonConfig() ? 'success' : 'danger'; ?>">
+                    <div class="panel-heading">
+                        Amazon Account Settings
+                        <span class="badge pull-right">
+                            <?php echo $this->getAmazonConfig() ? 'connected' : 'disconnected'; ?>
+                        </span>
+                    </div>
+                    <div class="panel-body">
+                        <?php if ($this->getAmazonConfig()) : ?>
+                            <dl class="dl-horizontal col-md-8">
+                                <dt>Access Key ID:</dt>
+                                <dd><?php echo $this->getAmazonConfig('access_key_id'); ?></dd>
+
+                                <dt>Secret Access Key:</dt>
+                                <dd><?php echo $this->getAmazonConfig('secret_access_key'); ?></dd>
+
+                                <dt>Partner Tag:</dt>
+                                <dd><?php echo $this->getAmazonConfig('partner_tag'); ?></dd>
+                            </dl>
+                            <div class="col-md-4">
+                                <img class="pull-right amazon-logo"
+                                    src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) .
+                                        'adminhtml/default/default/amazonia/images/amazon-logo.png'; ?>"
+                                />
+                            </div>
+                        <?php elseif ($this->getAmazonMessage()) : ?>
+                            <div class="amazon-message well well-sm">
+                                <?php echo $this->getAmazonMessage(); ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        Product Search
+                        <form class="form-inline direct-asin">
+                            <div class="form-group has-warning">
+                                <div class="input-group">
+                                    <div class="input-group-addon"></div>
+                                    <input autofocus type="text" class="form-control" placeholder="Add product by ASIN..">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-warning btn-sm">
+                                <i class="glyphicon glyphicon-ok"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="panel-body">
+                        <table cellspacing="0" class="table table-hover table-striped">
+                            <thead></thead>
+                            <tbody>@todo: products search results ...</tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="col-md-7">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Import by ASINs:
+                        <span class="badge pull-right">
+                            <span class="asins-counter">0</span> items
+                        </span>
+                    </div>
+                    <div class="panel-body">
+
+                        <form class="import-form form-horizontal" method="post" action="<?php echo $this->getUrl('amazon/adminhtml_products/import/') ?>">
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="asins">
+                                    Products ASINs:<br>
+                                    <em class="text-muted">double click to remove</em>
+                                </label>
+                                <div class="col-sm-10">
+                                    <select multiple id="asins" size="7" class="form-control" name="asins[]"></select>
+                                </div>
+                            </div>
+
+                            <div class="import-divider">
+                                <i class="glyphicon glyphicon-arrow-down"></i>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="categories">
+                                    Select Category:
+                                </label>
+                                <div class="col-sm-10">
+                                    <select id="categories" class="form-control" name="category_id">
+                                        <option value="">----- Shop Categories -----</option>
+                                        <?php /** @var Mage_Catalog_Model_Category $category */ ?>
+                                        <?php foreach ($this->getCategories() as $category) : ?>
+                                            <option value="<?php echo $category->getId(); ?>">
+                                                <?php for ($i = 1, $offset = ''; $i < $category->getLevel(); $i++, $offset .= '. . . ') : ?>
+                                                <?php endfor; ?>
+                                                <?php echo $offset . ' ' . $category->getName() . ' (' . $category->getProductCount(), ' items)'; ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+                            <input name="isAjax" type="hidden" value="true" />
+
+                            <div class="a-right">
+                                <button type="submit" class="btn btn-warning">
+                                    <i class="glyphicon glyphicon-plus"></i> Import Products
+                                </button>
+                            </div>
+
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
