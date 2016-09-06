@@ -1,0 +1,76 @@
+<?php 
+if(!$this->getConfig('enabled')) return;
+$slider = $this->getSlider();
+if(!count($slider)) return;				
+$media = Mage::getBaseUrl('media');	
+$caption = $this->getConfig('caption');
+?>
+<figure class="banner-slideshow">
+	<div class="flexslider tv-nivoslider image-effect">
+		<div class="ajax_loading"><i class="fa fa-spinner fa-spin"></i></div>
+		<div id="tv-inivoslider" class="sliders">
+		<?php
+			$i = 1;
+			foreach($slider as $slide) {
+				$img = $media .$slide['image']; ?>
+				<div class="nivo-item">
+					<a href="<?php echo $slide['link']?>" title="<?php echo $this->__('Read more') ?>"><img style="display: none;" src="<?php echo $img?>"  title="#caption<?php echo $i; ?>" alt="image" /></a>	
+					<?php if($caption) { ?>
+						<div id="caption<?php echo $i; ?>" class="caption-item" style="display: none;">
+							<div class="<?php echo $slide['effect']?>">
+								<div class="title"><?php echo $this->__($slide['title']) ?></div>
+								<div class="description"><?php echo $this->__($slide['description']) ?></div>
+								<?php if( $slide['link'] ) { ?>
+									<div class="readmore">
+										<a href="<?php echo $slide['link']?>" title="<?php echo $this->__('Get a look !') ?>"><?php echo $this->__('Get a look !') ?></a>	
+									</div>
+								<?php } ?>
+							</div>
+						</div>	
+					<?php } ?>									
+				</div>
+				<?php $i++; ?>
+				<?php
+			} // end foreach
+		?>
+		</div>
+	</div>
+</figure>
+<script type="text/javascript">
+jQuery( document ).ready(function($) {
+	(function(selector){
+		var $content = $(selector);
+		$content.nivoSlider({
+			slices: 15,
+			boxCols: 8,
+			boxRows: 4,
+			startSlide: 0,
+			controlNavThumbs: false,
+			pauseOnHover: true,
+			manualAdvance: false,
+			prevText: 'Prev',
+			nextText: 'Next',
+			effect: '<?php echo $this->getConfig('effect') ?>',
+			animSpeed: <?php echo $this->getConfig('animSpeed') ?>,
+			pauseTime: <?php echo $this->getConfig('pauseTime') ?>,
+			controlNav: <?php echo $this->getConfig('controlNav') ?>,
+			directionNav: <?php echo $this->getConfig('directionNav') ?>,
+			//afterLoad: function(){
+			//	$('.ajax_loading').css("display","none");
+			//},     
+			//beforeChange: function(){ 
+			//	$content.find('.nivo-item .title').css("top","-500px" );
+			//	$content.find('.nivo-item .description').css("top","-1000px");
+			//	$content.find('.nivo-item .readmore').css("top","-2000px");
+			//}, 
+			//afterChange: function(){ 
+			//	$content.find('.nivo-item .title').css("top","330px");
+			//	$content.find('.nivo-item .description').css("top","390px");
+			//	$content.find('.nivo-item .readmore').css("top","250px");
+			//}
+		});
+
+	})('#tv-inivoslider');
+});
+</script>
+

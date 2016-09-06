@@ -1,0 +1,41 @@
+<?xml version="1.0"?> 
+<config>
+	<menu>
+		<themevast translate="title" module="cloudzoom">
+			<title>Themevast</title>
+			<sort_order>80</sort_order>               
+			<children>
+				<cloudzoom translate="title" module="cloudzoom">
+					<title>Cloudzoom</title>
+					<sort_order>2</sort_order>
+					<children>
+						<configuration>
+							<title>Configuration</title>
+							<sort_order>1</sort_order>
+							<action>adminhtml/system_config/edit/section/cloudzoom</action>
+						</configuration>
+					</children>
+				</cloudzoom>
+			</children>
+		</themevast>
+	</menu>
+	<acl>
+		<resources>
+			<admin>
+				<children>
+					<system>
+						<children>
+							<config>
+								<children>
+									<cloudzoom>
+										<title>cloudzoom</title>
+									</cloudzoom>
+								</children>
+							</config>
+						</children>
+					</system>					
+				</children>
+			</admin>
+        </resources>
+	</acl>
+</config>

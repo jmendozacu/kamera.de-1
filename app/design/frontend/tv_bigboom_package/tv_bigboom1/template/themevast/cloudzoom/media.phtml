@@ -1,0 +1,114 @@
+<?php
+	$_config = Mage::helper('cloudzoom')->getGeneralCfg();
+    $_zoom_w = isset($_config['zoom_w']) ?  $_config['zoom_w'] : 300;
+    $_zoom_h = isset($_config['zoom_h']) ?  $_config['zoom_h'] : 300;
+	$_border_w = isset($_config['zoom_border_w']) ?  $_config['zoom_border_w'] : 4;
+	$_border_color = isset($_config['zoom_border_color']) ?  $_config['zoom_border_color'] : '#cdcdcd';
+    $_lightbox_w = isset($_config['lightbox_w']) ?  $_config['lightbox_w'] : 500;
+    $_lightbox_h = isset($_config['lightbox_h']) ?  $_config['lightbox_h'] : 500;
+    $_thumbnail_qty = isset($_config['thumbnail_qty']) ?  $_config['thumbnail_qty'] : 4;
+    $_thumbnail_w = isset($_config['thumbnail_w']) ?  $_config['thumbnail_w'] : 56;
+    $_thumbnail_h = isset($_config['thumbnail_h']) ?  $_config['thumbnail_h'] : 56;
+	$_auto = isset($_config['auto_scroll']) ?  $_config['auto_scroll'] : 0;
+	$_mode = isset($_config['mode']) ?  $_config['mode'] : 'horizontal';
+	$_thumbslider = isset($_config['thumbslider']) ?  $_config['thumbslider'] : 0;
+?>
+<?php
+    $_product = $this->getProduct();
+    $_helper = $this->helper('catalog/output');
+?>
+<p class="product-image">
+    <?php
+        $_img = '<img src="'.$this->helper('catalog/image')->init($_product, 'image')->resize(600,600).'" alt="'.$this->htmlEscape($this->getImageLabel()).'" title="'.$this->htmlEscape($this->getImageLabel()).'" />';
+    ?>
+	<!-- images for lightbox -->
+	<a href="<?php echo $this->helper('catalog/image')->init($_product, 'image')->resize($_lightbox_w, $_lightbox_h); ?>" class = "lightbox" rel="lightbox[rotation]"></a>
+	<!--++++++++++++-->
+	<a href="<?php echo $this->helper('catalog/image')->init($_product, 'image')->resize(600,600); ?>" class = "cloud-zoom" id="cloudzoom" style="position: relative; display: block;" rel="adjustX:10, adjustY:-2, zoomWidth:<?php echo $_zoom_w; ?>, zoomHeight:<?php echo $_zoom_h; ?>">
+		<?php echo $_helper->productAttribute($_product, $_img, 'image'); ?>
+	</a>
+</p>
+<?php 
+if ( count($this->getGalleryImages()) > 0 ): ?>
+	<?php 
+	if( (!$_thumbslider) 
+				|| ( count($this->getGalleryImages()) < $_thumbnail_qty )
+				|| ( count($this->getGalleryImages()) == $_thumbnail_qty )
+			) { 
+	?>
+		<div class="more-views more-images">
+			<h2><?php echo $this->__('More Views') ?></h2>
+			<ul>
+			<?php foreach ($this->getGalleryImages() as $_image): ?>
+				<li>
+					<a href="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize(600,600); ?>" class="cloud-zoom-gallery" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>" name="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize($_lightbox_w, $_lightbox_h); ?>"
+										rel="useZoom: 'cloudzoom', smallImage: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize(600,600); ?>'">
+					<img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize($_thumbnail_w, $_thumbnail_h); ?>" width="<?php echo $_thumbnail_w ?>" height="<?php echo $_thumbnail_h ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" /></a>
+				</li>
+			<?php endforeach; ?>
+			</ul>
+			<!-- thumbnail for lighbox-->
+				<ul class="thumb-light" style="display:none;">
+					<?php foreach ($this->getGalleryImages() as $_image): ?>
+						<li>
+							<a href="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize($_lightbox_w, $_lightbox_h); ?>" rel="lightbox[rotation]" title="<?php echo $_product->getName();?>"></a>
+						</li>
+					<?php endforeach; ?>                                                                
+				</ul>
+			<!--##########-->
+			<script type="text/javascript">
+				//<![CDATA[
+					jQuery(document).ready(function($){
+						$('head').append('<style type="text/css"> .cloud-zoom-big { border:<?php echo $_border_w ?>px solid <?php echo $_border_color ?> }</style>');
+					});
+				//]]>
+			</script>
+		</div>
+	<?php } else { ?>
+			<div class="more-views thumbnail-container <?php echo $_mode ?>">
+				<h2><?php echo $this->__('More Views') ?></h2>
+					<ul class="bxslider">
+					<?php foreach ($this->getGalleryImages() as $_image): ?>
+						<li class="thumbnail-item">
+							<a href="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize(600,600); ?>" class="cloud-zoom-gallery" title="<?php echo $this->htmlEscape($_image->getLabel()) ?>" name="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize($_lightbox_w, $_lightbox_h); ?>"
+												rel="useZoom: 'cloudzoom', smallImage: '<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize(600,600); ?>'">
+							<img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize($_thumbnail_w, $_thumbnail_h); ?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>" /></a>
+						</li>
+					<?php endforeach; ?>
+					</ul>
+				<?php //thumbnail for lighbox ?>
+					<ul class="thumb-light" style="display:none;">
+						<?php foreach ($this->getGalleryImages() as $_image): ?>
+							<li>
+								<a href="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile())->resize($_lightbox_w, $_lightbox_h); ?>" rel="lightbox[rotation]" title="<?php echo $_product->getName();?>"></a>
+							</li>
+						<?php endforeach; ?>                                                                
+					</ul>
+				<?php //--##########-- ?>
+			</div>
+			<script type="text/javascript">
+				//<![CDATA[
+					jQuery(document).ready(function($){
+						$('.thumbnail-container .bxslider').bxSlider({
+							<?php if($_auto ) { ?>
+								auto: true,
+							<?php } ?>
+							slideWidth: <?php echo $_thumbnail_w ?>,
+							slideMargin: 10,
+							mode: '<?php echo $_mode ?>',
+							minSlides: 1,
+							maxSlides:4,
+							<?php if (count($this->getGalleryImages()) < 5 ) { ?>
+							controls: false,
+							<?php } ?>
+							pager: false,
+							speed: 500,
+							pause: 3000,
+							moveSlides:1,
+						});	
+					});					
+				//]]>
+			</script>
+	<?php } ?>
+<?php endif; ?>
+

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+    </default>
+    <cms_index_index>
+        <reference name="head">
+            <action method="addCss" ifconfig="newproductslider/general/enabled"><stylesheet>themevast/plugin/css/jquery.bxslider.css</stylesheet></action>
+			<!--<action method="addCss" ifconfig="newproductslider/general/enabled"><stylesheet>themevast/newproductslider/css/newproductslider.css</stylesheet></action>-->
+			<action method="addJs" ifconfig="newproductslider/general/enabled"><script>themevast/jquery.min.js</script></action>
+			<action method="addJs" ifconfig="newproductslider/general/enabled"><script>themevast/plugin/jquery.bxslider.js</script></action>     
+		</reference>
+        <!--<reference name="content">
+            <block type="newproductslider/newproductslider" name="newproductslider" template="themevast/newproductslider/newproductslider.phtml" />
+        </reference>-->
+    </cms_index_index>
+</layout> 

@@ -1,0 +1,58 @@
+<?xml version="1.0"?> 
+<config>
+	<menu>
+		<themevast translate="title">
+			<title>Themevast</title>
+			<sort_order>71</sort_order>               
+			<children>
+				<newproduct translate="title" module="newproduct">
+					<title>New Products</title>
+					<sort_order>0</sort_order>
+					<children>
+						<configuration>
+							<title>Configuration</title>
+							<sort_order>1</sort_order>
+							<action>adminhtml/system_config/edit/section/newproduct</action>
+						</configuration>
+					</children>
+				</newproduct>
+			</children>
+		</themevast>
+	</menu>
+	<acl>
+		<resources>
+			<admin>
+				<children>
+					<system>
+						<children>
+							<config>
+								<children>
+									<newproduct>
+										<title>New Products</title>
+									</newproduct>
+								</children>
+							</config>
+						</children>
+					</system>	
+					<themevast translate="title" module="newproduct">
+						<title>Themevast</title>
+						<sort_order>71</sort_order>               
+						<children>
+							<newproduct translate="title" module="newproduct">
+								<title>New Products</title>
+								<sort_order>0</sort_order>
+								<children>
+									<configuration>
+										<title>Configuration</title>
+										<sort_order>1</sort_order>
+										<action>adminhtml/system_config/edit/section/newproduct</action>
+									</configuration>
+								</children>
+							</newproduct>
+						</children>
+					</themevast>					
+				</children>
+			</admin>
+        </resources>
+	</acl>
+</config>

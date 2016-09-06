@@ -1,0 +1,68 @@
+<?php
+
+if(!$this->getConfig('enabled')) return;
+
+$_productCollection=$this->getProductCollection();
+$_helper = $this->helper('catalog/output');
+$helpLabels = $this->helper('themevast/labels');
+$helpTimer = $this->helper('timer'); $num = 1;
+?>
+
+<div class="saleproduct dealproducts">
+	<?php echo $this->getConfig('title') ? '<div  class="bx-title title-saleproduct"><h2>' .$this->getConfig('title'). '</h2></div>' : ''; ?>
+	<?php
+	if(!$_productCollection->count()): ?> 
+		<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+	<?php else: ?>
+	<?php
+		// getConfig
+		$widthImage  	= $this->getConfig('widthImage') ? $this->getConfig('widthImage') : 135;
+		$heightImage 	= $this->getConfig('heightImage') ? $this->getConfig('heightImage') : 135;
+		$price   		= $this->getConfig('price');
+		$cart    		= $this->getConfig('cart');
+		$compare  		= $this->getConfig('compare');
+		$wishlist  		= $this->getConfig('wishlist');
+		$review  		= $this->getConfig('review');
+	?>
+    <?php $_collectionSize = $_productCollection->count() ?>
+    <?php $_columnCount = $this->getColumnCount(); ?>
+    <?php $j=0; $time = $this->getConfig('playDelay') ? $this->getConfig('playDelay') : 200; ?>
+    <?php $i=0; foreach ($_productCollection as $_product): ?>
+        <?php $t = $j*$time; $t .='ms'; $j++; ?>
+        <?php if ($i++%$_columnCount==0): ?>
+        <ul class="products-grid">
+        <?php endif ?>
+		<li class="item <?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
+			<div class="item-inner">
+				<?php // Product Image ?>
+				<div class="box-images">
+			<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
+			<?php $imagehv = $_product->load('media_gallery')->getMediaGalleryImages()->getItemByColumnValue('position','2');
+				if($imagehv) : 
+				$imagehv = $imagehv->getFile();
+				?>
+				<img class="img-face-back" src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image', $imagehv)->resize($widthImage, $heightImage) ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+			<?php endif ?>
+				<img class="img-face" src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($widthImage, $heightImage); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+			</a>
+			</div>
+				<?php // Product description ?>
+				<?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
+				<h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped; ?>"><?php echo $_helper->productAttribute($_product, $_product->getName() , 'name'); ?></a></h2>
+				<?php if($review): ?>
+					<?php echo $this->getReviewsSummaryHtml($_product) ?>
+				<?php endif; ?>
+				<?php if($price): ?>
+					<?php echo $this->getPriceHtml($_product, true) ?>
+				<?php endif; ?>
+				
+				<?php echo $helpTimer->getTimer($_product, $num); $num++;//Product Timer ?>
+				<?php echo $helpLabels->getLabels($_product); //Product labels ?>
+			</div>
+		</li>
+        <?php if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
+        </ul>
+        <?php endif ?>
+        <?php endforeach ?>
+	<?php endif ?>
+</div> 

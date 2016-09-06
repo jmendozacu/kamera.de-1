@@ -1,0 +1,21 @@
+<div class="nav-vcontainer hidden-xs hidden-sm">
+    <div class="nav-inner">
+        <div class="vmegamenu-title"><h2><i class="fa fa-bars"></i><?php echo $this->__('Categories') ?></h2></div>
+        <div class="vmegamenu-contain">
+            <div id="nav_vmegamenu" class="nav_vmegamenu">
+                <?php $megamenu =  $this->getLayout()->createBlock('megamenu/megamenu'); ?>       
+                <?php //echo $megamenu->drawMegamenuHome(); ?>
+                <?php echo $megamenu->drawMegamenuMain(); ?>        
+                <?php //echo $megamenu->drawMegamenuExtra(); ?>
+                <?php //echo $megamenu->drawMegamenuLink(); ?>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        //<![CDATA[
+        var MEGAMENU_EFFECT = <?php echo (int)Mage::getStoreConfig('megamenu/general/effect')?>;
+        
+        //]]>
+    </script>
+
+</div>

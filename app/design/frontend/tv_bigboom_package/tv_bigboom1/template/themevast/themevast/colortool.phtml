@@ -1,0 +1,42 @@
+<div class="themes-demo-wrap">
+	<div class="theme-demo-option">
+		<h2 class="themes-demo-title"><?php echo $this->__('Theme Color') ?></h2>
+		<div class="cl-table">
+			<div class="title-home title-home1"><?php echo $this->__('Layout 1') ?></div>
+			<div class="cl-tr">
+				<div class="cl-td cl-td-layout1"><a href="<?php echo $this->getUrl().'?___store=en' ?>" title="Red"><span></span><?php echo $this->__('Red') ?></a></div>
+				<div class="cl-td cl-td-layout2"><a href="<?php echo $this->getUrl().'?___store=fr' ?>" title="Orange"><span></span><?php echo $this->__('Orange') ?></a></div>			
+				<div class="cl-td cl-td-layout3"><a href="<?php echo $this->getUrl().'?___store=ge' ?>" title="Green"><span></span><?php echo $this->__('Green') ?></a></div>
+			</div>
+			<div class="title-home title-home2"><?php echo $this->__('Layout 2') ?></div>
+			<div class="cl-tr">
+				<div class="cl-td cl-td-layout1"><a href="<?php echo $this->getUrl().'?___store=br' ?>" title="Red"><span></span><?php echo $this->__('Red') ?></a></div>
+				<div class="cl-td cl-td-layout2"><a href="<?php echo $this->getUrl().'?___store=it' ?>" title="Orange"><span></span><?php echo $this->__('Orange') ?></a></div>			
+				<div class="cl-td cl-td-layout3"><a href="<?php echo $this->getUrl().'?___store=rs' ?>" title="Green"><span></span><?php echo $this->__('Green') ?></a></div>
+			</div>
+			
+			<div class="title-home title-home3"><?php echo $this->__('Layout 3') ?></div>
+			<div class="cl-tr">
+				<div class="cl-td cl-td-layout1"><a href="<?php echo $this->getUrl().'?___store=pt' ?>" title="Red"><span></span><?php echo $this->__('Red') ?></a></div>
+				<div class="cl-td cl-td-layout2"><a href="<?php echo $this->getUrl().'?___store=es' ?>" title="Orange"><span></span><?php echo $this->__('Orange') ?></a></div>			
+				<div class="cl-td cl-td-layout3"><a href="<?php echo $this->getUrl().'?___store=sw' ?>" title="Green"><span></span><?php echo $this->__('Green') ?></a></div>
+			</div>
+		</div>
+		<div class="control inactive"><a href="javascript:void(0)"><i class="fa fa-cog fa-spin"></i></a></div>
+	</div>
+	
+</div>
+<script type="text/javascript">
+	jQuery(document).ready( function($){
+		$('.control').click(function(){
+			if($(this).hasClass('inactive')) {
+				$(this).removeClass('inactive');
+				$(this).addClass('active');
+				$('.themes-demo-wrap').animate({left:'0'}, 500);
+			} else {
+				$(this).addClass('inactive');
+				$('.themes-demo-wrap').animate({left:'-260px'}, 500);
+			}
+		});
+	});
+</script>

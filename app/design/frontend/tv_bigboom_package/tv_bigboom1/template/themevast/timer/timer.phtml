@@ -1,0 +1,43 @@
+<?php
+$helpTimer = $this->helper('timer');
+if(!$helpTimer->getConfig('enabled')) return;
+$title          = $helpTimer->getConfig('title');
+$title_color    = $helpTimer->getConfig('title_color');
+$caption 		= $helpTimer->getConfig('caption');
+$caption_color 	= $helpTimer->getConfig('caption_color');
+$timer_color 	= $helpTimer->getConfig('timer_color');
+
+
+$_product = $this->getProduct();
+$toDate = $_product->getSpecialToDate();
+$count  = $this->getNum();
+?>
+
+<?php if ($_product->getPrice() > $_product->getSpecialPrice()) : ?>
+<?php if ($_product->getSpecialPrice() != 0 || $_product->getSpecialPrice() != "") : ?>
+    <div class="box-timer"><div id="countbox_<?php echo $count; ?>" class="timer-view"></div></div>
+<?php endif;endif; ?>
+
+<?php if ($_product->getPrice() > $_product->getSpecialPrice()) : ?>
+<?php if ($_product->getSpecialPrice() != 0 || $_product->getSpecialPrice() != "") : ?>
+    <script type="text/javascript">
+		<?php if ($caption) : ?>
+			var DisplayFormat = "<div clas='timer-day box'><span class='day count'>%%D%%</span><span class='title'><?php echo $this->__('Days') ?></span></div><div clas='timer-hour box'><span class='hour count'>%%H%%</span><span class='title'><?php echo $this->__('Hours') ?></span></div><div clas='timer-min box'><span class='min count'>%%M%%</span><span class='title'><?php echo $this->__('Mins') ?></span></div><div clas='timer-sec box'><span class='sec count'>%%S%%</span><span class='title'><?php echo $this->__('Secs') ?></span></div>";
+        <?php else : ?>
+			var DisplayFormat = "<span class='day'>%%D%%</span><span style='margin:0px 4px'>:</span><span class='hour'>%%H%%</span><span style='margin:0px 4px'>:</span><span class='min'>%%M%%</span><span style='margin:0px 4px'>:</span><span class='sec'>%%S%%</span>";
+		<?php endif; ?>
+		(function (){
+            var dthen = new Date("<?php echo Date("m/d/y", strtotime($toDate)).' 11:59:00 PM'; ?>");
+            <?php $locale = new Mage_Core_Model_Locale; ?>
+            var start = "<?php echo Date("m/d/y h:i:s A", strtotime($locale->date(null, null, "en_US", true))); ?>";
+            var start_date = Date.parse(start);
+            var dnow = new Date(start_date);
+            if(CountStepper>0) ddiff= new Date((dnow)-(dthen));
+            else ddiff = new Date((dthen)-(dnow));
+            var gsecs = Math.floor(ddiff.valueOf()/1000);
+            var iid = "countbox_<?php echo $count; ?>";
+            CountBack(gsecs,iid, j);
+            j++;
+        })();
+    </script>
+<?php endif;endif; ?>

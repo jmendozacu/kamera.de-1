@@ -1,0 +1,58 @@
+<?xml version="1.0"?> 
+<config>
+	<menu>
+		<themevast translate="title">
+			<title>Themevast</title>
+			<sort_order>71</sort_order>               
+			<children>
+				<randomslider translate="title" module="randomslider">
+					<title>Randomslider Products</title>
+					<sort_order>0</sort_order>
+					<children>
+						<configuration>
+							<title>Configuration</title>
+							<sort_order>1</sort_order>
+							<action>adminhtml/system_config/edit/section/randomslider</action>
+						</configuration>
+					</children>
+				</randomslider>
+			</children>
+		</themevast>
+	</menu>
+	<acl>
+		<resources>
+			<admin>
+				<children>
+					<system>
+						<children>
+							<config>
+								<children>
+									<randomslider>
+										<title>Randomslider Products</title>
+									</randomslider>
+								</children>
+							</config>
+						</children>
+					</system>	
+					<themevast translate="title" module="randomslider">
+						<title>Themevast</title>
+						<sort_order>71</sort_order>               
+						<children>
+							<randomslider translate="title" module="randomslider">
+								<title>Randomslider Products</title>
+								<sort_order>0</sort_order>
+								<children>
+									<configuration>
+										<title>Configuration</title>
+										<sort_order>1</sort_order>
+										<action>adminhtml/system_config/edit/section/randomslider</action>
+									</configuration>
+								</children>
+							</randomslider>
+						</children>
+					</themevast>					
+				</children>
+			</admin>
+        </resources>
+	</acl>
+</config>

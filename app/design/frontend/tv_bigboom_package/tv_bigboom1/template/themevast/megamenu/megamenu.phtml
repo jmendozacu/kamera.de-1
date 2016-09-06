@@ -1,0 +1,64 @@
+<?php
+$className = Mage::getConfig()->getBlockClassName('megamenu/megamenu');
+            $block = new $className();  
+ $_menu = $block->renderCategoriesMenuHtml(0,'level-top') ?>
+
+<nav class="nav-container">
+        <?php if($_menu): ?>
+            <div class="nav-mobilemenu-container visible-xs">
+                <div class="navbar">
+                        <div id="navbar-inner" class="navbar-inner navbar-inactive">
+                                <div class="menu-mobile">
+                                    <a class="btn btn-navbar navbar-toggle">
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                    </a>
+                                    <span class="brand navbar-brand"><?php echo $this->__('Menu') ?></span>
+                                </div>
+                                <ul id="nav-mobilemenu" class="mobilemenu nav-collapse collapse">
+                                        <?php echo $_menu ?>
+                                        <li class="blog level0 level-top"><a href="<?php echo $this->getUrl('blog')?>" class="level0" title="blog"><span><?php echo $this->__('Blog')?></span></a></li>
+                                </ul>
+                        </div>
+                </div>
+            </div>
+        <?php endif ?>
+        <div id="nav_megamenu" class="nav_megamenu visible-lg visible-md">
+            <?php $megamenu =  $this->getLayout()->createBlock('megamenu/megamenu'); ?>       
+            <?php echo $megamenu->drawMegamenuHome(); ?>
+            <?php //echo $megamenu->drawMegamenuMain(); ?>
+            <div class="megamenu nav_product nav_newproduct">
+                <div class="level-top"><a href="<?php echo $this->getUrl('newproduct')?>"><span><?php echo $this->__('Shop') ?></span><i class="fa fa-angle-down"></i></a><span class="new"><?php echo $this->__('New')?></span></div>
+                <div class="dropdown">
+                 <?php   $block =$this->getLayout()->createBlock('newproduct/newproduct')
+                         ->setTemplate('themevast/newproduct/newproduct.phtml');
+                         echo $block->toHtml();
+                 ?>
+                </div>
+            </div>
+            <?php echo $megamenu->drawMegamenuExtra(); ?>
+            <div class="megamenu nav_product nav_saleproduct">
+                <div class="level-top"><a href="<?php echo $this->getUrl('saleproduct')?>"><span><?php echo $this->__('clearance') ?></span><i class="fa fa-angle-down"></i></a><span class="hot"><?php echo $this->__('Hot')?></span></div>
+                <div class="dropdown">
+                 <?php   $block =$this->getLayout()->createBlock('saleproduct/saleproduct')
+                         ->setTemplate('themevast/saleproduct/saleproduct.phtml');
+                         echo $block->toHtml();
+                 ?>
+                </div>
+            </div>
+            <?php echo $megamenu->drawMegamenuLink(); ?>
+            
+            
+        </div>
+    <script type="text/javascript">
+    var MEGAMENU_EFFECT = <?php echo (int)Mage::getStoreConfig('megamenu/general/effect')?>;
+    jQuery(window).scroll(function () {
+      if (jQuery(this).scrollTop() > 200) {
+       jQuery('nav').addClass("fix-nav");
+      } else {
+       jQuery('nav').removeClass("fix-nav");
+      }
+    });
+    </script>
+</nav>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+    </default>
+    <cms_index_index>
+        <reference name="head">
+            <action method="addCss" ifconfig="randomslider/general/enabled"><stylesheet>themevast/plugin/css/jquery.bxslider.css</stylesheet></action>
+			<action method="addJs" ifconfig="randomslider/general/enabled"><script>themevast/jquery.min.js</script></action>
+			<action method="addJs" ifconfig="randomslider/general/enabled"><script>themevast/plugin/jquery.bxslider.js</script></action>     
+		</reference>
+        <!--<reference name="content">
+            <block type="randomslider/randomslider" name="randomslider" template="themevast/randomslider/randomslider.phtml" />
+        </reference>-->
+    </cms_index_index>
+</layout> 

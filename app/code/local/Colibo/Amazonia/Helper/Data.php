@@ -16,7 +16,7 @@ class Colibo_Amazonia_Helper_Data extends Mage_Core_Helper_Abstract
         foreach ($data as $code => $item) {
             $tree .= '<li>';
             if (!is_array($item) && preg_match('/http/i', $item)) {
-                $item = '<a href="' . $item . '" target="_blank">'.$item.'</a>';
+                $item = '<a href="' . $item . '" target="_blank">Amazon Link</a>';
             }
             $tree .= !is_int($code) ? $code : '';
             if (is_array($item)) {

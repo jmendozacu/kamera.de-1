@@ -1,0 +1,69 @@
+<?xml version="1.0"?> 
+<config>
+	<menu>
+		<themevast translate="title" module="imageslider">
+			<title>Themevast</title>
+			<sort_order>71</sort_order>               
+			<children>
+				<imageslider translate="title" module="imageslider">
+					<title>Image Slider</title>
+					<sort_order>0</sort_order>
+					<children>
+						<items translate="title" module="imageslider">
+							<title>Manage Items</title>
+							<sort_order>0</sort_order>
+							<action>imageslider/adminhtml_index</action>
+						</items>
+						<configuration>
+							<title>Configuration</title>
+							<sort_order>1</sort_order>
+							<action>adminhtml/system_config/edit/section/imageslider</action>
+						</configuration>
+					</children>
+				</imageslider>
+			</children>
+		</themevast>
+	</menu>
+	<acl>
+		<resources>
+			<admin>
+				<children>
+					<system>
+						<children>
+							<config>
+								<children>
+									<imageslider>
+										<title>Images Slider</title>
+									</imageslider>
+								</children>
+							</config>
+						</children>
+					</system>	
+					<themevast translate="title" module="imageslider">
+						<title>Themevast</title>
+						<sort_order>71</sort_order>               
+						<children>
+							<imageslider translate="title" module="imageslider">
+								<title>Image Slider</title>
+								<sort_order>0</sort_order>
+								<children>
+									<items translate="title" module="imageslider">
+										<title>Manage Items</title>
+										<sort_order>0</sort_order>
+										<action>imageslider/adminhtml_index</action>
+									</items>
+									<configuration>
+										<title>Configuration</title>
+										<sort_order>1</sort_order>
+										<action>adminhtml/system_config/edit/section/imageslider</action>
+									</configuration>
+								</children>
+							</imageslider>
+						</children>
+					</themevast>					
+				</children>
+			</admin>
+        </resources>
+	</acl>
+</config>
+

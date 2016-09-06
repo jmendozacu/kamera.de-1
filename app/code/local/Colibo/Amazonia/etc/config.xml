@@ -2,10 +2,31 @@
 <config>
     <modules>
         <Colibo_Amazonia>
-            <version>0.1.0</version>
+            <version>0.2.0</version>
         </Colibo_Amazonia>
     </modules>
     <global>
+        <resources>
+            <category_setup>
+                <setup>
+                    <module>Colibo_Amazonia</module>
+                    <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </category_setup>
+            <category_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </category_write>
+            <category_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </category_read>
+        </resources>
         <helpers>
             <amazonia>
                 <class>Colibo_Amazonia_Helper</class>

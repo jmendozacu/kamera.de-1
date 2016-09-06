@@ -1,0 +1,69 @@
+<?xml version="1.0"?> 
+<config>
+	<menu>
+		<themevast translate="title" module="brandlogo">
+			<title>Sunnytheme</title>
+			<sort_order>80</sort_order>               
+			<children>
+				<brandlogo translate="title" module="brandlogo">
+					<title>Brandlogo</title>
+					<sort_order>30</sort_order>
+					<children>
+						<items translate="title" module="brandlogo">
+							<title>Manage Items</title>
+							<sort_order>0</sort_order>
+							<action>brandlogo/adminhtml_brandlogo</action>
+						</items>
+						<configuration>
+							<title>Configuration</title>
+							<sort_order>1</sort_order>
+							<action>adminhtml/system_config/edit/section/brandlogo</action>
+						</configuration>
+					</children>
+				</brandlogo>
+			</children>
+		</themevast>
+	</menu>
+	<acl>
+		<resources>
+			<admin>
+				<children>
+					<system>
+						<children>
+							<config>
+								<children>
+									<brandlogo>
+										<title>Brandlogo</title>
+									</brandlogo>
+								</children>
+							</config>
+						</children>
+					</system>	
+					<themevast translate="title" module="brandlogo">
+						<title>Sunnytheme</title>
+						<sort_order>71</sort_order>               
+						<children>
+							<brandlogo translate="title" module="brandlogo">
+								<title>Brandlogo</title>
+								<sort_order>0</sort_order>
+								<children>
+									<items translate="title" module="brandlogo">
+										<title>Manage Items</title>
+										<sort_order>0</sort_order>
+										<action>brandlogo/adminhtml_brandlogo</action>
+									</items>
+									<configuration>
+										<title>Configuration</title>
+										<sort_order>1</sort_order>
+										<action>adminhtml/system_config/edit/section/brandlogo</action>
+									</configuration>
+								</children>
+							</brandlogo>
+						</children>
+					</themevast>					
+				</children>
+			</admin>
+        </resources>
+	</acl>
+</config>
+

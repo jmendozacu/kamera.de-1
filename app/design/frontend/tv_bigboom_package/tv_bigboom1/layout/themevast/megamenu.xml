@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <action method="addCss" ifconfig="megamenu/general/enabled"><stylesheet>themevast/megamenu/css/megamenu.css</stylesheet></action>
+            <action method="addCss" ifconfig="megamenu/general/enabled"><stylesheet>themevast/megamenu/css/vmegamenu.css</stylesheet></action>
+            <action method="addJs" ifconfig="megamenu/general/enabled"><script>themevast/jquery.min.js</script></action>
+            <action method="addJs" ifconfig="megamenu/general/enabled"><script>themevast/megamenu.js</script></action>
+        </reference>
+        <reference name="catalog.topnav">
+            <action method="setTemplate" ifconfig="megamenu/general/enabled">
+                <template>themevast/megamenu/megamenu.phtml</template>
+            </action>
+        </reference>
+        <reference name="left">
+            <block type="megamenu/megamenu" before="catalog.leftnav" name="vmegamenu" template="themevast/megamenu/vmegamenu.phtml" />
+        </reference>
+    </default>
+</layout> 
+

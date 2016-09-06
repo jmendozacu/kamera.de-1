@@ -1,0 +1,99 @@
+<?php
+
+if(!$this->getConfig('enabled')) return;
+
+$_productCollection=$this->getProductCollection();
+$_helper = $this->helper('catalog/output');
+?>
+
+<div class="randomslider">
+	<?php echo $this->getConfig('title') ? '<h2 class="title">' .$this->getConfig('title'). '</h2>' : '';
+	if(!$_productCollection->count()): ?> 
+		<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+	<?php else: ?>
+	<?php
+		// getConfig
+		$widthImage  	= $this->getConfig('widthImage') ? $this->getConfig('widthImage') : 135;
+		$heightImage 	= $this->getConfig('heightImage') ? $this->getConfig('heightImage') : 135;
+		$price   		= $this->getConfig('price');
+		$cart    		= $this->getConfig('cart');
+		$compare  		= $this->getConfig('compare');
+		$wishlist  		= $this->getConfig('wishlist');
+		$review  		= $this->getConfig('review');
+		$rows 			= $this->getConfig('rows');
+		$class 			= ($rows > 1) ? '.slide-multirows' : '.products-grid';
+	?>
+	<?php if ($rows > 1): ?>
+		<div class="slide-multirows">
+	<?php endif ?>
+    <?php $_collectionSize = $_productCollection->count() ?>
+    <?php $_columnCount = $this->getColumnCount(); ?>
+    <?php $j=0; $time = $this->getConfig('playDelay') ? $this->getConfig('playDelay') : 0; ?>
+    <?php $i=0; foreach ($_productCollection as $_product): ?>
+        <?php $t = $j*$time; $t .='ms'; $j++; ?>
+        <?php if ($i++%$_columnCount==0): ?>
+        <ul class="products-grid">
+        <?php endif ?>
+            <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?> item-animate">
+				<?php // Product Image ?>
+				<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($widthImage, $heightImage); ?>" width="<?php echo $widthImage ?>" height="<?php echo $heightImage ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
+				<?php // Product description ?>
+				<div class="product-shop">
+						<?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
+						<h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped; ?>"><?php echo $_helper->productAttribute($_product, $_product->getName() , 'name'); ?></a></h2>
+						<?php if($review): ?>
+							<?php echo $this->getReviewsSummaryHtml($_product) ?>
+						<?php endif; ?>
+						<?php if($price): ?>
+							<?php echo $this->getPriceHtml($_product, true) ?>
+						<?php endif; ?>
+						<?php if($cart): ?>
+							<?php if($_product->isSaleable()): ?>
+								<p><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
+							<?php else: ?>
+								<p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+							<?php endif; ?>
+						<?php endif; ?>
+						<?php if($compare || $wishlist): ?>
+							<ul class="add-to-links">
+								<?php if($wishlist): ?>
+									<?php if ($this->helper('wishlist')->isAllow()) : ?>
+										<li><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></li>
+									<?php endif; ?>
+								<?php endif; ?>
+								<?php if($compare): ?>
+									<?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
+										<li><span class="separator">|</span> <a href="<?php echo $_compareUrl ?>" class="link-compare"><?php echo $this->__('Add to Compare') ?></a></li>
+									<?php endif; ?>
+								<?php endif; ?>
+							</ul>
+						<?php endif; ?>
+				</div>    
+            </li>
+        <?php if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
+        </ul>
+        <?php endif ?>
+        <?php endforeach ?>
+		<?php if ($rows > 1): ?>
+		</div>
+		<?php endif ?>
+	<?php endif ?>
+</div> 
+
+<script type="text/javascript">
+	jQuery(document).ready(function($){
+		(function(selector){
+			var $content = $(selector);
+			var $slider  = $('<?php echo $class ?>', $content);
+			var slider 	 = $slider.bxSlider({
+				<?php echo $this->setBxslider() ?>
+				infiniteLoop: false,
+				moveSlides:2,
+				slideMargin: 10,
+				autoHover: true, // stop while hover <=> slider.stopAuto(); + slider.startAuto();
+			})
+
+		})(".randomslider");
+	});
+</script>
+

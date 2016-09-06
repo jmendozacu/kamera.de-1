@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<!-- /**
+ * Themevast 
+ * @category    Themevast 
+ * @copyright   Copyright (c) 2014 Themevast (http://www.themevast.com/) 
+ * @license     http://www.themevast.com/license-agreement.html
+ * @Author: Themevast Team<magedev@themevast.com>
+ * @@Create Date: 2014-05-08 10:00:36
+ * @@Modify Date: 2014-09-07 17:31:44
+ * @@Function:
+ */ -->
+<config>
+    <modules>
+        <Themevast_Megamenu>
+            <version>0.1.0</version>
+        </Themevast_Megamenu>
+    </modules>
+    <frontend>
+        <routers>
+            <megamenu>
+                <use>standard</use>
+                <args>
+                    <module>Themevast_Megamenu</module>
+                    <frontName>megamenu</frontName>
+                </args>
+            </megamenu>
+        </routers>
+        <layout>
+            <updates>
+                <megamenu>
+                    <file>themevast/megamenu.xml</file>
+                </megamenu>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+        <routers>
+            <megamenu>
+                <use>admin</use>
+                <args>
+                    <module>Themevast_Megamenu</module>
+                    <frontName>megamenu</frontName>
+                </args>
+            </megamenu>
+        </routers>
+    </admin>
+    <global>
+        <models>
+            <megamenu>
+                <class>Themevast_Megamenu_Model</class>
+            </megamenu>
+        </models>
+        <resources>
+            <megamenu_setup>
+                <setup>
+                    <module>Themevast_Megamenu</module>
+                    <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </megamenu_setup>
+            <megamenu_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </megamenu_write>
+            <megamenu_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </megamenu_read>
+        </resources>
+        <blocks>
+            <megamenu>
+                <class>Themevast_Megamenu_Block</class>
+            </megamenu>
+        </blocks>
+        <helpers>
+            <megamenu>
+                <class>Themevast_Megamenu_Helper</class>
+            </megamenu>
+        </helpers>
+    </global>
+    <default>
+        <megamenu>
+            <general>
+                <enabled>1</enabled>
+                <showhome>1</showhome>
+                <count>2</count>
+                <max_level>4</max_level>
+                <integrate>1</integrate>
+                <effect>0</effect>
+                <top_offset>32</top_offset>
+            </general>
+        </megamenu>
+    </default>
+</config>
+

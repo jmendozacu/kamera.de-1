@@ -1,0 +1,318 @@
+<?xml version="1.0"?>
+<bigboom>
+    <blocks>
+        <block>
+            <title>Footer Information</title>
+            <identifier>footer_info</identifier>
+            <content>
+                    <![CDATA[
+			<div class="f-col f-col2 col-sm-6 col-md-3 col-sms-12 col-smb-12">
+			<div class="footer-static-content">
+			<div class="logo-footer"><img src="{{media url="wysiwyg/logo.png"}}" alt="" /></div>
+			<div class="des">Qras at justto varius tempus nibh hen drerito gravida dui. Duis biquet lectus in quamizes accumsan, a suscipit sapien pretium pullami nevelit fringilla id risus vel.</div>
+			</div>
+			</div>
+			<div class="f-col f-col3 col-sm-3 col-md-2 col-sms-6 col-smb-12">
+			<div class="footer-static-title">
+			<h3>Information</h3>
+			</div>
+			<div class="footer-static-content">
+			<ul>
+			<li class="first"><a href="{{store direct_url="customer-service"}}">Custom Service</a></li>
+			<li><a href="#">F.A.Q.&rsquo;s</a></li>
+			<li><a href="#">Ordering Tracking</a></li>
+			<li><a href="{{store direct_url="contacts"}}">Contacts</a></li>
+			<li><a href="#">Events</a></li>
+			<li class="last"><a href="{{store direct_url="catalogsearch/term/popular"}}">Popular</a></li>
+			</ul>
+			</div>
+			</div>
+			<div class="f-col f-col4 col-sm-3 col-md-2 col-sms-6 col-smb-12">
+			<div class="footer-static-title">
+			<h3>OUR SERVICES</h3>
+			</div>
+			<div class="footer-static-content">
+			<ul>
+			<li class="first"><a href="{{store direct_url="catalog/seo_sitemap/category"}}">Sitemap</a></li>
+			<li><a href="{{store direct_url="privacy-policy-cookie-restriction-mode"}}">Privacy Policy</a></li>
+			<li><a href="{{store direct_url="customer/account/index"}}">Your Account</a></li>
+			<li><a href="{{store direct_url="catalogsearch/advanced"}}">Advanced Search</a></li>
+			<li><a href="{{store direct_url="catalogsearch/term/popular"}}">Terms &amp; Condition</a></li>
+			<li class="last"><a href="{{store direct_url="contacts"}}">Contact Us</a></li>
+			</ul>
+			</div>
+			</div>
+			<div class="f-col f-col5 col-sm-4 col-md-2 col-sms-6 col-smb-12">
+			<div class="footer-static-title">
+			<h3>My Account</h3>
+			</div>
+			<div class="footer-static-content">
+			<ul>
+			<li class="first"><a href="{{store direct_url="about-magento-demo-store"}}">About us</a></li>
+			<li><a href="{{store direct_url="contacts"}}">Delivery Information</a></li>
+			<li><a href="{{store direct_url="privacy-policy-cookie-restriction-mode"}}">Privacy Policy</a></li>
+			<li><a href="{{store direct_url="contacts"}}">Discount</a></li>
+			<li><a href="{{store direct_url="customer-service"}}">Custom Service</a></li>
+			<li class="last"><a href="{{store direct_url="catalogsearch/term/popular"}}">Terms &amp; Condition</a></li>
+			</ul>
+			</div>
+			</div>
+			<div class="f-col f-col1 col-sm-8 col-md-3 col-sms-6 col-smb-12">
+			<div class="footer-static-title">
+			<h3>Newsletter</h3>
+			</div>
+			<div class="footer-static-content">{{block type="newsletter/subscribe" name="left.newsletter" template="newsletter/subscribe.phtml"}}</div>
+			</div>
+		    ]]>
+            </content>
+            <is_active>1</is_active>
+        </block>
+	
+	<block>
+            <title>Home1 Top Banner Static</title>
+            <identifier>top_banner_static</identifier>
+            <content>
+                <![CDATA[
+		    <div class="banner-top">
+<div class="box-des">
+<h3>Lighting</h3>
+<p class="des">Quisque condimentum purus purus non venenatis condisiumzm.</p>
+<a href="#">Shop Now <em class="fa fa-arrow-circle-right"></em></a></div>
+<img src="{{media url="wysiwyg/banner-top1.jpg"}}" alt="" /></div>
+		]]>
+            </content>
+            <is_active>1</is_active>
+        </block>
+	
+	<block>
+            <title>Footer Social</title>
+            <identifier>footer_social</identifier>
+            <content>
+                <![CDATA[
+		<ul class="social">
+<li class="first"><a class="social1" href="#"><img src="{{media url="wysiwyg/social1.png"}}" alt="" /></a></li>
+<li><a class="social2" href="#"><img src="{{media url="wysiwyg/social2.png"}}" alt="" /></a></li>
+<li><a class="social3" href="#"><img src="{{media url="wysiwyg/social3.png"}}" alt="" /></a></li>
+<li><a class="social4" href="#"><img src="{{media url="wysiwyg/social4.png"}}" alt="" /></a></li>
+<li class="last"><a class="social5" href="#"><img src="{{media url="wysiwyg/social5.png"}}" alt="" /></a></li>
+</ul>
+		]]>
+            </content>
+            <is_active>1</is_active>
+        </block>
+	
+	<block>
+            <title>Banner Left</title>
+            <identifier>banner_left</identifier>
+            <content>
+                <![CDATA[
+		<div class="banner-left"><img src="{{media url="wysiwyg/banner-left.jpg"}}" alt="" /></div>
+		]]>
+            </content>
+            <is_active>1</is_active>
+        </block>
+	
+	<block>
+            <title>Footer Social</title>
+            <identifier>footer_social</identifier>
+            <content>
+                <![CDATA[
+		<ul class="social">
+		<li class="first"><a class="social1" href="#"><img src="{{media url="wysiwyg/social1.png"}}" alt="" /></a></li>
+		<li><a class="social2" href="#"><img src="{{media url="wysiwyg/social2.png"}}" alt="" /></a></li>
+		<li><a class="social3" href="#"><img src="{{media url="wysiwyg/social3.png"}}" alt="" /></a></li>
+		<li><a class="social4" href="#"><img src="{{media url="wysiwyg/social4.png"}}" alt="" /></a></li>
+		<li class="last"><a class="social5" href="#"><img src="{{media url="wysiwyg/social5.png"}}" alt="" /></a></li>
+		</ul>
+		]]>
+            </content>
+            <is_active>1</is_active>
+        </block>
+	
+	<block>
+            <title>Banner Left</title>
+            <identifier>banner_left</identifier>
+            <content>
+                <![CDATA[
+		<div class="banner-left"><img src="{{media url="wysiwyg/banner-left.png"}}" alt="" /></div>
+		]]>
+            </content>
+            <is_active>1</is_active>
+        </block>
+	
+	<block>
+            <title>Block Menu Links</title>
+            <identifier>megamenu_link</identifier>
+            <content>
+                <![CDATA[
+		<p><a href="{{store direct_url="about-magento-demo-store"}}">About</a><a href="{{store direct_url="contacts"}}">Contact Us</a><a href="{{store direct_url="blog"}}">Blog</a></p>
+		]]>
+            </content>
+            <is_active>1</is_active>
+	</block>
+	<block>
+            <title>Home1 Banner Content1</title>
+            <identifier>home1_banner_content1</identifier>
+            <content>
+                <![CDATA[
+		<div class="banner-content1-wrapper">
+		<div class="box-des">
+		<h3>Unique &amp; Creative</h3>
+		<p class="des">Make some noise - Make more Creative !</p>
+		<a href="#">Buy this theme <em class="fa fa-arrow-circle-right"></em></a></div>
+		<img src="{{media url="wysiwyg/banner-content1.jpg"}}" alt="" /></div>
+		]]>
+            </content>
+            <is_active>1</is_active>
+	</block>
+	<block>
+            <title>Home1 Banner Content2</title>
+            <identifier>home1_banner_content2</identifier>
+            <content>
+                <![CDATA[
+		<div class="banner-content2-wrapper">
+		<div class="row">
+		<div class="col-sm-6 col-md-6 col-sms-6 col-smb-12">
+		<div class="banner-box banner-box1"><img src="{{media url="wysiwyg/banner-content2.jpg"}}" alt="" /><a href="#">Shop Now <em class="fa fa-arrow-circle-right"></em></a></div>
+		</div>
+		<div class="col-sm-6 col-md-6 col-sms-6 col-smb-12">
+		<div class="banner-box banner-box2"><img src="{{media url="wysiwyg/banner-content3.jpg"}}" alt="" /><a href="#">Shop Now <em class="fa fa-arrow-circle-right"></em></a></div>
+		</div>
+		</div>
+		</div>
+		]]>
+            </content>
+            <is_active>1</is_active>
+	</block>
+	
+	<block>
+            <title>Menu Features</title>
+            <identifier>megamenu_extra</identifier>
+            <content>
+                <![CDATA[
+		<div class="custom-menu-wrapper">
+		<div class="row">
+		<div class="col-xs-12 col-sm-4">
+		<div class="menu-col menu-col1">
+		<div class="menu-custom-img">&nbsp;<em class="fa fa-cogs"></em></div>
+		<h3>Easy Customization</h3>
+		<div class="menu-custom-des">Lorem ipsum dolor sit, consectetures adipi-scing elit. Etiam neque velit setiux blandit rory solare de equis.</div>
+		<a href="#">Read more <em class="fa fa-arrow-circle-right"></em></a></div>
+		</div>
+		<div class="col-xs-12 col-sm-4">
+		<div class="menu-col menu-col1">
+		<div class="menu-custom-img">&nbsp;<em class="fa fa-desktop"></em></div>
+		<h3>Responsive Design</h3>
+		<div class="menu-custom-des">Lorem ipsum dolor sit, consectetures adipi-scing elit. Etiam neque velit setiux blandit rory solare de equis.</div>
+		<a href="#">Read more <em class="fa fa-arrow-circle-right"></em></a></div>
+		</div>
+		<div class="col-xs-12 col-sm-4">
+		<div class="menu-col menu-col1">
+		<div class="menu-custom-img">&nbsp;<em class="fa fa-file-text-o"></em></div>
+		<h3>Easy Documentation</h3>
+		<div class="menu-custom-des">Lorem ipsum dolor sit, consectetures adipi-scing elit. Etiam neque velit setiux blandit rory solare de equis.</div>
+		<a href="#">Read more <em class="fa fa-arrow-circle-right"></em></a></div>
+		</div>
+		</div>
+		</div>
+		]]>
+            </content>
+            <is_active>1</is_active>
+	</block>
+	
+	<block>
+            <title>Block Social Right</title>
+            <identifier>block_social_right</identifier>
+            <content>
+                <![CDATA[
+		<div class="block-social-right">
+		<ul>
+		<li><a id="facebook-btn" class="socialitems" href="https://www.facebook.com/themevast" target="_blank"> <span class="social-icon"> <span class="social-text">Follow via Facebook</span> </span> </a></li>
+		<li><a id="twitter-btn" class="socialitems" href="https://twitter.com/themevast/" target="_blank"> <span class="social-icon"> <span class="social-text">Follow via Twitter</span> </span> </a></li>
+		<li><a id="googleplus-btn" class="socialitems" href="https://plus.google.com/118344202233498904921/posts" target="_blank"> <span class="social-icon"> <span class="social-text">Follow via Google +</span> </span> </a></li>
+		<li><a id="youtube-btn" class="socialitems" href="https://www.youtube.com/channel/UCUQOzUZakbmxwP8MvHE_KpQ" target="_blank"> <span class="social-icon"> <span class="social-text">Follow via Youtube</span> </span> </a></li>
+		<li><a id="pinterest-btn" class="socialitems" href="https://www.pinterest.com/" target="_blank"> <span class="social-icon"> <span class="social-text">Follow via Pinterest</span> </span> </a></li>
+		<li><a id="mail-btn" class="socialitems" href="mailto:themevast@gmail.com" target="_blank"> <span class="social-icon"> <span class="social-text">Mail To</span> </span> </a></li>
+		</ul>
+		</div>
+		]]>
+            </content>
+            <is_active>1</is_active>
+	</block>
+	
+	<block>
+            <title>Home2 Banner Top Static</title>
+            <identifier>home2_banner_top</identifier>
+            <content>
+                <![CDATA[
+		<div class="home2-banner-top">
+		<div class="container">
+		<div class="row">
+		<div class="col-xs-12 col-sm-4">
+		<div class="banner-box banner-box1"><img src="{{media url="wysiwyg/home2_banner_top1.jpg"}}" alt="" /><a href="#">Shop Now <em class="fa fa-arrow-circle-right"></em></a></div>
+		</div>
+		<div class="col-xs-12 col-sm-4">
+		<div class="banner-box banner-box2"><img src="{{media url="wysiwyg/home2_banner_top2.jpg"}}" alt="" /><a href="#">Shop Now <em class="fa fa-arrow-circle-right"></em></a></div>
+		</div>
+		<div class="col-xs-12 col-sm-4">
+		<div class="banner-box banner-box2"><img src="{{media url="wysiwyg/home2_banner_top3.jpg"}}" alt="" /><a href="#">Shop Now <em class="fa fa-arrow-circle-right"></em></a></div>
+		</div>
+		</div>
+		</div>
+		</div>
+		]]>
+            </content>
+            <is_active>1</is_active>
+	</block>
+	
+	<block>
+            <title>Block Static Information</title>
+            <identifier>block_static_information</identifier>
+            <content>
+                <![CDATA[
+		<div class="col-md-3 col-sm-6 col-sms-6 col-smb-12">
+		<div class="banner-col banner-col1">
+		<h3 class="title"><em class="fa fa-truck"></em><span>Free Delivery</span><span class="text">On all order over $99</span></h3>
+		<p class="des">Lorem ipsum dolor sit consectetur adipiscing elit, do et eiusmod tempor incididunt ut labore et.</p>
+		</div>
+		</div>
+		<div class="col-md-3 col-sm-6 col-sms-6 col-smb-12">
+		<div class="banner-col banner-col2">
+		<h3 class="title"><em class="fa fa-recycle"></em><span>GUARANTEE</span><span class="text">30 Days money back !</span></h3>
+		<p class="des">Lorem ipsum dolor sit consectetur adipiscing elit, do et eiusmod tempor incididunt ut labore et.</p>
+		</div>
+		</div>
+		<div class="col-md-3 col-sm-6 col-sms-6 col-smb-12">
+		<div class="banner-col banner-col3">
+		<h3 class="title"><em class="fa fa-life-ring"></em><span>Payment Secured</span><span class="text">All payment be secured</span></h3>
+		<p class="des">Lorem ipsum dolor sit consectetur adipiscing elit, do et eiusmod tempor incididunt ut labore et.</p>
+		</div>
+		</div>
+		<div class="col-md-3 col-sm-6 col-sms-6 col-smb-12">
+		<div class="banner-col banner-col4">
+		<h3 class="title"><em class="fa fa-phone"></em><span>SUPPORT</span><span class="text">On all order over $99</span></h3>
+		<p class="des">Lorem ipsum dolor sit consectetur adipiscing elit, do et eiusmod tempor incididunt ut labore et.</p>
+		</div>
+		</div>
+		]]>
+            </content>
+            <is_active>1</is_active>
+	</block>
+	
+	<block>
+            <title>Special Offer!</title>
+            <identifier>promotion</identifier>
+            <content>
+                <![CDATA[
+		<h3>Special Offer!</h3>
+<p class="des1">Rewarding all customers with a 15% discount.</p>
+<p class="des2">this offer is available from 9th December to 19th December 2015</p>
+		]]>
+            </content>
+            <is_active>1</is_active>
+	</block>
+	
+    </blocks>
+
+</bigboom>
+

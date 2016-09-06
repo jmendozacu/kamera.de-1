@@ -1,0 +1,83 @@
+.themes-demo-wrap {
+    background: #fff;
+    border: 1px solid #f3f3f3;
+    width: 260px;
+    padding: 10px;
+    position: fixed;
+    top: 190px;
+    left: -260px;
+    box-shadow: 0 2px 0 #eee;
+    z-index: 99900;
+    text-align: left;
+    line-height: 20px;
+    font-size: 13px;
+    color: #555;
+}
+.themes-demo-wrap .themes-demo-option { position: relative; }
+.themes-demo-wrap .themes-demo-title {
+	padding: 8px 10px;
+	font-size: 16px;
+	text-align: center;
+	color: #333;
+	text-transform: uppercase;
+	font-family: Montserrat;
+	border-bottom: 1px solid #ddd;
+	margin-bottom:15px;
+}
+.themes-demo-wrap .control {
+    float:right;
+}
+.themes-demo-wrap .control.active {
+	
+}
+.themes-demo-wrap .control {
+    background: #fff;
+    width: 40px;
+    height: 37px;
+    margin-right: -40px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    position: absolute;
+    top: 15px;
+    right: 0;
+    border: 1px solid #eee;
+    border-left: none;
+}
+.themes-demo-wrap .control a {
+	display: block;
+	font-size: 18px;
+	text-align: center;
+	line-height: 37px;
+	color: #555;
+}
+.themes-demo-wrap .control a:hover {
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+}
+.themes-demo-wrap .cl-table {
+    padding: 5px 0;
+    }
+.themes-demo-wrap .cl-table .title-home {
+    font-family: Montserrat;
+    font-size: 14px;
+    padding-bottom: 5px;
+    margin-top: 10px;
+    }    
+
+
+.cl-table .cl-tr .cl-td { border-top: 1px solid #ededed;position: relative;}
+.cl-table .cl-tr .cl-td.cl-td-layout6 { }
+.cl-table .cl-tr .cl-td a { display: block; line-height: 40px;  padding: 0 15px; font-weight: 500; }
+.cl-table .cl-tr .cl-td a:hover { background: #f5f5f5;}
+.cl-table .cl-tr .cl-td span { width: 40px; height: 22px; position: absolute; top: 8px; right: 15px;}
+
+.cl-table .cl-tr .cl-td-layout1 a { color: #333;}
+.cl-table .cl-tr .cl-td-layout2 a { color: #333;}
+.cl-table .cl-tr .cl-td-layout3 a { color: #333;}
+
+
+.cl-table .cl-tr .cl-td-layout1 span { background: #db4c52;}
+.cl-table .cl-tr .cl-td-layout2 span { background: #f08a47;}
+.cl-table .cl-tr .cl-td-layout3 span { background: #b0d95e;}
+

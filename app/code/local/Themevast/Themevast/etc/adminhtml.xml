@@ -1,0 +1,56 @@
+<?xml version="1.0"?> 
+<config>
+	<menu>
+		<themevast module="themevast">
+			<title>Themevast</title>
+			<sort_order>71</sort_order>               
+			<children>
+				<themevast module="themevast">
+					<title>Themevast</title>
+					<sort_order>0</sort_order>
+					<children>
+						<restore>
+							<title>Theme Restore</title>
+							<sort_order>1</sort_order>
+							<action>themevast/adminhtml_restore</action>
+						</restore>
+						<configuration>
+							<title>Theme Options</title>
+							<sort_order>1</sort_order>
+							<action>adminhtml/system_config/edit/section/themevast</action>
+						</configuration>
+					</children>
+				</themevast>
+			</children>
+		</themevast>
+	</menu>
+	<acl>
+		<resources>
+			<admin>
+				<children>
+					<system>
+						<children>
+							<config>
+								<children>
+									<themevast>
+										<title>Install Template</title>
+									</themevast>
+								</children>
+							</config>
+						</children>
+					</system>	
+					<themevast translate="title" module="themevast">
+						<title>Themevast</title>
+						<sort_order>71</sort_order>               
+						<children>
+							<themevast translate="title" module="themevast">
+								<title>Install Template</title>
+								<sort_order>0</sort_order>
+							</themevast>
+						</children>
+					</themevast>					
+				</children>
+			</admin>
+        </resources>
+	</acl>
+</config>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Themevast_Featuredproduct>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Themevast_Featuredproduct>
+    </modules>
+</config> 

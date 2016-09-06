@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Themevast_Imageslider>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Themevast_Imageslider>
+    </modules>
+</config> 

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+         <reference name="head">
+             <action method="addJs"><script>themevast/timer.js</script></action>
+        </reference>
+    </default>
+
+<!--     <catalog_category_default>
+        <update handle="content"/>
+    	<reference name="category.products">
+                <block type="timer/list" name="list" as="list" />
+    	</reference>
+    </catalog_category_default>
+
+    <catalogsearch_advanced_result>
+        <reference name="catalogsearch_advanced_result">
+            <block type="timer/list" name="list" as="list" />
+        </reference>
+    </catalogsearch_advanced_result>
+    
+    <catalogsearch_result_index>
+        <reference name="search.result">
+            <block type="timer/list" name="list" as="list" />
+        </reference>
+    </catalogsearch_result_index> -->
+<!-- 
+    <catalog_product_view>
+        <update handle="content"/>
+    	<reference name="product.info.addto">
+                <block type="timer/view" name="view" as="view" />
+    	</reference>
+    </catalog_product_view> -->
+
+</layout>
+

@@ -1,0 +1,67 @@
+<?php if(!$this->getConfig('enabled')) return;
+$slider = $this->getBrandlogo();
+if(!count($slider)) return;
+$media = Mage::getBaseUrl('media');	
+?>
+<section class="brandlogo-wrapper">
+	<div class="brandlogo-contain">
+		
+			<div class="bx-title brand-title"><h2><?php echo $this->__('Brand & Cliens') ?></h2></div>
+			<ul class="bxslider">
+				<?php
+				foreach($slider as $slide) :
+					$image  = $media;
+					$image .= $slide['image'];
+				?>
+				<li class="item">						    																						<?php if( $slide['link'] ) { ?>
+							<a href="<?php echo $slide['link']?>" title=""><img src="<?php echo $image;?>" alt="brand" /></a>												
+						<?php } else { ?>
+							<img src="<?php echo $image;?>" alt="brand" />
+						<?php } ?>																																	             
+				    <?php if( $this->getConfig('description')): ?>
+					<div class="st-des">
+					    <div class="st-des-title"><h2><?php echo $slide['title'] ?></h2></div>
+					    <div class="st-des-content"><?php echo $slide['description'] ?></div>
+					</div>
+				    <?php endif; ?>
+				</li>
+				<?php
+			    endforeach
+				?>
+		    </ul>
+		
+		<script type="text/javascript">
+	   //<![CDATA[
+		jQuery(document).ready(function($){
+		  $('.brandlogo-contain .bxslider').bxSlider(
+			{
+			<?php if($this->getConfig('auto')) { ?>
+			  auto: true,
+			<?php } ?>
+			  speed: <?php echo $this->getConfig('speed') ?>,
+			  pause: <?php echo $this->getConfig('interval') ?>,			  
+			  minSlides: 1,
+			  //infiniteLoop: false,
+			  maxSlides: <?php echo $this->getConfig('items_show') ?>,
+			  slideWidth: <?php echo $this->getConfig('item_width') ?>,
+			  slideMargin: 5,
+			  autoHover: true,
+			  moveSlides:1,
+		     <?php if ($this->getConfig('nav_ctrl')) { ?>
+			  pager: true,
+			<?php } else { ?> 
+			  pager:false, 
+			<?php } ?>
+			<?php if ($this->getConfig('next_back')) { ?>
+				controls: true,
+			<?php } else { ?>
+				controls:false,
+			<?php } ?>
+			}
+		  );
+		});
+		//]]>
+	</script>
+	</div>
+</section>
+

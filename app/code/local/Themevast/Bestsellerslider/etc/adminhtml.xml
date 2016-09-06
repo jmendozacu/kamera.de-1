@@ -1,0 +1,58 @@
+<?xml version="1.0"?> 
+<config>
+	<menu>
+		<themevast translate="title">
+			<title>Themevast</title>
+			<sort_order>71</sort_order>               
+			<children>
+				<bestsellerslider translate="title" module="bestsellerslider">
+					<title>Bestsellerslider Products</title>
+					<sort_order>0</sort_order>
+					<children>
+						<configuration>
+							<title>Configuration</title>
+							<sort_order>1</sort_order>
+							<action>adminhtml/system_config/edit/section/bestsellerslider</action>
+						</configuration>
+					</children>
+				</bestsellerslider>
+			</children>
+		</themevast>
+	</menu>
+	<acl>
+		<resources>
+			<admin>
+				<children>
+					<system>
+						<children>
+							<config>
+								<children>
+									<bestsellerslider>
+										<title>Bestsellerslider Products</title>
+									</bestsellerslider>
+								</children>
+							</config>
+						</children>
+					</system>	
+					<themevast translate="title" module="bestsellerslider">
+						<title>Themevast</title>
+						<sort_order>71</sort_order>               
+						<children>
+							<bestsellerslider translate="title" module="bestsellerslider">
+								<title>Bestsellerslider Products</title>
+								<sort_order>0</sort_order>
+								<children>
+									<configuration>
+										<title>Configuration</title>
+										<sort_order>1</sort_order>
+										<action>adminhtml/system_config/edit/section/bestsellerslider</action>
+									</configuration>
+								</children>
+							</bestsellerslider>
+						</children>
+					</themevast>					
+				</children>
+			</admin>
+        </resources>
+	</acl>
+</config>

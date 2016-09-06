@@ -1,0 +1,78 @@
+<?php
+$slide = Mage::helper('blog')->getSlideCfg();
+if(isset($slide['enabled']) && !$slide['enabled']) return;
+$width = isset($slide['width']) ? $slide['width'] : '900';
+$column = isset($slide['numbercolumn']) ? $slide['numbercolumn'] : '1';
+$numberrow = isset($slide['numberrow']) ? $slide['numberrow'] : '1';
+$speed = isset($slide['speed']) ? $slide['speed'] : '300';
+$auto = isset($slide['auto']) ? $slide['auto'] : 'false';
+$show_image = isset($slide['showimage']) ? $slide['showimage'] : '';
+$image_width = isset($slide['widthimage']) ? $slide['widthimage'] : '100';
+$image_height = isset($slide['heightimage']) ? $slide['heightimage'] : '100';
+$show_title = isset($slide['showtitle']) ? $slide['showtitle'] : '';
+$show_author = isset($slide['showauthor']) ? $slide['showauthor'] : '';
+$show_time = isset($slide['showtime']) ? $slide['showtime'] : '';
+$show_shortcontent = isset($slide['showshortcontent']) ? $slide['showshortcontent'] : '';
+$show_readmore = isset($slide['showreadmore']) ? $slide['showreadmore'] : '';
+?>
+<?php if ($posts = $this->getRecent()):  $i = 1;?>
+<?php if(!count($posts)) return; ?>
+<section class="blog-wrapper">
+	<div class="blog-content">
+		
+			<div class="bx-title blog-title"><h2><?php echo $this->__('LATEST FROM BLOG') ?></h2></div>
+			<ul class="bxslider">
+			<?php if($numberrow > 1){ ?>
+				<?php foreach ($posts as $post): ?>
+					<?php if($i % $numberrow == 1) echo '<li class="item">'; ?>
+						<?php if($show_image) echo '<img width="'.$image_width.'" height="'.$image_height.'" src="'.Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA). $post->getImage().'" />'; ?>
+						<?php if($show_title): ?> <a href="<?php echo $post->getAddress(); ?>" ><?php echo '<h3 class="title">'.$post->getTitle().'</h3>' ?></a> <?php endif; ?>
+						<?php $s = $post->getCreatedTime(); $date = strtotime($s); ?>
+						<?php if($show_author) echo '<p>By '.$post->getUser(); if($show_author && $show_time) echo ' - '; if($show_time) echo date("d M Y", $date).'</p>'; ?>
+						<?php if($show_shortcontent) echo $this->getContentBlogSidebar($post->getShortContent(),100);?>
+						<?php if($show_readmore): ?> <p><a href="<?php echo $post->getAddress(); ?>"><?php echo $this->__('Readmore >') ?></a></p> <?php endif; ?>
+					<?php if($i % $numberrow == 0)echo '</li>'; $i++; ?>
+				<?php endforeach; ?>
+				<?php if($i % $numberrow != 1)echo '</li>'; ?>
+			<?php } else{ ?>
+				<?php foreach ($posts as $post): ?>
+					<li class="item">
+						<div class="box-img">
+						<?php if($show_image) echo '<img  width="'.$image_width.'" height="'.$image_height.'" alt="blog" src="'.Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA). $post->getImage().'" />'; ?>
+						</div>
+						<div class="box-info">
+						<span class="arrows"></span>
+						<?php if($show_title): ?> <a href="<?php echo $post->getAddress(); ?>" ><?php echo '<h3 class="title">'.$post->getTitle().'</h3>' ?></a> <?php endif; ?>
+						<?php $s = $post->getCreatedTime(); $date = strtotime($s); ?>
+						<?php //if($show_author) echo '<p class="author">By '.$post->getUser(); if($show_author && $show_time) echo ' - '; if($show_time) echo date("d M Y", $date).'</p>'; ?>
+						<?php if($show_shortcontent) echo '<div class="des">'.$this->getContentBlogSidebar($post->getShortContent(),150).'</div>';?>
+						<?php if($show_readmore): ?> <p class="link-more"><a href="<?php echo $post->getAddress(); ?>"><?php echo $this->__('Readmore') ?> <em class="fa fa-arrow-circle-right"></em></a></p> <?php endif; ?>
+						</div>
+					</li>
+				<?php endforeach; ?>
+			<?php } ?>
+			</ul>
+		
+		<script>
+			jQuery(document).ready(function($){
+				$('.blog-content .bxslider').bxSlider({
+					minSlides: 1,
+					maxSlides: <?php echo $column;?>,
+					slideWidth: <?php echo $width; ?>,
+					slideMargin: 30,
+					auto: <?php echo $auto; ?>,
+					moveSlides:1,
+					pager: false,
+					controls: true,
+					mode: 'horizontal',
+					speed: <?php echo $speed; ?>,
+					pause: 3000,
+					easing: 'jswing',
+					autoHover: true,
+				});
+			});
+		</script>
+	</div>
+</section>
+<?php endif ?>
+

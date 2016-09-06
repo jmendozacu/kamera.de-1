@@ -1,0 +1,63 @@
+<?xml version="1.0"?> 
+<config>
+	<menu>
+		<themevast translate="title" module="relatedslider">
+			<title>Themevast</title>
+			<sort_order>70</sort_order>               
+			<children>
+				<relatedslider translate="title" module="relatedslider">
+					<title>Related Slider</title>
+					<sort_order>4</sort_order>
+					<children>
+						<configuration>
+							<title>Configuration</title>
+							<sort_order>1</sort_order>
+							<action>adminhtml/system_config/edit/section/relatedslider</action>
+						</configuration>
+					</children>
+				</relatedslider>
+			</children>
+		</themevast>
+	</menu>
+	<acl>
+		<resources>
+			<admin>
+				<children>
+					<system>
+						<children>
+							<config>
+								<children>
+									<relatedslider>
+										<title>Related Slider</title>
+									</relatedslider>
+								</children>
+							</config>
+						</children>
+					</system>	
+					<themevast translate="title" module="relatedslider">
+						<title>Themevast</title>
+						<sort_order>71</sort_order>               
+						<children>
+							<relatedslider translate="title" module="relatedslider">
+								<title>Related Slider</title>
+								<sort_order>0</sort_order>
+								<children>
+									<items translate="title" module="relatedslider">
+										<title>Manage Items</title>
+										<sort_order>0</sort_order>
+										<action>relatedslider/adminhtml_relatedslider</action>
+									</items>
+									<configuration>
+										<title>Configuration</title>
+										<sort_order>1</sort_order>
+										<action>adminhtml/system_config/edit/section/relatedslider</action>
+									</configuration>
+								</children>
+							</relatedslider>
+						</children>
+					</themevast>					
+				</children>
+			</admin>
+        </resources>
+	</acl>
+</config>

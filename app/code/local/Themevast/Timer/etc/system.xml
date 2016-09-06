@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <themevast translate="label">
+            <label>Themevast</label>
+            <sort_order>100</sort_order>
+        </themevast>
+    </tabs>
+    <sections>
+        <timer translate="label" module="timer">
+            <tab>themevast</tab>
+            <label>Onsale Timer</label>
+            <frontend_type>text</frontend_type>
+            <sort_order>120</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label" module="timer">
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enabled:</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Enabled Product Timer</comment>
+                        </enabled>
+                        <title translate="label">
+                            <label>Title Timer:</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </title>
+                        <title_color translate="label">
+                            <label>Title Color:</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>color</validate>
+                            <comment>Please Click the text box to select color</comment>
+                        </title_color>
+                        <timer_color translate="label">
+                            <label>Timer Color:</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>color</validate>
+                            <comment>Please Click the text box to select color</comment>
+                        </timer_color>
+                        <caption translate="label">
+                            <label>Timer Caption:</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Timer Caption</comment>
+                        </caption>
+                        <caption_color translate="label">
+                            <label>Timer Caption Text Color:</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>color</validate>
+                            <comment>Please Click the text box to select color</comment>
+                        </caption_color>
+                    </fields>
+                </general>
+            </groups>
+        </timer>
+    </sections>
+</config>

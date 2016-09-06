@@ -1,0 +1,161 @@
+<?php
+$_productCollection = $this->getLoadedProductCollection();
+$_helper = $this->helper('catalog/output');
+$helpLabels = $this->helper('themevast/labels');
+?>
+
+<?php if (!$_productCollection->count()): ?>
+    <p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php else: ?>
+
+    <div class="category-products">
+        <?php echo $this->getToolbarHtml() ?>
+        <?php // List mode ?>
+        <?php if ($this->getMode() != 'grid'): ?>
+            <?php $_iterator = 0; ?>
+            <ol class="products-list" id="products-list">
+                <?php foreach ($_productCollection as $_product): ?>
+
+                    <?php $amazonAttributes = json_decode($_product->getData('amazon_attributes'), true); ?>
+
+                    <li class="item<?php if (++$_iterator == sizeof($_productCollection)): ?> last<?php endif; ?>">
+
+                        <a class="view-detail" <?php if (Mage::getStoreConfig('quickview/general/enabled')): ?> id='fancybox<?php echo $_product->getId() ?>'  href="<?php echo $this->getUrl('quickview/index/ajax', array('product_id' => $_product->getId())); ?>"<?php else: ?> href="<?php echo $_product->getProductUrl() ?>" href="<?php echo $_product->getProductUrl() ?>" <?php endif ?>
+                           title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><i
+                                class="fa fa-search"></i></a>
+
+                        <div class="row">
+                            <div class="product-images col-sm-3 col-md-3 col-sms-6 col-smb-12">
+                                <div class="box-images">
+                                    <a href="<?php echo $_product->getProductUrl() ?>"
+                                       title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"
+                                       class="product-image">
+                                        <?php $imagehv = $_product->load('media_gallery')->getMediaGalleryImages()->getItemByColumnValue('position', '2');
+                                        if ($imagehv) : $imagehv = $imagehv->getFile();
+                                            ?>
+                                            <img class="img-face-back"
+                                                 src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image', $imagehv)->resize(200, 200) ?>"
+                                                 alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"/>
+                                        <?php endif ?>
+                                        <img class="img-face"
+                                             src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(200, 200); ?>"
+                                             alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"/></a>
+                                </div>
+                            </div>
+                            <div class="product-shop col-sm-9 col-md-9 col-sms-6 col-smb-12">
+
+                                <?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
+                                <h2 class="product-name">
+                                    <a href="<?php echo $_product->getProductUrl() ?>"
+                                       title="<?php echo $_productNameStripped; ?>">
+                                        <?php echo $_helper->productAttribute($_product, $_product->getName(), 'name'); ?></a>
+                                </h2>
+
+                                <div class="price-box">
+                                    <span class="regular-price">
+                                        <span class="price">
+                                            <?php
+                                            echo !empty($amazonAttributes['OfferSummary']['LowestNewPrice']['FormattedPrice'])
+                                                ? $amazonAttributes['OfferSummary']['LowestNewPrice']['FormattedPrice']
+                                                : '--';
+                                            ?>
+                                        </span>
+                                    </span>
+                                </div>
+
+                                <div class="actions">
+                                    <a class="button default" href="<?php echo $_product->getProductUrl() ?>">
+                                        <?php echo $this->__('View Details'); ?>
+                                    </a>
+                                    <?php if (!empty($amazonAttributes['DetailPageURL'])): ?>
+                                        <a class="button add-to-cart" target="_blank"
+                                           href="<?php echo $amazonAttributes['DetailPageURL']; ?>">
+                                            <?php echo $this->__('Zum Artikel'); ?>
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ol>
+            <script type="text/javascript">decorateList('products-list', 'none-recursive')</script>
+
+        <?php else: ?>
+
+        <?php // Grid Mode ?>
+
+        <?php $_collectionSize = $_productCollection->count() ?>
+        <?php $_columnCount = 4 ?>
+        <?php $i = 0;
+        foreach ($_productCollection as $_product): ?>
+
+        <?php $amazonAttributes = json_decode($_product->getData('amazon_attributes'), true); ?>
+
+        <?php if ($i++ % $_columnCount == 0): ?>
+            <ul class="products-grid row">
+        <?php endif ?>
+            <li class="item col-md-3 col-sm-6 col-sms-6 col-smb-12 <?php if (($i - 1) % $_columnCount == 0): ?> first<?php elseif ($i % $_columnCount == 0): ?> last<?php endif; ?>">
+                <div class="item-inner">
+                    <div class="box-images">
+                        <a href="<?php echo $_product->getProductUrl() ?>"
+                           title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"
+                           class="product-image">
+                            <?php
+                            $imagehv = $_product->load('media_gallery')->getMediaGalleryImages()->getItemByColumnValue('position', '2');
+                            if ($imagehv) : $imagehv = $imagehv->getFile();
+                                ?>
+                                <img class="img-face-back"
+                                     src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image', $imagehv)->resize(300, 300) ?>"
+                                     alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"/>
+                            <?php endif ?>
+                            <img class="img-face"
+                                 src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(300, 300); ?>"
+                                 alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"/>
+                        </a>
+                        <a class="view-detail" <?php if (Mage::getStoreConfig('quickview/general/enabled')): ?> id='fancybox<?php echo $_product->getId() ?>'  href="<?php echo $this->getUrl('quickview/index/ajax', array('product_id' => $_product->getId())); ?>"<?php else: ?> href="<?php echo $_product->getProductUrl() ?>" href="<?php echo $_product->getProductUrl() ?>" <?php endif ?>
+                           title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><i
+                                class="fa fa-search"></i></a>
+                    </div>
+
+                    <h2 class="product-name">
+                        <a href="<?php echo $_product->getProductUrl() ?>"
+                           title="<?php echo $this->stripTags($_product->getName(), null, true) ?>">
+                            <?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
+                        </a>
+                    </h2>
+
+                    <div class="price-box">
+                        <span class="regular-price">
+                            <span class="price">
+                                <?php echo !empty($amazonAttributes['OfferSummary']['LowestNewPrice']['FormattedPrice']) ? $amazonAttributes['OfferSummary']['LowestNewPrice']['FormattedPrice'] : '--'; ?>
+                            </span>
+                        </span>
+                    </div>
+
+                    <div class="actions">
+                        <a class="button default" href="<?php echo $_product->getProductUrl() ?>">
+                            <?php echo $this->__('Details'); ?>
+                        </a>
+                        <?php if (!empty($amazonAttributes['DetailPageURL'])): ?>
+                            <a class="button add-to-cart" target="_blank"
+                               href="<?php echo $amazonAttributes['DetailPageURL']; ?>">
+                                <?php echo $this->__('Zum Artikel'); ?>
+                            </a>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </li>
+            <?php if ($i % $_columnCount == 0 || $i == $_collectionSize): ?>
+            </ul>
+        <?php endif ?>
+        <?php endforeach ?>
+            <script
+                type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd', 'even', 'first', 'last'])</script>
+        <?php endif; ?>
+
+        <div class="toolbar-bottom">
+            <?php echo $this->getToolbarHtml() ?>
+        </div>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <action method="addJs"><script>themevast/jquery.min.js</script></action>         
+            <action method="addJs"><script>themevast/noconflict.js</script></action>    
+            <action method="addJs"><script>themevast/plugin/jquery.ddslick.min.js</script></action>
+     <!--        <action method="addCss" ifconfig="categorysearch/settings/enabled"><stylesheet>themevast/categorysearch/categorysearch.css</stylesheet></action> -->
+        </reference>
+        <reference name="top.search">
+            <action method="setTemplate" ifconfig="categorysearch/settings/enabled">
+                <template>themevast/categorysearch/form.phtml</template>
+            </action>
+        </reference>
+    </default>
+</layout> 
+

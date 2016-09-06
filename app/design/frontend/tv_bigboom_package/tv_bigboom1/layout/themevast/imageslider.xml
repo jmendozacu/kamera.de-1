@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+    </default>
+    <cms_index_index>
+		<reference name="head">
+            <action method="addCss" ifconfig="imageslider/general/enabled"><stylesheet>themevast/imageslider/css/imageslider.css</stylesheet></action>
+			<action method="addJs" ifconfig="imageslider/general/enabled"><script>themevast/jquery.min.js</script></action>
+			<action method="addJs" ifconfig="imageslider/general/enabled"><script>themevast/plugin/jquery.nivo.slider.pack.js</script></action>
+        </reference>
+        <!--<reference name="content">
+            <block type="imageslider/slider" before="-" name="imageslider" template="themevast/imageslider/imageslider.phtml"/>
+        </reference>-->
+    </cms_index_index>
+</layout> 
+

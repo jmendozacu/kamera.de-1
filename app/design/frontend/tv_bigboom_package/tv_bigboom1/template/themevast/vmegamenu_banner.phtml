@@ -1,0 +1,27 @@
+<section class="vmegamenu-banner">
+    <div class="container">
+        <div class="block-position">
+            <div class="position position1">
+            <?php $block =$this->getLayout()->createBlock('megamenu/megamenu')
+                            ->setTemplate('themevast/megamenu/vmegamenu.phtml');
+                            echo $block->toHtml();
+                    ?>
+            </div>
+            <div class="position position2">
+            <?php $block =$this->getLayout()->createBlock('imageslider/slider')
+                            ->setTemplate('themevast/imageslider/imageslider.phtml');
+                            echo $block->toHtml();
+                    ?>
+            <?php $block =$this->getLayout()->createBlock('randomslider/randomslider')
+                            ->setTemplate('themevast/randomslider/randomslider.phtml');
+                            echo $block->toHtml();
+                    ?>
+            </div>
+            <div class="position position3">
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('top_banner_static')->toHtml() ?>
+            </div>
+        </div>
+    </div>
+</section>
+
+

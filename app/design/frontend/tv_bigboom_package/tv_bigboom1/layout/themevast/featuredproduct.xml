@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+    </default>
+    <cms_index_index>
+        <reference name="head">
+	    <action method="addJs" ifconfig="featuredproduct/general/enabled"><script>themevast/jquery.min.js</script></action>
+	    <action method="addJs" ifconfig="featuredproduct/general/enabled"><script>themevast/plugin/jquery.bxslider.js</script></action>     
+		</reference>
+        <!--<reference name="featured_products">
+            <block type="featuredproduct/featuredproduct" name="featuredproduct" template="themevast/featuredproduct/featuredproduct.phtml" />
+        </reference>-->
+    </cms_index_index>
+</layout> 

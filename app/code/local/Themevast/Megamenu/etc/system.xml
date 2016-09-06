@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <themevast translate="label" module="megamenu">
+            <label>Themevast</label>
+            <sort_order>100</sort_order>
+        </themevast>
+    </tabs>
+    <sections>
+        <megamenu translate="label" module="megamenu">
+            <label>Megamenu</label>
+            <tab>themevast</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label">
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label comment">
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <comment></comment>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <heading_slide translate="label">
+                            <label>Setting Display Menu</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </heading_slide>
+                        <showhome translate="label comment">
+                            <label>Show Menu Home</label>
+                            <frontend_type>select</frontend_type>
+                            <comment><![CDATA[Show homepage in menu]]></comment>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </showhome>
+                        <count translate="label comment">
+                            <label>Number of columns</label>
+                            <comment>e.g. 1, 2, 3. The maximum number of columns in the popup.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </count>
+                        <max_level translate="label comment">
+                            <label>Visible menu depth</label>
+                            <comment><![CDATA[e.g. 1, 2, 3, 4 (0 - disable limits). For example, if you set this value to <b>2</b>, only second level categories will be displayed.]]></comment>
+                            <frontend_type>text</frontend_type>                                                   
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </max_level>
+                        <integrate translate="label comment">
+                            <label>Merge small subcategories</label>
+                            <frontend_type>select</frontend_type>
+                            <comment><![CDATA[Merge small subcategory lists into one column (except the extream left categories).]]></comment>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </integrate>
+                        <!--<effect translate="label comment">
+                            <label>Dropdown Effect</label>
+                            <frontend_type>select</frontend_type>
+                            <comment><![CDATA[Choose effect to show popup]]></comment>
+                            <source_model>megamenu/config_source_category_effect</source_model>      
+                            <sort_order>35</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </effect>
+                        <top_offset translate="label comment">
+                            <label>Top offset</label>
+                            <comment>in pixels</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </top_offset>-->
+                        <catids translate="label">
+                            <label>Categories will be shown as title without link.</label>
+                            <frontend_type>multiselect</frontend_type>       
+                            <source_model>megamenu/config_source_category</source_model>                     
+                            <comment>All of the selected categories will be shown as title without link.</comment>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </catids>
+                    </fields>
+                </general>
+                <howto translate="label comment">
+                    <label>How to set it up</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <comment>
+                    <![CDATA[
+                        In order to display a custom block with images or other html in the dropdown 
+                        use the <b>Static Block</b> (<strong>CMS->Static Blocks</strong> section) 
+                        <br/>with the ID like "<b>megamenu_catid_10</b>", where "<b>10</b>" is the Category ID of this category
+                    ]]>
+                    </comment>
+                  </howto>
+            </groups>
+        </megamenu>
+    </sections>
+</config>

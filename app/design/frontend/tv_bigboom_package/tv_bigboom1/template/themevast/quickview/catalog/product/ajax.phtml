@@ -1,0 +1,89 @@
+<?php if (Mage::getStoreConfig('quickview/general/enabled')): ?>
+    <?php $_helper = $this->helper('catalog/output'); ?>
+    <?php $_product = $this->getProduct(); ?>
+    <?php $amazonAttributes = json_decode($_product->getData('amazon_attributes'), true); ?>
+
+    <div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+
+    <div class="product-view">
+        <div class="product-essential">
+
+            <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post"
+                  id="product_addtocart_form"<?php if ($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+                <div class="row">
+
+                    <div class="product-img-box col-sm-5 col-md-5">
+                        <?php echo $this->getChildHtml('media') ?>
+                    </div>
+
+                    <div class="product-shop col-sm-7 col-md-7">
+
+                        <div class="product-name">
+                            <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+                        </div>
+
+                        <span class="add-to-box">
+
+                        <?php if (!empty($amazonAttributes['OfferSummary']['LowestNewPrice']['FormattedPrice'])): ?>
+                            <span class="price-box row">
+                                <span class="price-label col-md-4 new">Lowest New Price:</span>
+                                <span class="price col-md-8">
+                                    <span class="col-md-8">
+                                        <?php echo $amazonAttributes['OfferSummary']['LowestNewPrice']['FormattedPrice']; ?>
+                                    </span>
+                                    <span class="total-count col-md-4 text-right">
+                                        <?php if (!empty($amazonAttributes['OfferSummary']['TotalNew'])) : ?>
+                                            <?php echo $amazonAttributes['OfferSummary']['TotalNew']; ?> items
+                                        <?php endif; ?>
+                                    </span>
+                                </span>
+                            </span>
+                        <?php endif; ?>
+
+                            <?php if (!empty($amazonAttributes['OfferSummary']['LowestUsedPrice']['FormattedPrice'])): ?>
+                                <span class="price-box row">
+                                <span class="price-label col-md-4 used">Lowest Used Price:</span>
+                                <span class="price col-md-8">
+                                    <span class="col-md-8">
+                                        <?php echo $amazonAttributes['OfferSummary']['LowestUsedPrice']['FormattedPrice']; ?>
+                                    </span>
+                                    <span class="total-count col-md-4 text-right">
+                                        <?php if (!empty($amazonAttributes['OfferSummary']['TotalUsed'])) : ?>
+                                            <?php echo $amazonAttributes['OfferSummary']['TotalUsed']; ?> items
+                                        <?php endif; ?>
+                                    </span>
+                                </span>
+                            </span>
+                            <?php endif; ?>
+
+                            <?php if (!empty($amazonAttributes['DetailPageURL'])): ?>
+                                <div class="row">
+                                    <br>
+                                    <a class="col-md-8 col-md-offset-4 col-sm-8 col-sm-offset-4 button add-to-cart" target="_blank"
+                                       href="<?php echo $amazonAttributes['DetailPageURL']; ?>">
+                                        <?php echo $this->__('Zum Shop'); ?>
+                                    </a>
+                                </div>
+                            <?php endif; ?>
+
+                    </div>
+                </div>
+        </div>
+        <div class="clearer"></div>
+
+        </form>
+
+        <div class="product-collateral row-fluid">
+            <?php echo $this->getChildHtml('info_tabs') ?>
+            <?php echo $this->getChildHtml('upsell_products') ?>
+            <?php echo $this->getChildHtml('product_additional_data') ?>
+        </div>
+
+        <script type="text/javascript">
+            jQuery('.cloud-zoom, .cloud-zoom-gallery').CloudZoom();
+        </script>
+
+    </div>
+
+    </div>
+<?php endif; ?>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+			<action method="addJs" ifconfig="brandlogo/brandlogo/enabled">
+                <script>themevast/jquery.min.js</script>
+            </action>
+			<action method="addJs" ifconfig="brandlogo/brandlogo/enabled">
+                <script>themevast/plugin/jquery.bxslider.js</script>
+            </action>           
+        </reference>
+        <reference name="brand_logo">
+            <block type="brandlogo/brandlogo" name="brand.logo">
+                <action method="setTemplate" ifconfig="brandlogo/brandlogo/enabled">
+                    <template>themevast/brandlogo/brandlogo.phtml</template>
+                </action>
+            </block>
+        </reference>
+    </default>
+</layout> 
+

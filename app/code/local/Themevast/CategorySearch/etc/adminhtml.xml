@@ -1,0 +1,59 @@
+<?xml version="1.0"?> 
+<config>
+    <menu>
+        <themevast module="categorysearch">
+            <title>Themevast</title>
+            <sort_order>80</sort_order>               
+            <children>
+                <categorysearch translate="title" module="categorysearch">
+                    <title>Caterory Search</title>
+                    <sort_order>0</sort_order>
+                    <children>
+                        <configuration>
+                            <title>Configuration</title>
+                            <sort_order>1</sort_order>
+                            <action>adminhtml/system_config/edit/section/categorysearch</action>
+                        </configuration>
+                    </children>
+                </categorysearch>
+            </children>
+        </themevast>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <categorysearch>
+                                        <title>Caterory Search</title>
+                                    </categorysearch>
+                                </children>
+                            </config>
+                        </children>
+                    </system>	
+                    <themevast translate="title" module="categorysearch">
+                        <title>Themevast</title>
+                        <sort_order>71</sort_order>               
+                        <children>
+                            <categorysearch translate="title" module="categorysearch">
+                                <title>Caterory Search</title>
+                                <sort_order>0</sort_order>
+                                <children>
+                                    <configuration>
+                                        <title>Configuration</title>
+                                        <sort_order>1</sort_order>
+                                        <action>adminhtml/system_config/edit/section/categorysearch</action>
+                                    </configuration>
+                                </children>
+                            </categorysearch>
+                        </children>
+                    </themevast>					
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
+

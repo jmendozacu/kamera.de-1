@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <cms_index_index>
+        <reference name="head">
+	    <action method="addJs" ifconfig="bestsellerslider/general/enabled"><script>themevast/jquery.min.js</script></action>
+	    <action method="addJs" ifconfig="bestsellerslider/general/enabled"><script>themevast/plugin/jquery.bxslider.js</script></action>     
+		</reference>
+        <reference name="bestsellder_product">
+            <!--<block type="bestsellerslider/bestsellerslider" name="bestsellerslider" template="themevast/bestsellerslider/bestsellerslider.phtml" />-->
+        </reference>
+    </cms_index_index>
+</layout> 
