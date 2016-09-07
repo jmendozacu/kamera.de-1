@@ -24,7 +24,9 @@ $installer->addAttribute ("catalog_category", "full_description", array (
     "note" => "",
     "frontend_label" => "Full Description",
     "is_global" => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
-    "sort_order" => 4
+    "sort_order" => 4,
+    "is_wysiwyg_enabled" => true,
+    "is_html_allowed_on_front" => true
 ));
 
 $installer->endSetup ();
