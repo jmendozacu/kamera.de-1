@@ -9,9 +9,9 @@ use ApaiIO\Operations\Search;
 
 
 /**
- * Class Colibo_Amazonia_Adminhtml_ProductsController
+ * Class Colibo_Amazonia_Adminhtml_MagentoController
  */
-class Colibo_Amazonia_Adminhtml_ProductsController extends Mage_Adminhtml_Controller_Action
+class Colibo_Amazonia_Adminhtml_MagentoController extends Mage_Adminhtml_Controller_Action
 {
 
     /**
@@ -20,6 +20,7 @@ class Colibo_Amazonia_Adminhtml_ProductsController extends Mage_Adminhtml_Contro
      */
     public function indexAction()
     {
+
         $this->loadLayout();
 
         /** Set Options */
@@ -32,18 +33,16 @@ class Colibo_Amazonia_Adminhtml_ProductsController extends Mage_Adminhtml_Contro
         if ($block) {
 
             /** Set Categories List */
-            $categories = Mage::getModel('catalog/category')->getCollection()
-                ->addAttributeToSelect('name')
-                ->addAttributeToSort('path', 'asc')
-                ->addFieldToFilter('is_active', array('eq' => '1'))
-                ->load();
-
-            /** @noinspection PhpUndefinedMethodInspection */
+            $categories = Mage::helper('amazonia')->getCategories();
             $block->setCategories($categories);
 
+            /** Set AttributeSet List */
+            $attributeSets = Mage::helper('amazonia')->getAttributeSets();
+            $block->setAttributeSets($attributeSets);
 
             /** Set Amazon Config */
-            $amazonConfig = $this->getAmazonConfig();
+            $amazonConfig = Mage::helper('amazonia')->getAmazonConfig();
+            $block->setAmazonConfig($amazonConfig);
 
             /** Check Amazon Connection */
             $conf = new GenericConfiguration();
@@ -64,8 +63,6 @@ class Colibo_Amazonia_Adminhtml_ProductsController extends Mage_Adminhtml_Contro
                 $search = new Search();
                 $apaiIO->runOperation($search);
 
-                /** @noinspection PhpUndefinedMethodInspection */
-                $block->setAmazonConfig($amazonConfig);
 
             } catch (\Exception $e) {
 
@@ -75,131 +72,6 @@ class Colibo_Amazonia_Adminhtml_ProductsController extends Mage_Adminhtml_Contro
         }
 
         $this->renderLayout();
-    }
-
-
-    /**
-     * Import Amazon Products by ASINs.
-     * --------------------------------
-     */
-    public function importAction()
-    {
-        try {
-
-            /** Get Magento Category Id */
-            $categoryId = $this->getRequest()->getParam('category_id');
-            if (empty($categoryId)) {
-                throw new \Exception('Sir.. Select magento category for amazon products importing..');
-            }
-
-            /** Get ASINs Queue */
-            $asins = $this->getRequest()->getParam('asins');
-            if (!is_array($asins)) {
-                $asins = array($asins);
-            }
-
-            /** Check Exists Product */
-            foreach ($asins as $asin) {
-
-                /** @noinspection PhpUndefinedMethodInspection */
-                if (Mage::getModel('catalog/product')->loadByAttribute('sku', $asin)) {
-                    throw new \Exception('Product with ASIN: "' . $asin . '" already exists, remove it from queue (double-click) and try again');
-                }
-            }
-
-            $asins = implode(',', $asins);
-            if (empty($asins)) {
-                throw new \Exception('Sir.. Add amazon products ASINs first..');
-            }
-
-
-            /** Set Amazon Config */
-            $amazonConfig = $this->getAmazonConfig();
-
-            /** Init ApaIO */
-            $conf = new GenericConfiguration();
-            $client = new \GuzzleHttp\Client();
-            $request = new \ApaiIO\Request\GuzzleRequest($client);
-
-            $conf
-                ->setCountry($amazonConfig['country_code'])
-                ->setAccessKey($amazonConfig['access_key_id'])
-                ->setSecretKey($amazonConfig['secret_access_key'])
-                ->setAssociateTag($amazonConfig['partner_tag'])
-                ->setRequest($request)
-                ->setResponseTransformer(new \ApaiIO\ResponseTransformer\XmlToSimpleXmlObject());
-
-            /** Build Lookup Request */
-            $apaiIO = new ApaiIO($conf);
-            $lookup = new Lookup();
-            $lookup->setItemId($asins);
-            $lookup->setResponseGroup(array(
-                'Accessories',
-                'EditorialReview',
-                'ItemAttributes',
-                'Images',
-                'Large',
-                'ItemIds',
-                'OfferSummary',
-                'Offers',
-                'OfferFull',
-                'PromotionSummary',
-                'Reviews',
-                'SalesRank',
-                'Similarities',
-                'Tracks',
-                'Variations',
-                'VariationSummary'
-            ));
-
-            /** Send Request */
-            $formattedResponse = $apaiIO->runOperation($lookup);
-
-            /** Validate Response */
-            /** @var SimpleXMLElement[] $errors */
-            $errors = $formattedResponse->Items->Request->Errors->Error ?: null;
-            if (!empty($errors)) {
-
-                $message = '';
-
-                /** @var SimpleXMLElement $error */
-                foreach ($errors as $error) {
-                    $message .= $error->Message . " (code: " . $error->Code . ")\n";
-                }
-
-                throw new \Exception($message);
-            }
-
-
-            /** Process Found Products */
-            $data = [];
-
-            /** @var SimpleXMLElement[] $items */
-            $items = $formattedResponse->Items->Item;
-            foreach ($items as $item) {
-                $data[] = $this->createProduct($item, $categoryId);
-            }
-
-            $response = [
-                'status' => true,
-                'data' => $data
-            ];
-
-        } catch (\Exception $e) {
-
-            $response = [
-                'status' => false,
-                'notify' => [
-                    'title' => "Error Code: " . $e->getCode(),
-                    'message' => strip_tags($e->getMessage()),
-                    'trace' => $e->getFile() . ":" . $e->getLine()
-                ]
-
-            ];
-        }
-
-        $this->getResponse()->clearHeaders()->setHeader('Content-type', 'application/json', true);
-        $this->getResponse()->setBody(json_encode($response));
     }
 
 
@@ -361,34 +233,64 @@ class Colibo_Amazonia_Adminhtml_ProductsController extends Mage_Adminhtml_Contro
 
 
     /**
-     * SimpleXmlElement to Array.
-     * --------------------------
-     * @param SimpleXMLElement $xml
-     * @param array $out
-     * @return array
+     * Get Magento Attribute Set and Category.
+     * ---------------------------------------
+     *
      */
-    protected function xml2array($xml, $out = array())
+    public function typeAction()
     {
-        foreach ((array)$xml as $index => $node) {
-            $out[$index] = (is_object($node)) ? $this->xml2array($node) : $node;
+        try {
+
+            /** Get Amazon Product Type */
+            $amazonProductType = trim($this->getRequest()->getParam('amazon_product_type'));
+            $attributeSetId = trim($this->getRequest()->getParam('attribute_set_id'));
+            $categoryId = trim($this->getRequest()->getParam('category_id'));
+
+            if (empty($categoryId) || empty($attributeSetId)) {
+                throw new \Exception('Check selected values..!');
+            }
+
+            /** Init Resources */
+            $resource = Mage::getSingleton('core/resource');
+            $dbWrite = $resource->getConnection('core_write');
+            $table = $resource->getTableName('colibo_product_types');
+
+            /***
+             * Save Selected Types Mapping
+             * ---------------------------
+             */
+            $query = "REPLACE INTO " . $table . " SET 
+            amazon_product_type = :amazonProductType,
+            attribute_set_id = :attributeSetId,
+            category_id = :categoryId";
+
+            $binds = [
+                'amazonProductType' => $amazonProductType,
+                'attributeSetId' => $attributeSetId,
+                'categoryId' => $categoryId
+            ];
+
+            $dbWrite->query($query, $binds);
+
+            $response = [
+                'status' => true,
+                'types' => Mage::helper('amazonia')->getProductTypes()
+            ];
+
+        } catch (\Exception $e) {
+
+            $response = [
+                'status' => false,
+                'notify' => [
+                    'title' => "Error Code: " . $e->getCode(),
+                    'message' => strip_tags($e->getMessage()),
+                    'trace' => $e->getFile() . ":" . $e->getLine()
+                ]
+            ];
         }
 
-        return $out;
+        $this->getResponse()->clearHeaders()->setHeader('Content-type', 'application/json', true);
+        $this->getResponse()->setBody(json_encode($response));
     }
 
-
-    /**
-     * Get Amazon Config.
-     * ------------------
-     * @return array
-     */
-    protected function getAmazonConfig()
-    {
-        return [
-            'access_key_id' => Mage::getStoreConfig('amazon_api/products_import/access_key_id'),
-            'secret_access_key' => Mage::getStoreConfig('amazon_api/products_import/secret_access_key'),
-            'partner_tag' => Mage::getStoreConfig('amazon_api/products_import/partner_tag'),
-            'country_code' => substr(Mage::getStoreConfig('general/country/default'), 0, 2)
-        ];
-    }
 }

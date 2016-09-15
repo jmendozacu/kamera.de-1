@@ -1,12 +1,5 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
-    <default>
-        <reference name="head">
-            <action method="addCss">
-                <name>themevast/blog/css/style.css</name>
-            </action>
-        </reference>
-    </default>
     <blog_admin_manage_blog_index>
         <update handle="editor" />
         <reference name="content">

@@ -24,6 +24,10 @@ dd, dt {
     color: inherit;
 }
 
+#amazon-products-import dl {
+    margin: 0;
+}
+
 #amazon-products-import .import-divider {
     text-align: center;
     margin: 25px 0;
@@ -53,19 +57,36 @@ dd, dt {
     position: relative;
 }
 
-form.direct-asin {
-    position: absolute;
-    right: -1px;
-    top: -1px;
+.results-block .panel-heading select,
+.results-block .panel-heading button {
+    vertical-align: middle;
+    margin: -8px 0 0 10px;
+    height: 34px;
 }
 
-form.direct-asin .input-group-addon {
+.content-header-floating {
+    display: none !important;
+}
+
+.block-eq {
+    height: 110px;
+}
+
+form.search-form {
+    margin: 20px 0;
+}
+
+form.search-form.input-group-addon {
     padding: 12px 15px;
     background: none;
     border: 0;
 }
 
-form.direct-asin .input-group-addon + input.form-control {
+form.search-form button[type='submit'] {
+    margin: 15px 0 0 0;
+}
+
+form.search-form.input-group-addon + input.form-control {
     height: 40px;
     border-radius: 0;
     border-right: none;
@@ -74,11 +95,11 @@ form.direct-asin .input-group-addon + input.form-control {
     box-shadow: none !important;
 }
 
-form.direct-asin .input-group-addon + input.form-control:focus {
+form.search-form.input-group-addon + input.form-control:focus {
     border-color: rgba(240, 173, 78, 0.62);
 }
 
-form.direct-asin .form-group + .btn {
+form.search-form.form-group + .btn {
     padding: 10px 12px;
     float: right;
     border-radius: 0 3px 3px 0;
@@ -109,7 +130,6 @@ button:hover {
 select[multiple], select[size] {
     height: 150px;
 }
-
 
 #ui_notifIt {
     padding: 0 !important;
@@ -264,7 +284,6 @@ select[multiple], select[size] {
     background-image: linear-gradient(315deg, transparent, transparent 33%, rgba(0, 0, 0, .12) 33%, rgba(0, 0, 0, .12) 66%, transparent 66%, transparent);
 }
 
-
 @-webkit-keyframes bg-progress-bar {
     0% {
         background-position: 0 0
@@ -299,4 +318,210 @@ select[multiple], select[size] {
     100% {
         background-position: -16px 0
     }
+}
+
+.results-block .label {
+    font-size: 12px;
+    font-weight: normal;
+    padding: 0 15px;
+    line-height: 16px;
+    display: inline-block;
+}
+
+.results-block .table .label {
+    margin: 10px 0 0 0;
+    width: 100%;
+}
+
+.results-block .panel-heading.fixed {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    padding: 15px 20px;
+    background: #fbfab2;
+    height: 50px;
+}
+
+.results-block .panel-heading {
+    vertical-align: middle;
+}
+
+.results-block .panel-heading .label {
+    margin-left: 20px;
+    vertical-align: middle;
+}
+
+.results-block .label-success {
+    border: 1px solid #39af39;
+    color: #39af39;
+    background: rgba(230, 245, 230, 0.48);
+}
+
+.results-block .label-danger {
+    border: 1px solid #d9534f;
+    color: #d9534f;
+    background: rgba(217, 83, 79, 0.11);
+}
+
+#results .description {
+    white-space: normal;
+}
+
+#results table td a {
+    color: #000;
+    display: inline-block;
+    margin: 0 0 5px;
+    text-decoration: none;
+}
+
+#results pre {
+    white-space: pre-wrap;
+    font-size: 12px;
+    font-family: serif;
+    margin: 0;
+}
+
+.search-form .dl-horizontal dt {
+    white-space: normal;
+}
+
+#results .price-label {
+    line-height: 25px;
+    white-space: nowrap;
+    border-right: 2px solid;
+    text-align: center;
+    display: inline-block;
+    min-width: 120px;
+    font-size: 11px;
+    margin: 0 10px 0 0;
+    vertical-align: top;
+}
+
+#results .price-box {
+    white-space: nowrap;
+    display: block;
+    margin: 0 0 10px;
+}
+
+#results .price-label.new {
+    color: #004600;
+    border-color: green;
+    background: #e6f5e6;
+}
+
+#results .price-label.used {
+    color: #ad6425;
+    border-color: #e2a314;
+    background: #fff7ea;
+}
+
+#results .price-box .price {
+    color: #333;
+    font-size: 13px;
+    line-height: 25px;
+    vertical-align: top;
+    display: inline-block;
+}
+
+#results .table thead th {
+    line-height: 24px;
+}
+
+#results .price .total-count {
+    color: #999;
+    font-size: 18px;
+    font-weight: normal;
+    padding-right: 0;
+    font-family: serif;
+}
+
+#results .table {
+    border-top: 0;
+}
+
+.panel-heading.bordered {
+    border: 1px solid #dddddd;
+    padding: 20px;
+    font-size: 12px;
+    box-shadow: 0 0 13px #aaa;
+}
+
+.panel.no-border {
+    border: 0;
+    overflow: hidden;
+}
+
+.results-block {
+    display: none;
+}
+
+.results-block .panel-heading .badge {
+    margin-left: 10px;
+}
+
+.results-block .panel-heading .badge {
+    padding: 0 10px;
+    line-height: 18px;
+    font-weight: normal;
+    font-size: 12px;
+}
+
+.type-form > * {
+    margin: 0 0 5px 0;
+}
+
+a {
+    cursor: pointer;
+}
+
+td.product-status i {
+    border: 1px solid;
+    border-radius: 999px;
+    padding: 0;
+    height: 30px;
+    line-height: 30px;
+    width: 30px;
+    text-align: center;
+}
+
+td.product-status.pending i:before {
+    content: "\231b";
+}
+
+td.product-status.ready i:before {
+    content: "\e013";
+}
+
+td.product-status.pending {
+    color: #f0ad4e;;
+}
+
+td.product-status.ready {
+    color: #39af39;
+}
+
+td.product-status.pending {
+    background-color: #fcf8e3;
+}
+
+td.product-status.ready {
+    background-color: #dff0d8;
+}
+
+#results table td a.remove {
+    color: #900;
+    white-space: nowrap;
+}
+
+#results table td a.remove:hover {
+    text-decoration: underline;
+}
+
+.remove-all {
+    color: #000;
+    border: 1px solid #000;
+    background: #d4d4d4;
+    cursor: pointer;
 }

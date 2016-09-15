@@ -58,7 +58,7 @@
                     <products module="amazonia">
                         <title>Product Import</title>
                         <sort_order>0</sort_order>
-                        <action>amazon/adminhtml_products</action>
+                        <action>amazon/adminhtml_magento</action>
                     </products>
                 </children>
             </amazonia>

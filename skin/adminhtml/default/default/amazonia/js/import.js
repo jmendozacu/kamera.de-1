@@ -1,4 +1,17 @@
 /**
+ * Global Notify Options
+ * ---------------------
+ */
+var $notifyOptions = {
+    multiline: true,
+    autohide: true,
+    timeout: 5000,
+    clickable: true,
+    offset: 17
+};
+
+
+/**
  * Xhr Loading Handler
  * -------------------
  */
@@ -46,56 +59,118 @@ function showMessage($title, $message, $trace, $type) {
     }));
 }
 
+
 /**
- * Global Notify Options
- * ---------------------
+ * Update Product Type.
+ * --------------------
  */
-var $notifyOptions = {
-    multiline: true,
-    autohide: true,
-    timeout: 5000,
-    clickable: true,
-    offset: 17
-};
+function updateProductTypes($data) {
+
+    var $results = jQuery('#results');
+    jQuery($results.find('table tbody tr')).each(function () {
+
+        /** Init Product Selectors */
+        var $row = jQuery(this);
+        var $form = $row.find('.type-form');
+        var $amazonProductType = $form.find('[name="amazon_product_type"]');
+        var $attributeSet = $form.find('[name="attribute_set_id"]');
+        var $category = $form.find('[name="category_id"]');
+
+        /** Loop DB mapping */
+        jQuery($data).each(function ($index, $item) {
+            if ($amazonProductType.val() == $item.amazon_product_type) {
+                $attributeSet.val($item.attribute_set_id);
+                $category.val($item.category_id);
+            }
+        });
+
+        checkProductReadiness($row);
+    });
+}
+
+
+/**
+ * Update Product Type.
+ * --------------------
+ */
+function checkProductReadiness($row) {
+
+    /** Init Product Selectors */
+    var $form = $row.find('.type-form');
+    var $attributeSet = $form.find('[name="attribute_set_id"]');
+    var $category = $form.find('[name="category_id"]');
+
+    if ($attributeSet.val() != '' && $category.val() != '') {
+        $row.find('td.product-status').removeClass('pending').addClass('ready');
+    } else {
+        $row.find('td.product-status').removeClass('ready').addClass('pending');
+    }
+}
 
 
 jQuery(document).ready(function () {
 
-    /** Globals */
-    var $asinQueue = jQuery('#asins');
-
-
-    /** Add ASIN to Queue */
-    jQuery('form.direct-asin').on('submit', function () {
+    /**
+     * Search Products.
+     * ----------------
+     */
+    jQuery('form.search-form').on('submit', function () {
 
         var $form = jQuery(this);
-        var $asinNode = $form.find('input[type="text"]');
-        var $asin = $asinNode.val().trim();
 
-        var $optionExists = $asinQueue.find('option[value="' + $asin + '"]');
+        jQuery.ajax({
+            url: $form.attr('action'),
+            type: $form.attr('method'),
+            data: $form.serialize(),
+            dataType: 'json',
+            beforeSend: function () {
+                jQuery('.results-block').hide();
+                jQuery('#results').empty();
+            }
+        }).done(function ($response) {
 
-        if ($asin.length > 3 && !$optionExists.length) {
-            var $option = jQuery('<option></option>');
-            $option.val($asin).text($asin).prependTo($asinQueue);
-        }
+            if ($response.status) {
 
-        $asinNode.val('').focus();
-        $asinQueue.val($asin);
+                jQuery('#results').append($response.html);
+                updateProductTypes($response.types);
 
-        /** Scroll Select to 1st Option */
-        setTimeout(function () {
-            $asinQueue.scrollTop(0);
-        }, 0);
+                jQuery('.results-block').slideDown(function () {
+                    jQuery('html, body').animate({
+                        scrollTop: jQuery(".results-block").offset().top - 10
+                    }, 500);
+                });
+
+            } else {
+                showMessage($response.notify.title, $response.notify.message, $response.notify.trace, "error");
+            }
+
+        }).fail(function (jqXHR) {
+            var $trace = "url: " + $form.attr('action') + "<br>" + "response: " + jqXHR.statusText + " [" + jqXHR.status + "]";
+            showMessage("XHR Error", "", $trace, "error");
+        });
 
         return false;
     });
 
 
-    /** Import Products */
-    jQuery('form.import-form').on('submit', function () {
+    /**
+     * Products Counter Observer.
+     * --------------------------
+     * */
+    jQuery('#results').bind("DOMSubtreeModified", function () {
+        jQuery('.asins-counter.success').empty().text(jQuery('#results').find('table .label-success').length);
+        jQuery('.asins-counter.failed').empty().text(jQuery('#results').find('table .label-danger').length);
+    });
 
-        var $form = jQuery(this);
-        $asinQueue.find('option').prop('selected', true);
+
+    /**
+     * Save Product Types Relations.
+     * ----------------------------
+     */
+    jQuery(document).on('click', 'button.accept-type', function () {
+
+        var $button = jQuery(this);
+        var $form = $button.closest('form');
 
         jQuery.ajax({
             url: $form.attr('action'),
@@ -106,16 +181,7 @@ jQuery(document).ready(function () {
 
             }
         }).done(function ($response) {
-
-            if ($response.status) {
-                showMessage('Success', 'Products was imported.', false, 'success');
-                $asinQueue.find('option').remove();
-            } else {
-                showMessage($response.notify.title, $response.notify.message, $response.notify.trace, "error");
-            }
-
-        }).always(function () {
-
+            updateProductTypes($response.types);
         }).fail(function (jqXHR) {
             var $trace = "url: " + $form.attr('action') + "<br>" + "response: " + jqXHR.statusText + " [" + jqXHR.status + "]";
             showMessage("XHR Error", "", $trace, "error");
@@ -124,21 +190,97 @@ jQuery(document).ready(function () {
         return false;
     });
 
-    /** ASINs item count observer */
-    $asinQueue.bind("DOMSubtreeModified", function () {
-        jQuery('.asins-counter').empty().text($asinQueue.find('option').length);
+
+    /**
+     * Types Select Trigger.
+     * ---------------------
+     */
+    jQuery(document).on('change', 'select[name="attribute_set_id"], select[name="category_id"]', function () {
+
+        var $select = jQuery(this);
+        var $row = $select.closest('tr');
+
+        checkProductReadiness($row);
+        return false;
     });
 
 
-    /** Remove ASIN from Queue */
-    $asinQueue.on("dblclick", 'option', function () {
+    /**
+     * Save Product Types Relations.
+     * ----------------------------
+     */
+    jQuery(document).on('click', 'a.remove', function () {
 
-        jQuery(this).remove();
+        var $link = jQuery(this);
+        var $row = $link.closest('tr');
 
-        /** Scroll Select to 1st Option */
-        setTimeout(function () {
-            $asinQueue.scrollTop(0);
-        }, 0);
+        if (confirm('Are you sure to remove this product from import queue?')) {
+            $row.slideUp(function () {
+                $row.remove();
+            });
+        }
+        return false;
+    });
+
+
+    /**
+     * Remove All Fails.
+     * -----------------
+     */
+    jQuery(document).on('click', '.remove-all', function () {
+
+        if (confirm('Are you sure to remove all failed products from import queue?')) {
+
+            var $results = jQuery('#results');
+            jQuery($results.find('table tbody tr')).each(function () {
+
+                var $row = jQuery(this);
+                if ($row.find('pre').length) {
+                    $row.slideUp(function () {
+                        $row.remove();
+                    });
+                }
+            });
+        }
+        return false;
+    });
+
+
+    /**
+     * Set Category|AttributeSet for All Products.
+     * -------------------------------------------
+     */
+    jQuery(document).on('change', 'select.global', function () {
+
+        var $select = jQuery(this);
+        jQuery('select[name="' + $select.attr('name') + '"]').val($select.val());
+
+        var $results = jQuery('#results');
+        jQuery($results.find('table tbody tr')).each(function () {
+
+            /** Init Product Selectors */
+            var $row = jQuery(this);
+            checkProductReadiness($row);
+        });
+
+        return false;
+    });
+
+
+    /**
+     * Fixed Header.
+     * -------------
+     */
+    jQuery(window).scroll(function () {
+
+        var $header = jQuery('.results-block .panel-heading'),
+            $position = jQuery(window).scrollTop();
+
+        if ($position >= ($header.scrollTop() + 400)) {
+            $header.addClass('fixed');
+        } else {
+            $header.removeClass('fixed');
+        }
     });
 
 });

@@ -64,13 +64,13 @@ if (file_exists($maintenanceFile)) {
 require MAGENTO_ROOT . '/app/bootstrap.php';
 require_once $mageFilename;
 
-//Varien_Profiler::enable();
-if (isset($_SERVER['MAGE_IS_DEVELOPER_MODE'])) {
+Varien_Profiler::enable();
+//if (isset($_SERVER['MAGE_IS_DEVELOPER_MODE'])) {
     Mage::setIsDeveloperMode(true);
-}
+//}
 
-//ini_set('display_errors', 1);
-
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 umask(0);
 
 /* Store or website code */

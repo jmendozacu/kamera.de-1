@@ -1,6 +1,7 @@
 {
     "require": {
         "exeu/apai-io": "^2.0",
-        "symfony/var-dumper": "^3.1"
+        "symfony/var-dumper": "^3.1",
+        "guzzlehttp/guzzle": "^6.2"
     }
 }

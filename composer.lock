@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5216387c461d971a6be26a964580395f",
-    "content-hash": "d89a619ca9539e69a230728cc821621e",
+    "hash": "224cc5cd3de8e341d0c8db420b84a23e",
+    "content-hash": "d47cd7a392d45482585a53c915e645cd",
     "packages": [
         {
             "name": "exeu/apai-io",
