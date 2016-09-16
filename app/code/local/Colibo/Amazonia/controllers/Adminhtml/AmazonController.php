@@ -17,7 +17,7 @@ class Colibo_Amazonia_Adminhtml_AmazonController extends Mage_Adminhtml_Controll
 
     /**
      * Search Products by Query.
-     * --------------------------------
+     * -------------------------
      */
     public function searchAction()
     {
