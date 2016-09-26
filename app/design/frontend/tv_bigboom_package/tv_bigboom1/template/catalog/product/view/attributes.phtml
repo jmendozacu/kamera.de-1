@@ -53,9 +53,6 @@ $_product = $this->getProduct()
                         <dd><?php echo !is_array($attribute) ? $attribute : Mage::helper('amazonia')->generateArrayTree($attribute); ?></dd>
                     <?php endforeach; ?>
 
-                <?php else: ?>
-                    <dt><?php echo $this->htmlEscape($this->__($_data['label'])) ?></dt>
-                    <dd><?php echo $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?></dd>
                 <?php endif; ?>
 
             <?php endforeach; ?>

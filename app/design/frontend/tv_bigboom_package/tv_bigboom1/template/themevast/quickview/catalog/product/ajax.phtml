@@ -27,14 +27,9 @@
                                 <div class="rating"
                                      style="width:<?php echo ($_product->getRating() / 5) * 100 ?>%"></div>
                             </div>
-                            <p class="rating-links">
-                                <a class="add-review"
-                                   href="#customer-reviews"><?php echo $this->__('View All Reviews'); ?></a>
-                            </p>
                         </div>
 
                         <p class="availability in-stock">Availability: <span>In stock</span></p>
-                        <p class="asin">ASIN: <strong><?php echo $_product->getSku(); ?></strong></p>
 
                         <div class="add-to-box">
 
@@ -70,12 +65,12 @@
                                 </span>
                             <?php endif; ?>
 
-                            <?php if (!empty($amazonAttributes['Offers']['MoreOffersUrl'])): ?>
+                            <?php if (!empty($amazonAttributes['DetailPageURL'])): ?>
                                 <div class="row">
                                     <br>
                                     <a class="col-md-8 col-md-offset-4 col-sm-8 col-sm-offset-4 button add-to-cart"
                                        target="_blank"
-                                       href="<?php echo $amazonAttributes['Offers']['MoreOffersUrl']; ?>">
+                                       href="<?php echo $amazonAttributes['DetailPageURL']; ?>">
                                         <?php echo $this->__('Zum Shop'); ?>
                                     </a>
                                 </div>

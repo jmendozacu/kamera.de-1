@@ -31,8 +31,8 @@ try {
     Mage::app('admin', 'store');
 
     /** Import */
-    $model = new Colibo_Amazonia_Model_Sync($output);
-    $model->sync();
+    $model = new Colibo_Amazonia_Model_Import($output);
+    $model->import();
 
     fclose($fp);
     unlink($lockFile);
