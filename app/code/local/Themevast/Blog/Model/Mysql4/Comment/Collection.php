@@ -16,6 +16,7 @@ class Themevast_Blog_Model_Mysql4_Comment_Collection extends Mage_Core_Model_Mys
 
     public function addPostFilter($postId)
     {
+
         $this->getSelect()
             ->where('post_id = ?', $postId);
         return $this;

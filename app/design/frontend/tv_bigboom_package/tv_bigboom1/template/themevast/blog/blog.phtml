@@ -1,33 +1,47 @@
 <?php $posts = $this->getPosts(); ?>
-<div id="messages_product_view">
-    <?php Mage::app()->getLayout()->getMessagesBlock()->setMessages(Mage::getSingleton('customer/session')->getMessages(true)); ?>
-    <?php echo Mage::app()->getLayout()->getMessagesBlock()->getGroupedHtml(); ?>
-</div>
+    <div id="messages_product_view">
+        <?php Mage::app()->getLayout()->getMessagesBlock()->setMessages(Mage::getSingleton('customer/session')->getMessages(true)); ?>
+        <?php echo Mage::app()->getLayout()->getMessagesBlock()->getGroupedHtml(); ?>
+    </div>
 
-<?php echo $this->getChildHtml('blog_comments_toolbar'); ?>
+
 <?php foreach ($posts as $post): ?>
+    <!--    --><?php //print_r($post->getData());?>
     <div class="postWrapper">
-        <div class="postTitle">
-            <h2><a href="<?php echo $post->getAddress(); ?>" ><?php echo $post->getTitle(); ?></a></h2>
-            <h3><?php echo $post->getCreatedTime(); ?></h3>
-        </div>
-        <div class="postContent"><?php echo $post->getPostContent(); ?></div>
 
-        <?php echo $this->getBookmarkHtml($post) ?>
-        <div class="tags"><?php echo $this->getTagsHtml($post) ?></div>
-        <div class="postDetails">
-            <?php if ($this->getCommentsEnabled()): ?>
-                <?php echo $post->getCommentCount(); ?> <a href="<?php echo $post->getAddress(); ?>#commentBox" > <?php echo Mage::helper('blog')->__('Comments'); ?></a> |
-            <?php endif; ?>
-            <?php $postCats = $post->getCats(); ?>
-            <?php if (!empty($postCats)): ?>
-                <?php echo Mage::helper('blog')->__('Posted in'); ?>
-                <?php foreach ($postCats as $data): ?>
-                    <a href="<?php echo $data['url']; ?>"><?php echo $data['title']; ?></a>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <?php echo Mage::helper('blog')->__('Posted'); ?>
-            <?php endif; ?><?php echo $this->__("By"); ?> <?php echo $post->getUser(); ?></div>
+        <div>
+            <a href="<?php echo $post->getAddress(); ?>"><img
+                    src="<?php echo Mage::getBaseUrl('media') . $post->getImage(); ?>" class="post_image" alt=""></a>
+        </div>
+        <div>
+            <div class="postTitle">
+                <h2><a href="<?php echo $post->getAddress(); ?>"><?php echo $post->getTitle(); ?></a></h2>
+
+
+            </div>
+
+            <div class="postContent"><?php echo $post->getPostContent(); ?></div>
+
+            <?php echo $this->getBookmarkHtml($post) ?>
+            <!--            <div class="tags">--><?php //echo $this->getTagsHtml($post) ?><!--</div>-->
+
+            <div class="postDetails">
+                <?php if ($this->getCommentsEnabled()): ?>
+                <?php endif; ?>
+                <?php $postCats = $post->getCats(); ?>
+                <?php if (!empty($postCats)): ?>
+                    <!--                    --><?php //echo Mage::helper('blog')->__('Posted in'); ?>
+                    <?php foreach ($postCats as $data): ?>
+                        <!--                        <a href="--><?php //echo $data['url']; ?><!--">--><?php //echo $data['title']; ?><!--</a>-->
+                    <?php endforeach; ?>
+                <?php else: ?>
+
+                <p class="blue_name"><?php endif; ?><?php echo $post->getUser(); ?></p>
+                <h3><?php echo $post->getCreatedTime(); ?></h3>
+            </div>
+
+        </div>
+
     </div>
 <?php endforeach; ?>
-<?php echo $this->getChildHtml('blog_comments_toolbar'); ?>
+<?php //echo $this->getChildHtml('blog_comments_toolbar'); ?>

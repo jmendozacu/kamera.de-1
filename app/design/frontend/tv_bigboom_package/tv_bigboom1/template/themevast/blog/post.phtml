@@ -1,12 +1,12 @@
 <?php $post = $this->getPost(); ?>
 <div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
 <div class="postWrapper">
-    <div class="postTitle">
-        <h2><?php echo $post->getTitle(); ?></h2>
-        <h3><?php echo $post->getCreatedTime(); ?></h3>
-    </div>
+<!--    <div class="postTitle">-->
+<!--        <h2>--><?php //echo $post->getTitle(); ?><!--</h2>-->
+<!--        <h3>--><?php //echo $post->getCreatedTime(); ?><!--</h3>-->
+<!--    </div>-->
 
-    <div class="postContent"><?php echo $post->getPostContent(); ?></div>
+    <div class="postContentText"><?php echo $post->getPostContent(); ?></div>
     <?php echo $this->getBookmarkHtml($post) ?>
     <div class="tags"><?php echo Mage::getBlockSingleton('blog/blog')->getTagsHtml($post) ?></div>
     <div class="postDetails">
@@ -45,6 +45,7 @@
     <?php else: ?>
         <?php if ($this->getLoginRequired()): ?>
             <?php if ($this->helper('customer')->isLoggedIn()): ?>
+                <div class="comment-class">
                 <form action="" id="postComment" method="post">
                     <fieldset class="group-select">
                         <h4 class="legend"><?php echo Mage::helper('blog')->__('Submit Comment') ?></h4>
@@ -66,6 +67,7 @@
                         <button class="form-button button" type="submit"><span><span><?php echo Mage::helper('blog')->__('Submit Comment') ?></span></span></button>
                     </div>
                 </form>
+                </div>
 
                 <script type="text/javascript">
                     var contactForm = new VarienForm('postComment', false);
@@ -78,6 +80,7 @@
 
         <?php else: ?>
 
+            <div class="comment-class">
             <form action="" id="postComment" method="post">
                 <fieldset class="group-select">
                     <h4 class="legend"><?php echo Mage::helper('blog')->__('Submit Comment') ?></h4>
@@ -123,7 +126,7 @@
                     <button class="button form-button" type="submit"><span><span><?php echo Mage::helper('blog')->__('Submit Comment') ?></span></span></button>
                 </div>
             </form>
-
+             </div>
             <script type="text/javascript">
                 var contactForm = new VarienForm('postComment', false);
             </script>

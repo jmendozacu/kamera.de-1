@@ -1,11 +1,71 @@
+.blog-cat-view,
+.blog-post-view,
+.blog-index-list .main-wrapper{
+    background-color: #E6E6FA;
+}
+
+.comment-class{
+    margin-top: 20px;
+}
+
+.blue_name{
+    color: #020EBA;
+    font-size: 15px;
+}
+
+.col-lg-8.sidebar,
+.col-lg-4.sidebar{
+    margin: 0px;
+    padding: 0px;
+    height: 145px;
+}
+
+.col-right.sidebar.block,
+.blog-post-view .sidebar,
+.blog-index-list .sidebar{
+    background:  white;
+    height:  100%;
+}
+
 .postWrapper {
     margin-bottom: 25px;
     float: left;
     width: 100%;
 }
 
+.sidebar_comments{
+    padding-top: 0px;
+    margin-top: 5px;
+    height: auto  ;
+    width: 100%;
+    overflow: hidden;
+
+}
+
+.sidebar_comments.row{
+    padding-left: 10px;
+    height: 138px;
+}
+
+.sidebar_comments img{
+    width: 90%;
+    float: left;
+    margin-left: 5px;
+    margin-right: 0px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding-right: 5px;
+}
+
 .postTitle {
-    margin-bottom: 15px;
+    margin-bottom: 0px;
+}
+
+.col-xs-12.col-sm-9.col-md-9.col-lg-9.main-container{
+    background: white;
+    margin-top: 0px;
+    padding-top: 0px;
+    padding-left: 20px;
 }
 
 .postTitle h2 {
@@ -16,27 +76,54 @@
     font-weight: bold;
 }
 
-.postTitle h3 {
-    font-size: 11px;
+.post_image {
+    float: left;
+    margin-right: 15px;
+    height: 100%;
+}
+
+
+.postDetails h3 {
+    font-size: 13px;
     margin: 0px;
-    padding-top: 2px;
+    padding-top: 0px;
     padding-right: 0px;
     padding-bottom: 2px;
     padding-left: 0px;
     color: #888;
     font-style: italic;
-    font-weight: normal;
+    font-weight: 100;
 }
 .blog-index-list .sorter .sort-by { margin: 0;}
 .postTitle a { color: #666;}
 
 .postTitle a:hover {
 }
-.postContent {
-    padding-bottom: 10px;
+.postContentText{
+    padding-top: 5px;
+    height: 100%;
+    text-overflow: ellipsis;
+    background: white;
 }
-.postContent a.aw-blog-read-more { display: inline-block; margin-left: 10px;}
-.postDetails { }
+
+.postContentText img{
+    float: left;
+    margin: 0 10px 10px 0
+}
+
+.postContent {
+    padding-top: 5px;
+    padding-bottom: 0px;
+    height: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+.postContent a.aw-blog-read-more { display: none; margin-left: 10px;}
+.postDetails {
+    padding-top: 10px;
+    margin-bottom: 0px;
+}
 
 .postBookmarks {
     padding-bottom: 10px;
