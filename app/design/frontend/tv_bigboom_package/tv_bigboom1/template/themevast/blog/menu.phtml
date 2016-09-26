@@ -3,23 +3,27 @@
         <strong><span><?php echo Mage::getStoreConfig('blog/blog/title'); ?></span></strong>
     </div>
     <div class="block-content">
-         <?php if ($this->getCategories()->count() && Mage::getStoreConfig('blog/menu/category')): ?>
+        <?php if ($this->getCategories()->count() && Mage::getStoreConfig('blog/menu/category')): ?>
             <div class="menu-categories">
                 <h5><?php echo Mage::helper('blog')->__('Categories'); ?></h5>
                 <ul>
                     <?php $cats = $this->getCategories(); ?>
                     <?php foreach ($cats as $cat): ?>
-                        <li><a href="<?php echo $cat->getAddress(); ?>" ><?php echo $cat->getTitle(); ?></a></li>
+                        <li><a href="<?php echo $cat->getAddress(); ?>"><?php echo $cat->getTitle(); ?></a></li>
                     <?php endforeach; ?>
                 </ul>
             </div>
         <?php endif; ?>
+        <h5><?php echo Mage::helper('blog')->__('Last Posts'); ?></h5>
         <?php if ($posts = $this->getRecent()): ?>
             <div class="menu-recent">
                 <h5><?php echo Mage::helper('blog')->__('Recent Posts'); ?></h5>
                 <ul>
+                    <?php $i=0;?>
                     <?php foreach ($posts as $post): ?>
-                        <li><a href="<?php echo $post->getAddress(); ?>" ><?php echo $post->getTitle(); ?></a></li>
+                        <?php $i++;?>
+                        <?php if($i>4) break;?>
+                        <li><a href="<?php echo $post->getAddress(); ?>"><?php echo $post->getTitle(); ?></a></li>
                     <?php endforeach; ?>
                 </ul>
             </div>
@@ -28,3 +32,31 @@
         <?php echo $this->getChildHtml('blog_tags'); ?>
     </div>
 </div>
+
+
+<?php $ff = Mage::getModel('blog/comment')->getCollection()->setPageSize(3)->setOrder('created_time'); ?>
+<?php foreach ($ff as $f) : ?>
+
+    <!--    $p= Mage::getModel('blog/post')->load($f->getPostId(), 'image');-->
+    <?php $p = Mage::getModel('blog/post')->getCollection()
+        ->addFieldToSelect('image')
+        ->addFieldToSelect('identifier')
+        ->addPostFilter($f->getPostId())->getFirstItem(); ?>
+
+    <div class="sidebar_comments row">
+        <div class="col-lg-4 sidebar">
+
+            <a href="<?php print_r(Mage::getUrl('blog') . $p->getIdentifier()); ?> "><img
+                    src="<?php print_r(Mage::getBaseUrl('media') . $p->getImage()); ?>"></a>
+
+        </div>
+
+        <div class="col-lg-8 sidebar">
+            <p class="blue_name"><?php echo $f->getUser() ?></p>
+            <h6 class=""><?php print_r($f->getCreatedTime()); ?></h6>
+            <p><?php echo $f->getComment(); ?></p>
+        </div>
+
+    </div>
+    <hr>
+<?php endforeach; ?>

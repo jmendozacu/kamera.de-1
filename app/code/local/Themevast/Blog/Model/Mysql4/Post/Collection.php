@@ -59,4 +59,12 @@ class Themevast_Blog_Model_Mysql4_Post_Collection extends Mage_Core_Model_Mysql4
 
         return $this;
     }
+
+    public function addPostFilter($postId)
+    {
+
+        $this->getSelect()
+            ->where('post_id = ?', $postId);
+        return $this;
+    }
 }
