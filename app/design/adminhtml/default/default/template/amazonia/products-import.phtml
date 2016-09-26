@@ -97,6 +97,7 @@
 
                 <div class="panel panel-default no-border">
                     <div class="panel-heading bordered">
+
                         Search Results:
                         <span class="label label-success">
                             <span class="asins-counter success">0</span> success
@@ -107,7 +108,8 @@
                         <span class="label label-black remove-all">
                             remove failed?
                         </span>
-                        <button class="btn btn-warning btn-sm pull-right">Import ready products</button>
+
+                        <button class="add-ready-products btn btn-warning btn-sm pull-right">Add ready products to queue</button>
                         <select name="attribute_set_id" class="pull-right form-control global" style="width: 220px">
                             <option value=""> &rarr; Set AttributeSet For All</option>
                             <?php /** @var Mage_Catalog_Model_Category $category */ ?>
@@ -128,6 +130,7 @@
                                 </option>
                             <?php endforeach; ?>
                         </select>
+
                     </div>
                     <div>
                         <div id="results"></div>

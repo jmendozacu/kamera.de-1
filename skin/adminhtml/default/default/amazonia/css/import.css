@@ -513,8 +513,16 @@ td.product-status.ready {
 #results table td a.remove {
     color: #900;
     white-space: nowrap;
+    display: block;
 }
 
+#results table td a.add2jobs {
+    color: #009930;
+    white-space: nowrap;
+    display: block;
+}
+
+#results table td a.add2jobs:hover,
 #results table td a.remove:hover {
     text-decoration: underline;
 }

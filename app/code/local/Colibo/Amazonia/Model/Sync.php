@@ -123,12 +123,16 @@ class Colibo_Amazonia_Model_Sync
 
             /** Update New Price */
             if (!empty($offers['LowestNewPrice']['Amount'])) {
-                $attributes['price'] = $offers['LowestNewPrice']['Amount'];
-            };
+                $attributes['price'] = number_format(($offers['LowestNewPrice']['Amount'] / 100), 2, ',', '');
+            } else {
+                $attributes['price'] = 0.00;
+            }
 
             /** Update Used Price */
             if (!empty($offers['LowestUsedPrice']['Amount'])) {
-                $attributes['price_used'] = $offers['LowestUsedPrice']['Amount'];
+                $attributes['price_used'] = number_format(($offers['LowestUsedPrice']['Amount'] / 100), 2, ',', '');
+            } else {
+                $attributes['price_used'] = 0.00;
             }
 
             /** Update Rating */

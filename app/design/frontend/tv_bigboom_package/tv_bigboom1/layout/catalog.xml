@@ -197,19 +197,27 @@ Product view
                 </block>
 
                 <action method="setTierPriceTemplate"><template>catalog/product/view/tierprices.phtml</template></action>
-                
+
                 <block type="catalog/product_view_tabs" name="product.info.tabs" as="info_tabs" template="catalog/product/view/tabs.phtml" >
                     <action method="addTab" translate="title" module="catalog"><alias>description</alias><title>Product Description</title><block>catalog/product_view_description</block><template>catalog/product/view/description.phtml</template></action>
                     <action method="addTab" translate="title" module="catalog"><alias>additional</alias><title>Amazon Attributes</title><block>catalog/product_view_attributes</block><template>catalog/product/view/attributes.phtml</template></action>
                     <action method="addTab" translate="title" module="catalog"><alias>upsell_products</alias><title>We Also Recommend</title><block>catalog/product_list_upsell</block><template>catalog/product/list/upsell.phtml</template></action>
                     <action method="addTab" translate="title" module="catalog"><alias>related_products</alias><title>Related Products</title><block>catalog/product_list_related</block><template>catalog/product/list/related.phtml</template></action>
+
+                    <block type="review/form" name="product.review.form" as="review_form"/>
+                    <action method="addTab" translate="title" module="review">
+                        <alias>product_additional_data</alias>
+                        <title>Reviews</title>
+                        <block>review/product_view_list</block>
+                        <template>review/product/view/list_tab.phtml</template>
+                    </action>
                 </block>
 
                 <block type="catalog/product_list_upsell" name="product.info.upsell" as="upsell_products" template="catalog/product/list/upsell.phtml">
                     <action method="setColumnCount"><columns>4</columns></action>
                     <action method="setItemLimit"><type>upsell</type><limit>4</limit></action>
                 </block>
-                
+
                 <block type="catalog/product_view_additional" name="product.info.additional" as="product_additional_data" />
                 <block type="catalog/product_view_description" name="product.description" as="description" template="catalog/product/view/description.phtml">
                     <action method="addToParentGroup"><group>detailed_info</group></action>
@@ -272,7 +280,7 @@ Product view
         <reference name="left">
             <block type="catalog/product_list_related" name="catalog.product.related" after="vmegamenu" template="catalog/product/list/related.phtml"/>
         </reference>
-        
+
     </catalog_product_view>
 
 <!--

@@ -22,68 +22,83 @@
                             <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
                         </div>
 
-                        <span class="add-to-box">
+                        <div class="ratings">
+                            <div class="rating-box">
+                                <div class="rating"
+                                     style="width:<?php echo ($_product->getRating() / 5) * 100 ?>%"></div>
+                            </div>
+                            <p class="rating-links">
+                                <a class="add-review"
+                                   href="#customer-reviews"><?php echo $this->__('View All Reviews'); ?></a>
+                            </p>
+                        </div>
 
-                        <?php if (!empty($amazonAttributes['OfferSummary']['LowestNewPrice']['FormattedPrice'])): ?>
-                            <span class="price-box row">
-                                <span class="price-label col-md-4 new">Lowest New Price:</span>
-                                <span class="price col-md-8">
-                                    <span class="col-md-8">
-                                        <?php echo $amazonAttributes['OfferSummary']['LowestNewPrice']['FormattedPrice']; ?>
-                                    </span>
-                                    <span class="total-count col-md-4 text-right">
-                                        <?php if (!empty($amazonAttributes['OfferSummary']['TotalNew'])) : ?>
-                                            <?php echo $amazonAttributes['OfferSummary']['TotalNew']; ?> items
-                                        <?php endif; ?>
-                                    </span>
-                                </span>
-                            </span>
-                        <?php endif; ?>
+                        <p class="availability in-stock">Availability: <span>In stock</span></p>
+                        <p class="asin">ASIN: <strong><?php echo $_product->getSku(); ?></strong></p>
 
-                            <?php if (!empty($amazonAttributes['OfferSummary']['LowestUsedPrice']['FormattedPrice'])): ?>
+                        <div class="add-to-box">
+
+                            <?php if ($_product->getPrice() > 0) : ?>
                                 <span class="price-box row">
-                                <span class="price-label col-md-4 used">Lowest Used Price:</span>
-                                <span class="price col-md-8">
-                                    <span class="col-md-8">
-                                        <?php echo $amazonAttributes['OfferSummary']['LowestUsedPrice']['FormattedPrice']; ?>
-                                    </span>
-                                    <span class="total-count col-md-4 text-right">
-                                        <?php if (!empty($amazonAttributes['OfferSummary']['TotalUsed'])) : ?>
-                                            <?php echo $amazonAttributes['OfferSummary']['TotalUsed']; ?> items
-                                        <?php endif; ?>
+                                    <span class="price-label col-md-4 new">Lowest New Price:</span>
+                                    <span class="price col-md-8">
+                                        <span class="col-md-8">
+                                              <?php echo Mage::helper('core')->currency($_product->getPrice(), true, false); ?>
+                                        </span>
+                                        <span class="total-count col-md-4 text-right">
+                                            <?php if (!empty($amazonAttributes['OfferSummary']['TotalNew'])) : ?>
+                                                <?php echo $amazonAttributes['OfferSummary']['TotalNew']; ?> items
+                                            <?php endif; ?>
+                                        </span>
                                     </span>
                                 </span>
-                            </span>
                             <?php endif; ?>
 
-                            <?php if (!empty($amazonAttributes['DetailPageURL'])): ?>
+                            <?php if ($_product->getPriceUsed() > 0) : ?>
+                                <span class="price-box row">
+                                    <span class="price-label col-md-4 used">Lowest Used Price:</span>
+                                    <span class="price col-md-8">
+                                        <span class="col-md-8">
+                                             <?php echo Mage::helper('core')->currency($_product->getPriceUsed(), true, false); ?>
+                                        </span>
+                                        <span class="total-count col-md-4 text-right">
+                                            <?php if (!empty($amazonAttributes['OfferSummary']['TotalUsed'])) : ?>
+                                                <?php echo $amazonAttributes['OfferSummary']['TotalUsed']; ?> items
+                                            <?php endif; ?>
+                                        </span>
+                                    </span>
+                                </span>
+                            <?php endif; ?>
+
+                            <?php if (!empty($amazonAttributes['Offers']['MoreOffersUrl'])): ?>
                                 <div class="row">
                                     <br>
-                                    <a class="col-md-8 col-md-offset-4 col-sm-8 col-sm-offset-4 button add-to-cart" target="_blank"
-                                       href="<?php echo $amazonAttributes['DetailPageURL']; ?>">
+                                    <a class="col-md-8 col-md-offset-4 col-sm-8 col-sm-offset-4 button add-to-cart"
+                                       target="_blank"
+                                       href="<?php echo $amazonAttributes['Offers']['MoreOffersUrl']; ?>">
                                         <?php echo $this->__('Zum Shop'); ?>
                                     </a>
                                 </div>
                             <?php endif; ?>
+                        </div>
 
                     </div>
                 </div>
+                <div class="clearer"></div>
+
+            </form>
+
+            <div class="product-collateral row-fluid">
+                <?php echo $this->getChildHtml('info_tabs') ?>
+                <?php echo $this->getChildHtml('upsell_products') ?>
+                <?php echo $this->getChildHtml('product_additional_data') ?>
+            </div>
+
+            <script type="text/javascript">
+                jQuery('.cloud-zoom, .cloud-zoom-gallery').CloudZoom();
+            </script>
+
         </div>
-        <div class="clearer"></div>
-
-        </form>
-
-        <div class="product-collateral row-fluid">
-            <?php echo $this->getChildHtml('info_tabs') ?>
-            <?php echo $this->getChildHtml('upsell_products') ?>
-            <?php echo $this->getChildHtml('product_additional_data') ?>
-        </div>
-
-        <script type="text/javascript">
-            jQuery('.cloud-zoom, .cloud-zoom-gallery').CloudZoom();
-        </script>
-
-    </div>
 
     </div>
 <?php endif; ?>

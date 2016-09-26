@@ -293,4 +293,76 @@ class Colibo_Amazonia_Adminhtml_MagentoController extends Mage_Adminhtml_Control
         $this->getResponse()->setBody(json_encode($response));
     }
 
+
+    /**
+     * Add Products to Jobs.
+     * ---------------------
+     */
+    public function jobAction()
+    {
+        try {
+
+            $records = 0;
+
+            /** Get Request Query */
+            $json = $this->getRequest()->getParam('json');
+            $products = json_decode($json, true);
+            $products = !empty($products) ? $products : [];
+
+            /** JSON Validation */
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                throw new \Exception(json_last_error_msg());
+            }
+
+            /** Init Resources */
+            $resource = Mage::getSingleton('core/resource');
+            $dbWrite = $resource->getConnection('core_write');
+            $table = $resource->getTableName('colibo_products_jobs');
+
+            /** Process Products */
+            foreach ($products as $amazonAsin => $magentoData) {
+
+                /***sq
+                 * Save Products Jobs
+                 * ------------------
+                 */
+                $query = "REPLACE INTO " . $table . " SET "
+                    . " amazon_asin = :amazonAsin, "
+                    . " magento_data = :magentoData";
+
+                $binds = [
+                    'amazonAsin' => $amazonAsin,
+                    'magentoData' => json_encode($magentoData)
+                ];
+
+                try {
+                    $dbWrite->query($query, $binds);
+                    $records++;
+                } catch (\Exception $e) {
+                    continue;
+                }
+            }
+
+            $response = [
+                'status' => true,
+                'data' => $records
+            ];
+
+        } catch (\Exception $e) {
+
+            $response = [
+                'status' => false,
+                'notify' => [
+                    'title' => "Error Code: " . $e->getCode(),
+                    'message' => strip_tags($e->getMessage()),
+                    'trace' => $e->getFile() . ":" . $e->getLine()
+                ]
+
+            ];
+        }
+
+        $this->getResponse()->clearHeaders()->setHeader('Content-type', 'application/json', true);
+        $this->getResponse()->setBody(json_encode($response));
+    }
+
 }

@@ -12,6 +12,70 @@ var $notifyOptions = {
 
 
 /**
+ * Serialize Object.
+ * -----------------
+ */
+(function ($) {
+    $.fn.serializeObject = function () {
+
+        var self = this,
+            json = {},
+            push_counters = {},
+            patterns = {
+                "validate": /^[a-zA-Z][a-zA-Z0-9_]*(?:\[(?:\d*|[a-zA-Z0-9_]+)\])*$/,
+                "key": /[a-zA-Z0-9_]+|(?=\[\])/g,
+                "push": /^$/,
+                "fixed": /^\d+$/,
+                "named": /^[a-zA-Z0-9_]+$/
+            };
+
+        this.build = function (base, key, value) {
+            base[key] = value;
+            return base;
+        };
+
+        this.push_counter = function (key) {
+            if (push_counters[key] === undefined) {
+                push_counters[key] = 0;
+            }
+            return push_counters[key]++;
+        };
+
+        $.each($(this).serializeArray(), function () {
+
+            /** skip invalid keys */
+            if (!patterns.validate.test(this.name)) {
+                return;
+            }
+
+            var k,
+                keys = this.name.match(patterns.key),
+                merge = this.value,
+                reverse_key = this.name;
+
+            while ((k = keys.pop()) !== undefined) {
+
+                /** adjust reverse_key */
+                reverse_key = reverse_key.replace(new RegExp("\\[" + k + "\\]$"), '');
+
+                if (k.match(patterns.push)) {
+                    merge = self.build([], self.push_counter(reverse_key), merge);
+                } else if (k.match(patterns.fixed)) {
+                    merge = self.build([], k, merge);
+                } else if (k.match(patterns.named)) {
+                    merge = self.build({}, k, merge);
+                }
+            }
+
+            json = $.extend(true, json, merge);
+        });
+
+        return json;
+    };
+})(jQuery);
+
+
+/**
  * Xhr Loading Handler
  * -------------------
  */
@@ -102,9 +166,64 @@ function checkProductReadiness($row) {
 
     if ($attributeSet.val() != '' && $category.val() != '') {
         $row.find('td.product-status').removeClass('pending').addClass('ready');
+        $row.find('a.add2jobs').show();
     } else {
         $row.find('td.product-status').removeClass('ready').addClass('pending');
+        $row.find('a.add2jobs').hide();
     }
+}
+
+
+/**
+ * Save Products To Jobs.
+ * ---------------------
+ */
+function saveMagentoJobs($rows) {
+
+    var $data = {};
+
+    /** Check Input Param */
+    $rows = jQuery.isArray($rows) ? $rows : [$rows];
+
+    /** Collect Data */
+    jQuery.each($rows, function ($index, $row) {
+
+        /** Init Product Selectors */
+        var $form = $row.find('.type-form');
+        var $asin = $form.find('[name="asin"]').val();
+
+        $data[$asin] = $form.serializeObject();
+    });
+
+    /** Build Request */
+    var $form = jQuery('.job-form');
+    $form.find('[name="json"]').val(JSON.stringify($data));
+
+    jQuery.ajax({
+        url: $form.attr('action'),
+        type: $form.attr('method'),
+        data: $form.serialize(),
+        dataType: 'json',
+        beforeSend: function () {
+
+        }
+    }).done(function ($response) {
+
+        var $type = $response.data > 0 ? 'info' : 'warning';
+        showMessage('Import: add product to jobs', '<strong>' + $response.data + '</strong> products was added to import queue', false, $type);
+
+        /** Remove Processed Items */
+        jQuery.each($rows, function ($index, $row) {
+            setTimeout(function () {
+                $row.remove();
+            }, 200 * $index);
+        });
+
+    }).fail(function (jqXHR) {
+        var $trace = "url: " + $action + "<br>" + "response: " + jqXHR.statusText + " [" + jqXHR.status + "]";
+        showMessage("XHR Error", "", $trace, "error");
+    });
+
 }
 
 
@@ -182,6 +301,7 @@ jQuery(document).ready(function () {
             }
         }).done(function ($response) {
             updateProductTypes($response.types);
+            showMessage('Success!', 'Products types relation was saved and apply to queue', false, "info");
         }).fail(function (jqXHR) {
             var $trace = "url: " + $form.attr('action') + "<br>" + "response: " + jqXHR.statusText + " [" + jqXHR.status + "]";
             showMessage("XHR Error", "", $trace, "error");
@@ -281,6 +401,39 @@ jQuery(document).ready(function () {
         } else {
             $header.removeClass('fixed');
         }
+    });
+
+
+    /**
+     * Add Product to Job.
+     * -------------------
+     */
+    jQuery(document).on('click', '.add2jobs', function () {
+
+        var $link = jQuery(this);
+        var $row = $link.closest('tr');
+
+        saveMagentoJobs($row);
+        return false;
+    });
+
+
+    /**
+     * Add All Products to Job.
+     * -------------------
+     */
+    jQuery(document).on('click', '.add-ready-products', function () {
+
+        var $rows = [];
+
+        /** Collect Ready Products */
+        jQuery('td.product-status.ready').each(function () {
+            var $td = jQuery(this);
+            $rows.push($td.closest('tr'));
+        });
+
+        saveMagentoJobs($rows);
+        return false;
     });
 
 });

@@ -2936,7 +2936,6 @@ p.welcome-msg {
 
 .products-grid li.item .price-box {
     margin: 5px 0 0;
-    text-align: right;
 }
 
 .products-list li.item .price-box {
@@ -3147,6 +3146,10 @@ p.welcome-msg {
 .products-grid .ratings .rating-links .separator,
 .products-grid .ratings .rating-links .add-review {
     display: none;
+}
+
+.add-review {
+    text-decoration: underline;
 }
 
 .products-grid .ratings .rating-links a {
@@ -3678,7 +3681,7 @@ p.welcome-msg {
 }
 
 .product-view .product-shop .product-name {
-    margin: 0 0 50px;
+    margin: 0 0 20px;
 }
 
 .product-view .product-shop .product-name h1 {
@@ -3741,10 +3744,19 @@ p.welcome-msg {
     position: relative;
 }
 
+.product-view .review-iframe iframe {
+    width: 100%;
+    height: 500px;
+}
+
 .product-view .add-to-links a:hover,
 .product-view .email-friend a:hover {
     color: #db4c52;
     border-color: #db4c52;
+}
+
+.product-view .asin strong {
+    font-family: sans-serif;
 }
 
 /* Email to a Friend */
@@ -3757,6 +3769,7 @@ p.welcome-msg {
 .product-view .add-to-box {
     display: block;
     position: relative;
+    margin-top: 30px;
 }
 
 .product-view .add-to-cart .input-content {

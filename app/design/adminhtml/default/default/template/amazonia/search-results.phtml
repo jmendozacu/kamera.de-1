@@ -14,7 +14,7 @@
             <th class="text-center" style="width: 100px">Price</th>
             <th class="text-center" style="width: 200px">Options</th>
             <th class="text-center" style="width: 50px">Ready?</th>
-            <th class="text-center" style="width: 50px">Remove?</th>
+            <th class="text-center" style="width: 50px">Options</th>
         </tr>
         </thead>
         <tbody>
@@ -165,7 +165,7 @@
                             <input name="form_key" type="hidden"
                                    value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>"/>
                             <input name="isAjax" type="hidden" value="true"/>
-
+                            <input name="asin" type="hidden" value="<?php echo $ASIN; ?>"/>
                         </form>
                     </td>
                     <td class="text-center product-status pending">
@@ -174,7 +174,11 @@
                     <td class="text-center">
                         <a class="remove">
                             <i class="glyphicon glyphicon-remove"></i>
-                            remove
+                            remove entry
+                        </a>
+                        <a class="add2jobs" href="">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            add to queue
                         </a>
                     </td>
                 </tr>
@@ -183,5 +187,15 @@
         <?php endforeach; ?>
         </tbody>
     </table>
+
+
+    <form action="<?php echo $this->getUrl('amazon/adminhtml_magento/job/') ?>" method="post"
+          class="job-form">
+
+        <input name="form_key" type="hidden"
+               value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>"/>
+        <input name="isAjax" type="hidden" value="true"/>
+        <input name="json" type="hidden" value=""/>
+    </form>
 
 </div>

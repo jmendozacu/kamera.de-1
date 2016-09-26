@@ -51,14 +51,17 @@ $helpLabels = $this->helper('themevast/labels');
                                         <?php echo $_helper->productAttribute($_product, $_product->getName(), 'name'); ?></a>
                                 </h2>
 
+                                <div class="ratings">
+                                    <div class="rating-box">
+                                        <div class="rating"
+                                             style="width:<?php echo ($_product->getRating() / 5) * 100 ?>%"></div>
+                                    </div>
+                                </div>
+
                                 <div class="price-box">
                                     <span class="regular-price">
                                         <span class="price">
-                                            <?php
-                                            echo !empty($amazonAttributes['OfferSummary']['LowestNewPrice']['FormattedPrice'])
-                                                ? $amazonAttributes['OfferSummary']['LowestNewPrice']['FormattedPrice']
-                                                : '--';
-                                            ?>
+                                            <?php echo Mage::helper('core')->currency($_product->getPrice(), true, false); ?>
                                         </span>
                                     </span>
                                 </div>
@@ -67,9 +70,9 @@ $helpLabels = $this->helper('themevast/labels');
                                     <a class="button default" href="<?php echo $_product->getProductUrl() ?>">
                                         <?php echo $this->__('View Details'); ?>
                                     </a>
-                                    <?php if (!empty($amazonAttributes['DetailPageURL'])): ?>
+                                    <?php if (!empty($amazonAttributes['Offers']['MoreOffersUrl'])): ?>
                                         <a class="button add-to-cart" target="_blank"
-                                           href="<?php echo $amazonAttributes['DetailPageURL']; ?>">
+                                           href="<?php echo $amazonAttributes['Offers']['MoreOffersUrl']; ?>">
                                             <?php echo $this->__('Zum Artikel'); ?>
                                         </a>
                                     <?php endif; ?>
@@ -125,10 +128,17 @@ $helpLabels = $this->helper('themevast/labels');
                         </a>
                     </h2>
 
+                    <div class="ratings">
+                        <div class="rating-box">
+                            <div class="rating"
+                                 style="width:<?php echo ($_product->getRating() / 5) * 100 ?>%"></div>
+                        </div>
+                    </div>
+
                     <div class="price-box">
                         <span class="regular-price">
                             <span class="price">
-                                <?php echo !empty($amazonAttributes['OfferSummary']['LowestNewPrice']['FormattedPrice']) ? $amazonAttributes['OfferSummary']['LowestNewPrice']['FormattedPrice'] : '--'; ?>
+                                <?php echo Mage::helper('core')->currency($_product->getPrice(), true, false); ?>
                             </span>
                         </span>
                     </div>
@@ -137,9 +147,9 @@ $helpLabels = $this->helper('themevast/labels');
                         <a class="button default" href="<?php echo $_product->getProductUrl() ?>">
                             <?php echo $this->__('Details'); ?>
                         </a>
-                        <?php if (!empty($amazonAttributes['DetailPageURL'])): ?>
+                        <?php if (!empty($amazonAttributes['Offers']['MoreOffersUrl'])): ?>
                             <a class="button add-to-cart" target="_blank"
-                               href="<?php echo $amazonAttributes['DetailPageURL']; ?>">
+                               href="<?php echo $amazonAttributes['Offers']['MoreOffersUrl']; ?>">
                                 <?php echo $this->__('Zum Artikel'); ?>
                             </a>
                         <?php endif; ?>

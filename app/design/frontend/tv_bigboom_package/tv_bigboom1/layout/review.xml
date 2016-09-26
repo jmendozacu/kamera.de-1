@@ -36,9 +36,9 @@
 
     </customer_account>
 
-<!--
-Customer account home dashboard layout
--->
+    <!--
+    Customer account home dashboard layout
+    -->
 
     <customer_account_index>
 
@@ -50,9 +50,9 @@ Customer account home dashboard layout
     </customer_account_index>
 
 
-<!--
-Product reviews page (?)
--->
+    <!--
+    Product reviews page (?)
+    -->
 
     <reviews>
         <!-- Mage_Review -->
@@ -61,9 +61,9 @@ Product reviews page (?)
         </reference>
     </reviews>
 
-<!--
-Product reviews page
--->
+    <!--
+    Product reviews page
+    -->
 
     <review_product_list translate="label">
         <label>Catalog Product Reviews List</label>

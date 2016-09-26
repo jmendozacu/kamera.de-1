@@ -1,26 +1,26 @@
-<?xml version="1.0"?>   
-<layout version="0.1.0">   
-  <default>
-	    <reference name="head">
-            
-			<!-- <action method="addItem"><type>skin_js</type><name>js/jquery.fancybox.js</name></action>
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+
+            <!-- <action method="addItem"><type>skin_js</type><name>js/jquery.fancybox.js</name></action>
             <action method="addItem"><type>skin_css</type><name>css/jquery.fancybox.css</name></action -->
             <action method="addJs" ifconfig="quickview/general/enabled"><script>themevast/quickview.js</script></action>
         </reference>
-		
-  </default>
-  <quickview_index_index>   
-    <reference name="root">   
-      <action method="setTemplate"><template>page/1column.phtml</template></action>   
-    </reference>   
-    <reference name="content">   
-      <block type="quickview/index" name="quickview_index" template="quickview/index.phtml"/>   
-    </reference>   
-  </quickview_index_index>  
- <quickview_index_ajax>
-		<reference name="root">
+
+    </default>
+    <quickview_index_index>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="quickview/index" name="quickview_index" template="quickview/index.phtml"/>
+        </reference>
+    </quickview_index_index>
+    <quickview_index_ajax>
+        <reference name="root">
             <action method="setTemplate"><template>page/empty.phtml</template></action>
-           <action method="setIsHandle"><applied>1</applied></action>
+            <action method="setIsHandle"><applied>1</applied></action>
         </reference>
         <reference name="head">
             <action method="addJs"><script>varien/product.js</script></action>
@@ -29,41 +29,48 @@
             <action method="addItem"><type>js_css</type><name>calendar/calendar-win2k-1.css</name><params/><!--<if/><condition>can_load_calendar_js</condition>--></action>
             <action method="addItem"><type>js</type><name>calendar/calendar.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
             <action method="addItem"><type>js</type><name>calendar/calendar-setup.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
-			<action method="addCss" ifconfig="cloudzoom/general/thumbslider"><stylesheet>themevast/plugin/css/jquery.bxslider.css</stylesheet></action>
+            <action method="addCss" ifconfig="cloudzoom/general/thumbslider"><stylesheet>themevast/plugin/css/jquery.bxslider.css</stylesheet></action>
             <action method="addCss" ifconfig="cloudzoom/general/enabled"><stylesheet>themevast/cloudzoom/css/cloudzoom.css</stylesheet></action>
-			<action method="addJs" ifconfig="cloudzoom/general/enabled"><script>themevast/jquery.min.js</script></action>
-			<action method="addJs" ifconfig="cloudzoom/general/thumbslider"><script>themevast/plugin/jquery.bxslider.js</script></action>
-			<action method="addJs" ifconfig="cloudzoom/general/enabled"><script>themevast/plugin/cloud-zoom.1.0.3.js</script></action>
-			<action method="addJs" ifconfig="cloudzoom/general/enabled"><script>themevast/plugin/lightbox.js</script></action>
-			<block type="page/html" name="top.Js" as="topJs" template="themevast/cloudzoom/jscfg.phtml"/>
+            <action method="addJs" ifconfig="cloudzoom/general/enabled"><script>themevast/jquery.min.js</script></action>
+            <action method="addJs" ifconfig="cloudzoom/general/thumbslider"><script>themevast/plugin/jquery.bxslider.js</script></action>
+            <action method="addJs" ifconfig="cloudzoom/general/enabled"><script>themevast/plugin/cloud-zoom.1.0.3.js</script></action>
+            <action method="addJs" ifconfig="cloudzoom/general/enabled"><script>themevast/plugin/lightbox.js</script></action>
+            <block type="page/html" name="top.Js" as="topJs" template="themevast/cloudzoom/jscfg.phtml"/>
         </reference>
 
-		<reference name="content">
+        <reference name="content">
             <block type="catalog/product_view" name="product.info" template="themevast/quickview/catalog/product/ajax.phtml">
-				  <!--
-                <action method="addReviewSummaryTemplate"><type>default</type><template>review/helper/summary.phtml</template></action>
-                <action method="addReviewSummaryTemplate"><type>short</type><template>review/helper/summary_short.phtml</template></action>
-                <action method="addReviewSummaryTemplate"><type>...</type><template>...</template></action>
-                -->
+                <!--
+              <action method="addReviewSummaryTemplate"><type>default</type><template>review/helper/summary.phtml</template></action>
+              <action method="addReviewSummaryTemplate"><type>short</type><template>review/helper/summary_short.phtml</template></action>
+              <action method="addReviewSummaryTemplate"><type>...</type><template>...</template></action>
+              -->
                 <block type="catalog/product_view_media" name="product.info.media" as="media" template="catalog/product/view/media.phtml"/>
                 <block type="core/text_list" name="alert.urls" as="alert_urls" translate="label">
                     <label>Alert Urls</label>
                 </block>
 
                 <action method="setTierPriceTemplate"><template>catalog/product/view/tierprices.phtml</template></action>
-                
+
                 <block type="catalog/product_view_tabs" name="product.info.tabs" as="info_tabs" template="catalog/product/view/tabs.phtml" >
                     <action method="addTab" translate="title" module="catalog"><alias>description</alias><title>Product Description</title><block>catalog/product_view_description</block><template>catalog/product/view/description.phtml</template></action>
+                    <!--<action method="addTab" translate="title" module="catalog"><alias>upsell_products</alias><title>We Also Recommend</title><block>catalog/product_list_upsell</block><template>catalog/product/list/upsell.phtml</template></action>-->
                     <action method="addTab" translate="title" module="catalog"><alias>additional</alias><title>Additional Information</title><block>catalog/product_view_attributes</block><template>catalog/product/view/attributes.phtml</template></action>
-                    <action method="addTab" translate="title" module="catalog"><alias>upsell_products</alias><title>We Also Recommend</title><block>catalog/product_list_upsell</block><template>catalog/product/list/upsell.phtml</template></action>
-                    <action method="addTab" translate="title" module="catalog"><alias>related_products</alias><title>Related Products</title><block>catalog/product_list_related</block><template>catalog/product/list/related.phtml</template></action>
+                    <!--<action method="addTab" translate="title" module="catalog"><alias>related_products</alias><title>Related Products</title><block>catalog/product_list_related</block><template>catalog/product/list/related.phtml</template></action>-->
+                    <block type="review/form" name="product.review.form" as="review_form"/>
+                    <action method="addTab" translate="title" module="review">
+                        <alias>product_additional_data</alias>
+                        <title>Reviews</title>
+                        <block>review/product_view_list</block>
+                        <template>review/product/view/list_tab.phtml</template>
+                    </action>
                 </block>
 
                 <block type="catalog/product_list_upsell" name="product.info.upsell" as="upsell_products" template="catalog/product/list/upsell.phtml">
                     <action method="setColumnCount"><columns>4</columns></action>
                     <action method="setItemLimit"><type>upsell</type><limit>4</limit></action>
                 </block>
-                
+
                 <block type="catalog/product_view_additional" name="product.info.additional" as="product_additional_data" />
                 <block type="catalog/product_view_description" name="product.description" as="description" template="catalog/product/view/description.phtml">
                     <action method="addToParentGroup"><group>detailed_info</group></action>
@@ -96,9 +103,9 @@
                         <action method="addOptionRenderer"><type>file</type><block>catalog/product_view_options_type_file</block><template>catalog/product/view/options/type/file.phtml</template></action>
                         <action method="addOptionRenderer"><type>select</type><block>catalog/product_view_options_type_select</block><template>catalog/product/view/options/type/select.phtml</template></action>
                         <action method="addOptionRenderer"><type>date</type><block>catalog/product_view_options_type_date</block><template>catalog/product/view/options/type/date.phtml</template></action>
-                </block>
-                        <block type="core/html_calendar" name="html_calendar" as="html_calendar" template="page/js/calendar.phtml"/>
                     </block>
+                    <block type="core/html_calendar" name="html_calendar" as="html_calendar" template="page/js/calendar.phtml"/>
+                </block>
                 <block type="catalog/product_view" name="product.info.options.wrapper.bottom" as="product_options_wrapper_bottom" template="catalog/product/view/options/wrapper/bottom.phtml" translate="label">
                     <label>Bottom Block Options Wrapper</label>
                     <action method="insert"><block>product.tierprices</block></action>
@@ -121,11 +128,11 @@
                 </block>
                 <action method="unsetCallChild"><child>container1</child><call>ifEquals</call><if>0</if><key>alias_in_layout</key><key>options_container</key></action>
                 <action method="unsetCallChild"><child>container2</child><call>ifEquals</call><if>0</if><key>alias_in_layout</key><key>options_container</key></action>
-			</block>
-		</reference>
-				   <reference name="product.info.media">
-           <action method="setTemplate" ifconfig="cloudzoom/general/enabled"><template>themevast/cloudzoom/media.phtml</template></action>
+            </block>
         </reference>
- </quickview_index_ajax>
+        <reference name="product.info.media">
+            <action method="setTemplate" ifconfig="cloudzoom/general/enabled"><template>themevast/cloudzoom/media.phtml</template></action>
+        </reference>
+    </quickview_index_ajax>
 </layout>   
 	

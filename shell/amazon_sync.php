@@ -1,5 +1,8 @@
 <?php
 
+ini_set('display_errors', true);
+error_reporting(E_ALL);
+
 $pathData = explode('/', dirname(__FILE__));
 $tmpDir = '/tmp/' . $pathData[count($pathData) - 2];
 if (!is_dir($tmpDir)) mkdir($tmpDir);
@@ -16,7 +19,7 @@ try {
     require dirname(__FILE__) . '/../app/Mage.php';
     Mage::app('admin', 'store');
 
-    $model = new Colibo_Amazonia_Model_Sync();
+    $model = new Colibo_Amazonia_Model_Sync(false);
     $model->sync();
 
 } catch (Exception $e) {
