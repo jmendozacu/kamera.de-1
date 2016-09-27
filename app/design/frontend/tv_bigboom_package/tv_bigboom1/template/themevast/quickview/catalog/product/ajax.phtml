@@ -31,6 +31,28 @@
 
                         <p class="availability in-stock">Availability: <span>In stock</span></p>
 
+                        <ul>
+                            <li class="asin">
+                                ASIN:
+                                <strong><?php echo $this->getProduct()->getData('sku'); ?></strong>
+                            </li>
+                        </ul>
+
+                        <!--<dt>Brand:</dt>
+                    <dd><?php /*echo $this->getProduct()->getAttributeText('manufacturer'); */ ?></dd>
+
+                    <dt class="asin">Model:</dt>
+                    <dd><?php /*echo $this->getProduct()->getData('model'); */ ?></dd>
+
+                    <dt>Color:</dt>
+                    <dd><?php /*echo $this->getProduct()->getAttributeText('color'); */ ?></dd>
+
+                    <dt>EAN:</dt>
+                    <dd><?php /*echo $this->getProduct()->getData('ean'); */ ?></dd>
+
+                    <dt>Weight:</dt>
+                    <dd><?php /*echo number_format($this->getProduct()->getData('weight'), 2, ',', ''); */ ?>kg.</dd>-->
+
                         <div class="add-to-box">
 
                             <?php if ($_product->getPrice() > 0) : ?>

@@ -5,6 +5,7 @@ require_once(Mage::getBaseDir() . '/vendor/autoload.php');
 use Symfony\Component\Console\Formatter\OutputFormatter;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use ApaiIO\Configuration\GenericConfiguration;
+use Sunra\PhpSimple\HtmlDomParser;
 use ApaiIO\Operations\Lookup;
 use ApaiIO\Operations\Search;
 use GuzzleHttp\Client;
@@ -88,10 +89,16 @@ class Colibo_Amazonia_Model_Import
         $categoryId = !empty($magentoData['category_id']) ? $magentoData['category_id'] : 2;
 
         /** Get Amazon Data */
-        $amazonData = $this->getAmazonData($asin);
-        if (empty($amazonData)) {
+        $attributesGroups = $this->getAmazonData($asin);
+        if (empty($attributesGroups)) {
             $this->output->writeln('<error>Empty Amazon Data: ' . $asin . '</error>');
             return false;
+        }
+
+        /** Get ComputerUniverse Data */
+        if (!empty($attributesGroups['text']['ean'])) {
+            $computerUniverseData = $this->getComputerUniverseData($attributesGroups['text']['ean']);
+            $attributesGroups = array_merge_recursive($attributesGroups, $computerUniverseData);
         }
 
         /** @var Mage_Catalog_Model_Product $product */
@@ -108,16 +115,16 @@ class Colibo_Amazonia_Model_Import
             ->setTypeId(Mage_Catalog_Model_Product_Type::DEFAULT_TYPE)
             ->setCategoryIds(!empty($categoryId) ? [$categoryId] : []);
 
-        /** Set Amazon Attributes */
-        foreach ($amazonData as $type => $attributes) {
-            foreach ($attributes as $code => $attribute) {
+        /** Set Attributes */
+        foreach ($attributesGroups as $group => $attributes) {
+            foreach ($attributes as $code => $value) {
 
-                if ($type == 'select') {
-                    $attribute = $this->getAttributeValueId($code, $attribute);
+                if ($group == 'select') {
+                    $value = $this->getAttributeValueId($code, $value);
                 }
 
-                if ($attribute !== false) {
-                    $product->setData($code, $attribute);
+                if ($value !== false) {
+                    $product->setData($code, $value);
                 }
             }
         }
@@ -131,7 +138,7 @@ class Colibo_Amazonia_Model_Import
         ]);
 
         /** Collect image Gallery */
-        $amazonAttributes = json_decode($amazonData['text']['amazon_attributes'], true);
+        $amazonAttributes = json_decode($attributesGroups['text']['amazon_attributes'], true);
         $imageSet = !empty($amazonAttributes['ImageSets']['ImageSet']) ? $amazonAttributes['ImageSets']['ImageSet'] : [];
         $this->setImages($product, Mage::helper('amazonia')->xml2array($imageSet));
 
@@ -141,6 +148,27 @@ class Colibo_Amazonia_Model_Import
         $this->output->writeln('<info>#id: ' . $product->getId() . '. Product created: ' . $product->getSku() . '</info>');
         return $result;
     }
+
+
+    /**
+     * Get ComputerUniverse Product.
+     * -----------------------------
+     * @param string $ean
+     * @return mixed
+     */
+    public function getComputerUniverseData($ean)
+    {
+        try {
+
+            $grabber = new Colibo_Amazonia_Model_Grab();
+            return $grabber->grab($ean);
+
+        } catch (\Exception $e) {
+            $this->output->writeln('<error>Grabber Error: ' . $ean . ' - ' . $e->getMessage() . '</error>');
+            return [];
+        }
+    }
+
 
     /**
      * Get Amazon Product.

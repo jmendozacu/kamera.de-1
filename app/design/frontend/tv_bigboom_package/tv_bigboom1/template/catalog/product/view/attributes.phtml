@@ -40,20 +40,35 @@ $_product = $this->getProduct()
             <?php foreach ($_additional as $_data): ?>
 
 
-                <?php if ($_data['code'] == 'amazon_attributes') : ?>
+                <?php if ($_data['code'] == 'computeruniverse_attributes') : ?>
+                    <table class="coumputeruniverse-table table table-hover table-stripped">
+                        <tbody>
 
-                    <?php $amazonAttributes = json_decode($_helper->productAttribute($_product, $_data['value'], $_data['code']), true); ?>
-                    <?php foreach ($amazonAttributes as $code => $attribute): ?>
-                        <dt><?php echo $code ?></dt>
-                        <?php
-                        if (!is_array($attribute) && preg_match('/http/i', $attribute)) {
-                            $attribute = '<a href="' . $attribute . '" target="_blank">Amazon Link</a>';
-                        }
-                        ?>
-                        <dd><?php echo !is_array($attribute) ? $attribute : Mage::helper('amazonia')->generateArrayTree($attribute); ?></dd>
-                    <?php endforeach; ?>
+                        <?php $amazonAttributes = json_decode($_helper->productAttribute($_product, $_data['value'], $_data['code']), true); ?>
+                        <?php foreach ($amazonAttributes as $code => $attribute): ?>
+                            <?php if (is_array($attribute)): ?>
+                                <tr>
+                                    <td class="sub-header" colspan="2"><?php echo $code; ?></td>
+                                </tr>
+                                <?php $group = $attribute; ?>
+                                <?php foreach ($group as $subCode => $subAttribute): ?>
+                                    <tr>
+                                        <td class="attr-label"><?php echo $subCode; ?></td>
+                                        <td class="attr-value"><?php echo nl2br($subAttribute); ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td class="attr-label"><?php echo $code; ?></td>
+                                    <td class="attr-value"><?php echo nl2br($attribute); ?></td>
+                                </tr>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
 
+                        </tbody>
+                    </table>
                 <?php endif; ?>
+
 
             <?php endforeach; ?>
         </dl>
