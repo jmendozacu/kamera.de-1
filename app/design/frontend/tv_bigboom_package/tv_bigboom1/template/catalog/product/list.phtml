@@ -70,9 +70,9 @@ $helpLabels = $this->helper('themevast/labels');
                                     <a class="button default" href="<?php echo $_product->getProductUrl() ?>">
                                         <?php echo $this->__('View Details'); ?>
                                     </a>
-                                    <?php if (!empty($amazonAttributes['Offers']['MoreOffersUrl'])): ?>
+                                    <?php if (!empty($amazonAttributes['DetailPageURL'])): ?>
                                         <a class="button add-to-cart" target="_blank"
-                                           href="<?php echo $amazonAttributes['Offers']['MoreOffersUrl']; ?>">
+                                           href="<?php echo $amazonAttributes['DetailPageURL']; ?>">
                                             <?php echo $this->__('Zum Artikel'); ?>
                                         </a>
                                     <?php endif; ?>
@@ -147,9 +147,9 @@ $helpLabels = $this->helper('themevast/labels');
                         <a class="button default" href="<?php echo $_product->getProductUrl() ?>">
                             <?php echo $this->__('Details'); ?>
                         </a>
-                        <?php if (!empty($amazonAttributes['Offers']['MoreOffersUrl'])): ?>
+                        <?php if (!empty($amazonAttributes['DetailPageURL'])): ?>
                             <a class="button add-to-cart" target="_blank"
-                               href="<?php echo $amazonAttributes['Offers']['MoreOffersUrl']; ?>">
+                               href="<?php echo $amazonAttributes['DetailPageURL']; ?>">
                                 <?php echo $this->__('Zum Artikel'); ?>
                             </a>
                         <?php endif; ?>
