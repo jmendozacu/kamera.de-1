@@ -16,6 +16,7 @@ class Themevast_Blog_Block_Menu_Sidebar extends Themevast_Blog_Block_Abstract
             $collection = clone self::$_collection;
             $collection->setPageSize($size);
 
+
             foreach ($collection as $item) {
                 $item->setAddress($this->getBlogUrl($item->getIdentifier()));
             }
@@ -23,6 +24,23 @@ class Themevast_Blog_Block_Menu_Sidebar extends Themevast_Blog_Block_Abstract
         }
         return false;
     }
+
+    public function getSidebarComments()
+    {
+        $configValue = self::$_helper->getCommentCount();
+
+        $comments = Mage::getModel('blog/comment')->getCollection()->setPageSize($configValue)->setOrder('created_time');
+
+        foreach ($comments as $comment){
+
+        $picture = Mage::getModel('blog/post')->load($comment->getPostId());
+        $comment->setImage($picture->getImage());
+
+    }
+
+    return $comments;
+}
+
 
     public function getCategories()
     {

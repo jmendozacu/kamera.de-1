@@ -19,10 +19,7 @@
             <div class="menu-recent">
                 <h5><?php echo Mage::helper('blog')->__('Recent Posts'); ?></h5>
                 <ul>
-                    <?php $i=0;?>
                     <?php foreach ($posts as $post): ?>
-                        <?php $i++;?>
-                        <?php if($i>4) break;?>
                         <li><a href="<?php echo $post->getAddress(); ?>"><?php echo $post->getTitle(); ?></a></li>
                     <?php endforeach; ?>
                 </ul>
@@ -33,29 +30,26 @@
     </div>
 </div>
 
+<?php $comments = $this->getSidebarComments(); ?>
 
-<?php $ff = Mage::getModel('blog/comment')->getCollection()->setPageSize(3)->setOrder('created_time'); ?>
-<?php foreach ($ff as $f) : ?>
-
-    <!--    $p= Mage::getModel('blog/post')->load($f->getPostId(), 'image');-->
-    <?php $p = Mage::getModel('blog/post')->getCollection()
-        ->addFieldToSelect('image')
-        ->addFieldToSelect('identifier')
-        ->addPostFilter($f->getPostId())->getFirstItem(); ?>
-
+<?php foreach ($comments as $comment) : ?>
 
     <div class="sidebar_comments row">
         <div class="col-lg-4 sidebar">
 
-            <a href="<?php print_r(Mage::getUrl('blog') . $p->getIdentifier()); ?> "><img
-                    src="<?php print_r(Mage::getBaseUrl('media') . $p->getImage()); ?>"></a>
+            <a href="<?php echo(Mage::getUrl('blog') . $comment->getIdentifier()); ?> "><img
+                    src="<?php echo(Mage::getBaseUrl('media') . $comment->getImage()); ?>"></a>
 
         </div>
 
         <div class="col-lg-8 sidebar">
-            <p class="blue_name"><?php echo $f->getUser() ?></p>
-            <h6 class=""><?php print_r($f->getCreatedTime()); ?></h6>
-            <p><?php echo $f->getComment(); ?></p>
+            <p class="blue_name"><?php echo $comment->getUser() ?></p>
+
+            <?php $date = $comment->getCreatedTime();
+            $dateToShow = date('j F Y',strtotime($date)); ?>
+
+            <h6 class=""><?php echo $dateToShow; ?></h6>
+            <p><?php echo $comment->getComment(); ?></p>
         </div>
 
     </div>

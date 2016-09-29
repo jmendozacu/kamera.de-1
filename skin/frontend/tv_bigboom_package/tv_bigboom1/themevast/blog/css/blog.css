@@ -119,7 +119,11 @@
     text-overflow: ellipsis
 }
 
-.postContent a.aw-blog-read-more { display: none; margin-left: 10px;}
+.postContent a.aw-blog-read-more {
+    display: none;
+    margin-left: 10px;
+}
+
 .postDetails {
     padding-top: 10px;
     margin-bottom: 0px;

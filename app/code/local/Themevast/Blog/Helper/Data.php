@@ -22,6 +22,7 @@ class Themevast_Blog_Helper_Data extends Mage_Core_Helper_Abstract
     /* menus and links */
     const XML_PATH_LAYOUT = 'blog/blog/layout';
     const XML_RECENT_SIZE = 'blog/menu/recent';
+    const XML_COMMENT_COUNT = 'blog/comments/sidebar_count';
     /* metadata */
     const XML_PATH_TITLE = 'blog/blog/title';
     const XML_PATH_KEYWORDS = 'blog/blog/keywords';
@@ -157,6 +158,18 @@ class Themevast_Blog_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         return $count;
+    }
+
+    public function getCommentCount($store = null){
+
+        $count = trim($this->conf(self::XML_COMMENT_COUNT, $store));
+
+        if (!$count) {
+            return self::DEFAULT_PAGE_COUNT;
+        }
+
+        return $count;
+
     }
 
     public function getUserName()
