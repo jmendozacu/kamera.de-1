@@ -1,9 +1,8 @@
-<div>
+<div class="results-body">
 
     <table class="table table-hover table-striped table-bordered">
         <thead>
         <tr>
-            <th class="text-center" style="width: 20px">#</th>
             <th class="text-center" style="width: 100px">ASIN</th>
             <th class="text-center" style="width: 100px">Image</th>
             <th>Product Title</th>
@@ -18,173 +17,7 @@
         </tr>
         </thead>
         <tbody>
-
-        <?php $i = 0; ?>
-        <?php foreach ($this->getResults() as $ASIN => $entry): ?>
-
-            <?php if (!empty($entry['message']) || !empty($entry['error'])): ?>
-                <tr>
-                    <td class="text-center">
-                        <?php echo ++$i; ?>.
-                    </td>
-                    <td class="text-center">
-                        <?php echo $ASIN; ?><br>
-                        <span class="label label-danger">fail</span>
-                    </td>
-                    <td colspan="9">
-                        <?php $class = !empty($entry['error']) ? 'danger' : 'info'; ?>
-                        <?php $content = !empty($entry['error']) ? $entry['error'] : $entry['message']; ?>
-                        <pre class="alert alert-<?php echo $class ?>"><?php echo trim(strip_tags($content)); ?></pre>
-                    </td>
-                    <td class="text-center">
-                        <a class="remove">
-                            <i class="glyphicon glyphicon-remove"></i> remove
-                        </a>
-                    </td>
-                </tr>
-            <?php else: ?>
-
-                <?php $attributes = !empty($entry['data']['ItemAttributes']) ? $entry['data']['ItemAttributes'] : []; ?>
-                <?php $data = !empty($entry['data']) ? $entry['data'] : []; ?>
-
-                <tr>
-                    <td class="text-center">
-                        <?php echo ++$i; ?>.
-                    </td>
-                    <td class="text-center">
-                        <?php echo $ASIN; ?><br>
-                        <span class="label label-success">success</span>
-                    </td>
-                    <td class="text-center">
-                        <?php if (!empty($entry['data']['SmallImage']['URL'])): ?>
-                            <a href="<?php echo $data['DetailPageURL']; ?>" target="_blank">
-                                <img class="img-thumbnail img-rounded" width="75" height="75"
-                                     src="<?php echo $data['SmallImage']['URL']; ?>">
-                            </a>
-                        <?php endif; ?>
-                    </td>
-                    <td>
-                        <strong>
-                            <?php if (!empty($attributes['Title'])): ?>
-                                <a href="<?php echo $data['DetailPageURL']; ?>" target="_blank">
-                                    <?php echo $attributes['Title']; ?>
-                                </a>
-                            <?php endif; ?>
-                        </strong>
-                        <div class="description">
-                            <?php if (!empty($data['EditorialReviews']['EditorialReview']['Content'])): ?>
-                                <?php $description = $data['EditorialReviews']['EditorialReview']['Content']; ?>
-                                <?php echo mb_substr(strip_tags($description), 0, 300, 'UTF-8'); ?>
-                                <?php $moreSymbols = mb_strlen($description, 'UTF-8') - 300; ?>
-                                <?php echo $moreSymbols > 0 ? '... <strong>[ + ' . $moreSymbols . ' symbols ]</strong>' : ''; ?>
-                            <?php endif; ?>
-                        </div>
-                    </td>
-                    <td class="text-center">
-                        <?php if (!empty($attributes['Brand'])): ?>
-                            <?php echo $attributes['Brand']; ?>
-                        <?php endif; ?>
-                    </td>
-                    <td class="text-center">
-                        <?php if (!empty($attributes['Model'])): ?>
-                            <?php echo $attributes['Model']; ?>
-                        <?php endif; ?>
-                    </td>
-                    <td class="text-center">
-                        <?php if (!empty($attributes['Color'])): ?>
-                            <?php echo $attributes['Color']; ?>
-                        <?php endif; ?>
-                    </td>
-                    <td class="text-center">
-                        <?php if (!empty($attributes['EAN'])): ?>
-                            <?php echo $attributes['EAN']; ?>
-                        <?php endif; ?>
-                    </td>
-                    <td>
-
-                        <?php if (!empty($data['OfferSummary']['LowestNewPrice']['Amount'])): ?>
-                            <span class="price-box">
-                            <span class="price-label new">
-                                New Price:
-                            </span>
-                            <span class="price">
-                                 <?php $newPrice = $data['OfferSummary']['LowestNewPrice']['Amount']; ?>
-                                 <?php $newPrice = number_format(($newPrice / 100), 2, '.', ''); ?>
-                                 <?php echo Mage::helper('core')->currency($newPrice, true, false); ?>
-                            </span>
-                        </span>
-                        <?php endif; ?>
-
-                        <?php if (!empty($data['OfferSummary']['LowestUsedPrice']['Amount'])): ?>
-                            <span class="price-box">
-                            <span class="price-label used">
-                                Used Price:
-                            </span>
-                            <span class="price">
-                                 <?php $newPrice = $data['OfferSummary']['LowestUsedPrice']['Amount']; ?>
-                                 <?php $newPrice = number_format(($newPrice / 100), 2, '.', ''); ?>
-                                 <?php echo Mage::helper('core')->currency($newPrice, true, false); ?>
-                            </span>
-                        </span>
-                        <?php endif; ?>
-
-                    </td>
-                    <td class="text-center">
-                        <form action="<?php echo $this->getUrl('amazon/adminhtml_magento/type/') ?>" method="post"
-                              class="type-form">
-
-                            <?php $amazonProductType = !empty($attributes['ProductTypeName']) ? $attributes['ProductTypeName'] : ''; ?>
-                            <input type="hidden" name="amazon_product_type" value="<?php echo $amazonProductType ?>">
-
-                            <select name="category_id" class="form-control">
-                                <option value=""> &rarr; Which category?</option>
-                                <?php /** @var Mage_Catalog_Model_Category $category */ ?>
-                                <?php foreach ($this->getCategories() as $category) : ?>
-                                    <option value="<?php echo $category->getId(); ?>">
-                                        <?php for ($i = 2, $offset = ''; $i < $category->getLevel(); $i++, $offset .= '..') : ?>
-                                        <?php endfor; ?>
-                                        <?php echo $offset . ' ' . $category->getName(); ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-
-                            <select name="attribute_set_id" class="form-control">
-                                <option value=""> &rarr; and AttributeSet?</option>
-                                <?php /** @var Mage_Catalog_Model_Category $category */ ?>
-                                <?php foreach ($this->getAttributeSets() as $attributeSet) : ?>
-                                    <option value="<?php echo $attributeSet->getId(); ?>">
-                                        <?php echo $attributeSet->getAttributeSetName(); ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-
-                            <button class="accept-type btn btn-warning btn-xs pull-right">
-                                Save Relation
-                            </button>
-
-                            <input name="form_key" type="hidden"
-                                   value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>"/>
-                            <input name="isAjax" type="hidden" value="true"/>
-                            <input name="asin" type="hidden" value="<?php echo $ASIN; ?>"/>
-                        </form>
-                    </td>
-                    <td class="text-center product-status pending">
-                        <i class="glyphicon"></i>
-                    </td>
-                    <td class="text-center">
-                        <a class="remove">
-                            <i class="glyphicon glyphicon-remove"></i>
-                            remove entry
-                        </a>
-                        <a class="add2jobs" href="">
-                            <i class="glyphicon glyphicon-plus"></i>
-                            add to queue
-                        </a>
-                    </td>
-                </tr>
-            <?php endif; ?>
-
-        <?php endforeach; ?>
+            <?php echo $this->getChildHtml('amazon_products_list'); ?>
         </tbody>
     </table>
 
@@ -199,3 +32,5 @@
     </form>
 
 </div>
+
+<?php echo $this->getChildHtml('amazon_pagination'); ?>

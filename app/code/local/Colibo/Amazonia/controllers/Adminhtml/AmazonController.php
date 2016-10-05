@@ -15,6 +15,12 @@ use ApaiIO\ApaiIO;
 class Colibo_Amazonia_Adminhtml_AmazonController extends Mage_Adminhtml_Controller_Action
 {
 
+    const AWS_LAST_PAGE_PATTERN = '//*[@id="pagn"]//*[@class="pagnDisabled"]/text()';
+    const AWS_CURRENT_PAGE_PATTERN = '//*[@id="pagn"]//*[@class="pagnCur"]/text()';
+    const AWS_LAST_PAGE_PATTERN_RESERVE = '//*[@id="pagn"]//*[@class="pagnLink"][last()]//a/text()';
+    const AWS_TITLE = '//title/text()';
+
+
     /**
      * Search Products by Query.
      * -------------------------
@@ -26,6 +32,9 @@ class Colibo_Amazonia_Adminhtml_AmazonController extends Mage_Adminhtml_Controll
             $data = [];
             $this->loadLayout();
 
+            /** Get Request Mode*/
+            $mode = trim($this->getRequest()->getParam('mode'));
+
             /** Get Request Query */
             $query = trim($this->getRequest()->getParam('query'));
             if (empty($query)) {
@@ -33,38 +42,72 @@ class Colibo_Amazonia_Adminhtml_AmazonController extends Mage_Adminhtml_Controll
             }
 
             /** Detect Search Mode */
-            $asins = preg_match('/https:\/\/www.amazon.de/i', $query) ? $this->grabAction($query) : explode(' ', $query);
+            if (preg_match('/https:\/\/www.amazon.de/i', $query)) {
+
+                if (!empty($mode) && $mode == 'next') {
+                    parse_str($query, $amazonUrlChunks);
+                    if (!empty($amazonUrlChunks['page'])) {
+                        $page = $amazonUrlChunks['page'];
+                        $query = str_replace('page=' . $page, 'page=' . ++$page, $query);
+                    }
+                }
+
+                $grabData = $this->grabAction($query);
+                $asins = $grabData['asins'];
+            } else {
+                $asins = explode(' ', $query);
+            }
+
 
             /** Amazon API limit: 10 ASIN per Request */
             foreach ($asins as $asin) {
                 $data = array_merge($data, $this->importAction($asin));
             }
 
+            /** Get Magento Lists */
+            $categories = Mage::helper('amazonia')->getCategories();
+            $attributeSets = Mage::helper('amazonia')->getAttributeSets();
+
+            /** Set Product List */
+            $listBlock = Mage::app()->getLayout()->getBlock('amazon_products_list');
+            $listBlock
+                ->setResults($data)
+                ->setAttributeSets($attributeSets)
+                ->setCategories($categories);
+
+            /** Set Amazon Pagination */
+            $paginationBlock = Mage::app()->getLayout()->getBlock('amazon_pagination');
+            $paginationBlock
+                ->setPagination(!empty($grabData['pages']) ? $grabData['pages'] : [])
+                ->setPageTitle(!empty($grabData['page_title']) ? $grabData['page_title'] : 'Search results');
+
             /** Render HTML */
-            $block = Mage::app()->getLayout()->getBlock('amazon_products_search');
-            if ($block) {
+            if (!empty($mode) && $mode == 'next') {
 
-                $block->setResults($data);
+                $html = [
+                    'list' => $listBlock->toHtml(),
+                    'pagination' => $paginationBlock->toHtml()
+                ];
 
-                /** Set Categories List */
-                $categories = Mage::helper('amazonia')->getCategories();
-                $block->setCategories($categories);
-
-                /** Set AttributeSet List */
-                $attributeSets = Mage::helper('amazonia')->getAttributeSets();
-                $block->setAttributeSets($attributeSets);
-
-                $html = $block->toHtml();
 
             } else {
-                $html = '';
+
+                $searchBlock = Mage::app()->getLayout()->getBlock('amazon_products_search');
+                $searchBlock
+                    ->setAttributeSets($attributeSets)
+                    ->setCategories($categories);
+
+                $html = [
+                    'search' => $searchBlock->toHtml()
+                ];
             }
 
             $response = [
                 'status' => true,
                 'data' => $data,
                 'html' => $html,
-                'types' => Mage::helper('amazonia')->getProductTypes()
+                'query' => $query,
+                'types' => Mage::helper('amazonia')->getProductTypes(),
             ];
 
         } catch (\Exception $e) {
@@ -76,7 +119,6 @@ class Colibo_Amazonia_Adminhtml_AmazonController extends Mage_Adminhtml_Controll
                     'message' => strip_tags($e->getMessage()),
                     'trace' => $e->getFile() . ":" . $e->getLine()
                 ]
-
             ];
         }
 
@@ -92,7 +134,8 @@ class Colibo_Amazonia_Adminhtml_AmazonController extends Mage_Adminhtml_Controll
      * @return array
      * @throws Exception
      */
-    protected function importAction($asin)
+    protected
+    function importAction($asin)
     {
         /** Check Exists Product */
         /** @noinspection PhpUndefinedMethodInspection */
@@ -183,7 +226,8 @@ class Colibo_Amazonia_Adminhtml_AmazonController extends Mage_Adminhtml_Controll
      * @return array
      * @throws Exception
      */
-    protected function grabAction($url)
+    protected
+    function grabAction($url)
     {
         $asins = [];
 
@@ -225,8 +269,33 @@ class Colibo_Amazonia_Adminhtml_AmazonController extends Mage_Adminhtml_Controll
             }
         }
 
+        /** Pagination: current page */
+        $currentPageNode = $xpath->query(self::AWS_CURRENT_PAGE_PATTERN);
+        $currentPage = count($currentPageNode) ? $currentPageNode->item(0)->nodeValue : false;
+
+        /** Pagination: last page */
+        $lastPageNode = $xpath->query(self::AWS_LAST_PAGE_PATTERN);
+        $lastPage = count($lastPageNode) ? $lastPageNode->item(0)->nodeValue : false;
+
+        if (!$lastPage) {
+            $lastPageNode = $xpath->query(self::AWS_LAST_PAGE_PATTERN_RESERVE);
+            $lastPage = count($lastPageNode) ? $lastPageNode->item(0)->nodeValue : false;
+        }
+
+        /** Title */
+        $titleNode = $xpath->query(self::AWS_TITLE);
+        $pageTitle = count($titleNode) ? $titleNode->item(0)->nodeValue : false;
+        $pageTitle = str_replace('Amazon.de:', '', $pageTitle);
+
         /** Process Found Products */
-        return array_values(array_unique($asins));
+        return [
+            'asins' => array_values(array_unique($asins)),
+            'page_title' => trim($pageTitle),
+            'pages' => [
+                'current' => $currentPage,
+                'last' => $lastPage < $currentPage ? $currentPage : $lastPage
+            ]
+        ];
     }
 
 }

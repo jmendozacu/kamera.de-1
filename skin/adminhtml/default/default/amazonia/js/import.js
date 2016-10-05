@@ -250,7 +250,8 @@ jQuery(document).ready(function () {
 
             if ($response.status) {
 
-                jQuery('#results').append($response.html);
+                $form.find('[name="query"]').val($response.query);
+                jQuery('#results').append($response.html.search);
                 updateProductTypes($response.types);
 
                 jQuery('.results-block').slideDown(function () {
@@ -258,6 +259,47 @@ jQuery(document).ready(function () {
                         scrollTop: jQuery(".results-block").offset().top - 10
                     }, 500);
                 });
+
+            } else {
+                showMessage($response.notify.title, $response.notify.message, $response.notify.trace, "error");
+            }
+
+        }).fail(function (jqXHR) {
+            var $trace = "url: " + $form.attr('action') + "<br>" + "response: " + jqXHR.statusText + " [" + jqXHR.status + "]";
+            showMessage("XHR Error", "", $trace, "error");
+        });
+
+        return false;
+    });
+
+
+    /**
+     * Search Products: Next.
+     * ----------------------
+     */
+    jQuery(document).on('click', '#load-next', function () {
+
+        var $form = jQuery('form.search-form');
+
+        jQuery.ajax({
+            url: $form.attr('action'),
+            type: $form.attr('method'),
+            data: $form.serialize() + '&mode=next',
+            dataType: 'json',
+            beforeSend: function () {
+            }
+        }).done(function ($response) {
+
+            if ($response.status) {
+                $form.find('[name="query"]').val($response.query);
+                jQuery('#results table tbody').append($response.html.list);
+                jQuery('#results #pagination').replaceWith($response.html.pagination);
+                updateProductTypes($response.types);
+                showMessage('Notification', 'Next page was loaded. Scroll page down and check new products', false, "info");
+
+                jQuery('html, body').animate({
+                    scrollTop: jQuery("tr.first-row").last().offset().top - 10
+                }, 500);
 
             } else {
                 showMessage($response.notify.title, $response.notify.message, $response.notify.trace, "error");

@@ -333,15 +333,20 @@ select[multiple], select[size] {
     width: 100%;
 }
 
+.results-block .table > tbody > tr.first-row > td {
+    padding-top: 30px;
+    border-top: 5px solid #666;
+}
+
 .results-block .panel-heading.fixed {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
     z-index: 9999;
-    padding: 15px 20px;
-    background: #fbfab2;
-    height: 50px;
+    padding: 20px 20px;
+    background: #f1f8cb;
+    height: 60px;
 }
 
 .results-block .panel-heading {
@@ -374,6 +379,10 @@ select[multiple], select[size] {
     display: inline-block;
     margin: 0 0 5px;
     text-decoration: none;
+}
+
+#results table tr:last-child td {
+    padding-bottom: 50px;
 }
 
 #results pre {
@@ -439,6 +448,7 @@ select[multiple], select[size] {
 
 #results .table {
     border-top: 0;
+    margin-bottom: 0;
 }
 
 .panel-heading.bordered {
@@ -446,11 +456,14 @@ select[multiple], select[size] {
     padding: 20px;
     font-size: 12px;
     box-shadow: 0 0 13px #aaa;
+    z-index: 999;
+    position: relative;
 }
 
 .panel.no-border {
     border: 0;
     overflow: hidden;
+    box-shadow: none;
 }
 
 .results-block {
@@ -532,4 +545,140 @@ td.product-status.ready {
     border: 1px solid #000;
     background: #d4d4d4;
     cursor: pointer;
+}
+
+#results #pagination {
+    z-index: 9;
+    position: relative;
+}
+
+#results .results-body {
+    box-shadow: 0 0 13px #aaa;
+    z-index: 99;
+    position: relative;
+}
+
+#results #pagination .current-info {
+    width: 70%;
+    padding: 0;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-top: none;
+    background: #f1f1f1;
+    border-radius: 0 0 15px 15px;
+    height: 100px;
+    line-height: 40px;
+    position: relative;
+}
+
+#results #pagination .page-title {
+    width: 65%;
+    vertical-align: middle;
+    line-height: 70px;
+    border-right: 1px solid #ddd;
+    text-align: center;
+    font-size: 23px;
+    color: #e88800;
+    text-shadow: 0 2px #fff;
+    padding: 0 20px 0 50px;
+    margin: 15px 0;
+    overflow: hidden;
+    height: 70px;
+    text-overflow: ellipsis;
+}
+
+#results #pagination .counters {
+    width: 35%;
+    padding: 10px 20px;
+}
+
+#results #pagination .current-info .current {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+    color: #000;
+}
+
+#results #pagination .current-info .current span {
+    border: 1px solid #39af39;
+    color: #39af39;
+    background: rgba(230, 245, 230, 0.48);
+    font-weight: bold;
+}
+
+#results #pagination .current-info {
+    color: #888;
+}
+
+#results #pagination .current-info span {
+    width: 34px;
+    height: 34px;
+    margin: 5px 0 0 0;
+    border-radius: 999px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 34px;
+    display: inline-block;
+    font-size: 16px;
+}
+
+#results #pagination .next-info {
+    position: relative;
+    width: 30%;
+    padding: 0;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-top: none;
+    background: rgba(238, 238, 238, 0.22);
+    border-radius: 0 0 15px 0;
+    border-left: none;
+    line-height: 75px;
+    box-shadow: 0 0 15px #ddd inset;
+    overflow: hidden;
+}
+
+#results #load-next {
+    width: 100%;
+    height: 77px;
+    border: 0;
+    background: #f0ad4e;
+    color: #fff;
+    cursor: pointer;
+    padding: 0 30px;
+    margin: 0;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 75px;
+    text-transform: uppercase;
+    box-shadow: 0 0 10px #c77215 inset;
+    text-shadow: 0 2px #c37c1e;
+    transition: .3s all ease;
+}
+
+#results #load-next:hover {
+    background: #f09a34;
+}
+
+#results #load-next i:before {
+    transition: .3s all ease;
+}
+
+#results #load-next:hover i:before {
+    margin-left: 10px;
+}
+
+#results #load-next span {
+    width: 50px;
+    height: 50px;
+    margin: 13px 0 0 0;
+    border-radius: 999px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 50px;
+    display: inline-block;
+    font-size: 36px;
+    background: #fff;
+    float: right;
+    color: #d27e07;
+    font-weight: normal;
+    text-shadow: none;
 }

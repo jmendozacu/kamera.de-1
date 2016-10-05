@@ -1,0 +1,26 @@
+<?php $pagination = $this->getPagination(); ?>
+<?php if (!empty($pagination)): ?>
+    <div id="pagination" class="clearfix">
+        <div class="current-info pull-left">
+            <div class="page-title pull-left">
+                <?php echo $this->getPageTitle(); ?>
+            </div>
+            <div class="counters pull-right">
+                <div class="current clearfix">
+                    Current page: <span class="pull-right"><?php echo $pagination['current']; ?></span>
+                </div>
+                <div class="clearfix">
+                    Total pages: <span class="pull-right"><?php echo $pagination['last']; ?></span>
+                </div>
+            </div>
+        </div>
+        <?php if ($pagination['current'] < $pagination['last']) : ?>
+            <div class="next-info pull-right">
+                <button id="load-next">
+                    Load next page ...
+                    <span><i class="fa fa-angle-right"></i></span>
+                </button>
+            </div>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
