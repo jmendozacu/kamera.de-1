@@ -6,6 +6,7 @@ use ApaiIO\Configuration\GenericConfiguration;
 use ApaiIO\Operations\Lookup;
 use ApaiIO\Operations\Search;
 use GuzzleHttp\Client;
+use Campo\UserAgent;
 use ApaiIO\ApaiIO;
 
 
@@ -89,7 +90,6 @@ class Colibo_Amazonia_Adminhtml_AmazonController extends Mage_Adminhtml_Controll
                     'pagination' => $paginationBlock->toHtml()
                 ];
 
-
             } else {
 
                 $searchBlock = Mage::app()->getLayout()->getBlock('amazon_products_search');
@@ -134,8 +134,7 @@ class Colibo_Amazonia_Adminhtml_AmazonController extends Mage_Adminhtml_Controll
      * @return array
      * @throws Exception
      */
-    protected
-    function importAction($asin)
+    protected function importAction($asin)
     {
         /** Check Exists Product */
         /** @noinspection PhpUndefinedMethodInspection */
@@ -226,8 +225,7 @@ class Colibo_Amazonia_Adminhtml_AmazonController extends Mage_Adminhtml_Controll
      * @return array
      * @throws Exception
      */
-    protected
-    function grabAction($url)
+    protected function grabAction($url)
     {
         $asins = [];
 
@@ -235,8 +233,16 @@ class Colibo_Amazonia_Adminhtml_AmazonController extends Mage_Adminhtml_Controll
         libxml_use_internal_errors(true);
 
         /** Get Page Content */
-        $client = new Client();
-        $response = $client->request('GET', $url);
+        $client = new Client([
+            'timeout' => 10.0,
+            'cookies' => true
+        ]);
+
+        $response = $client->request('GET', $url, [
+            'headers' => [
+                'User-Agent' => UserAgent::random()
+            ]
+        ]);
         $plainHtml = $response->getBody()->getContents();
 
         /** Get Page Links */
