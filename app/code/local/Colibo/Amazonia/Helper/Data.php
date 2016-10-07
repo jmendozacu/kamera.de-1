@@ -6,6 +6,70 @@
 class Colibo_Amazonia_Helper_Data extends Mage_Core_Helper_Abstract
 {
 
+    private $searchIndexes = [
+
+        'Featured' => [
+            'Photo' => 'Kamera & Foto',
+            'PCHardware' => 'Computer & Zubehör',
+            'Software' => 'Software',
+        ],
+
+        'Other' => [
+            'UnboxVideo' => 'Amazon Instant Video',
+            'Pantry' => 'Amazon Pantry',
+            'MobileApps' => 'Apps & Spiele',
+            'Automotive' => 'Auto & Motorrad',
+            'Baby' => 'Baby',
+            'Tools' => 'Baumarkt',
+            'Beauty' => 'Beauty',
+            'Apparel' => 'Bekleidung',
+            'Lighting' => 'Beleuchtung',
+            'Books' => 'Bücher',
+            'OfficeProducts' => 'Bürobedarf & Schreibwaren',
+            'PCHardware' => 'Computer & Zubehör',
+            'DVD' => 'DVD & Blu-ray',
+            'HealthPersonalCare' => 'Drogerie & Körperpflege',
+            'Appliances' => 'Elektro-Großgeräte',
+            'Electronics' => 'Elektronik & Foto',
+            'ForeignBooks' => 'Fremdsprachige Bücher',
+            'VideoGames' => 'Games',
+            'HomeGarden' => 'Garten',
+            'GiftCards' => 'Geschenkgutscheine',
+            'PetSupplies' => 'Haustier',
+            'Photo' => 'Kamera & Foto',
+            'KindleStore' => 'Kindle-Shop',
+            'Classical' => 'Klassik',
+            'Luggage' => 'Koffer, Rucksäcke & Taschen',
+            'Kitchen' => 'Küche & Haushalt',
+            'Grocery' => 'Lebensmittel & Getränke',
+            'Music' => 'Musik-CDs & Vinyl',
+            'MP3Downloads' => 'Musik-Downloads',
+            'MusicalInstruments' => 'Musikinstrumente & DJ-Equipment',
+            'Jewelry' => 'Schmuck',
+            'Shoes' => 'Schuhe & Handtaschen',
+            'Software' => 'Software',
+            'Toys' => 'Spielzeug',
+            'SportingGoods' => 'Sport & Freizeit',
+            'Industrial' => 'Technik & Wissenschaft',
+            'Watches' => 'Uhren',
+            'Magazines' => 'Zeitschriften',
+            'Blended' => 'Blended'
+        ]
+    ];
+
+
+    /**
+     * Get Amazon Search Indexes.
+     * --------------------------
+     *
+     * @return array
+     */
+    public function getSearchIndexes()
+    {
+        return $this->searchIndexes;
+    }
+
+
     /**
      * Generate HTML Tree from Array.
      * -----------------------------

@@ -2,10 +2,9 @@
 
 require_once(Mage::getBaseDir() . '/vendor/autoload.php');
 
-use ApaiIO\ApaiIO;
 use ApaiIO\Configuration\GenericConfiguration;
-use ApaiIO\Operations\Lookup;
 use ApaiIO\Operations\Search;
+use ApaiIO\ApaiIO;
 
 
 /**
@@ -31,6 +30,10 @@ class Colibo_Amazonia_Adminhtml_MagentoController extends Mage_Adminhtml_Control
         /** Set Data */
         $block = Mage::app()->getLayout()->getBlock('amazon_products_import');
         if ($block) {
+
+            /** Set Search Indexes */
+            $searchIndexes = Mage::helper('amazonia')->getSearchIndexes();
+            $block->setSearchIndexes($searchIndexes);
 
             /** Set Categories List */
             $categories = Mage::helper('amazonia')->getCategories();

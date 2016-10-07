@@ -230,6 +230,41 @@ function saveMagentoJobs($rows) {
 jQuery(document).ready(function () {
 
     /**
+     * Category Select Plugin.
+     * -----------------------
+     */
+    jQuery('.selectpicker').selectpicker({
+        style: 'btn-default',
+        size: 10,
+        liveSearch: true,
+        width: '70%'
+    });
+
+
+    /**
+     * Price Ranger.
+     * -------------
+     */
+    jQuery("#price-selector").ionRangeSlider({
+        type: "double",
+        grid: true,
+        grid_num: 50,
+        min: 1,
+        max: 75000,
+        from: 50,
+        to: 20000,
+        prefix: "€ "
+    });
+
+
+    /**
+     * Checkbox Switchers.
+     * -------------------
+     */
+    jQuery('[type="checkbox"]').bootstrapToggle();
+
+
+    /**
      * Search Products.
      * ----------------
      */
@@ -250,7 +285,7 @@ jQuery(document).ready(function () {
 
             if ($response.status) {
 
-                $form.find('[name="query"]').val($response.query);
+                $form.find('[name="keywords"]').val($response.keywords);
                 jQuery('#results').append($response.html.search);
                 updateProductTypes($response.types);
 
@@ -279,19 +314,20 @@ jQuery(document).ready(function () {
      */
     jQuery(document).on('click', '#load-next', function () {
 
+        /** Init Current State */
         var $form = jQuery('form.search-form');
+        var $page = parseInt(jQuery('#current-page').text().trim());
 
         jQuery.ajax({
             url: $form.attr('action'),
             type: $form.attr('method'),
-            data: $form.serialize() + '&mode=next',
+            data: $form.serialize() + '&page=' + ++$page + '&mode=next',
             dataType: 'json',
             beforeSend: function () {
             }
         }).done(function ($response) {
 
             if ($response.status) {
-                $form.find('[name="query"]').val($response.query);
                 jQuery('#results table tbody').append($response.html.list);
                 jQuery('#results #pagination').replaceWith($response.html.pagination);
                 updateProductTypes($response.types);

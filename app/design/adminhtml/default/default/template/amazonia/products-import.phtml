@@ -21,29 +21,87 @@
 
             <!-- Search Block -->
             <div class="col-md-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Product Search
-                    </div>
-                    <div class="panel-body block-eq">
+                <div class="panel block-eq panel-default">
+                    <div class="panel-body panel-body-yellow">
+
                         <form action="<?php echo $this->getUrl('amazon/adminhtml_amazon/search/') ?>" method="post"
                               class="search-form">
 
-                            <dl class="dl-horizontal col-md-12">
-                                <dt>ASINs, space separated <br> or Amazon URL:</dt>
-                                <dd>
-                                    <input autofocus type="text" class="form-control" name="query"
-                                           placeholder="What do you want import?">
-                                    <button type="submit" class="btn btn-warning btn-sm pull-right">Just Do It!
-                                    </button>
-                                </dd>
-                            </dl>
+                            <div class="row">
+                                <dl class="dl-horizontal col-md-12">
+
+                                    <dt>Keywords:</dt>
+                                    <dd>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <input autofocus type="text" class="form-control" name="keywords"
+                                                       placeholder="Keywords or direct ASIN ...">
+                                            </div>
+
+                                            <div class="col-md-6 text-right">
+                                                <strong>Search index:</strong>
+                                                <select class="selectpicker" name="category">
+                                                    <?php foreach ($this->getSearchIndexes() as $group => $options): ?>
+                                                        <optgroup label="<?php echo $group; ?>">
+                                                            <?php foreach ($options as $code => $label): ?>
+                                                                <option value="<?php echo $code; ?>">
+                                                                    <?php echo $label; ?>
+                                                                </option>
+                                                            <?php endforeach; ?>
+                                                        </optgroup>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </dd>
+
+                                    <dt>Price range:</dt>
+                                    <dd><input type="text" id="price-selector" name="price" value=""/></dd>
+
+                                    <dt class="last">Condition:</dt>
+                                    <dd>
+                                        <div class="row">
+
+                                            <div class="col-md-2">
+                                                <input name="condition" type="checkbox" value="new"
+                                                       data-toggle="toggle"
+                                                       data-onstyle="warning"
+                                                       data-on="New"
+                                                       data-off="ANY"
+                                                       data-width="75"
+                                                       data-size="small"></div>
+
+                                            <div class="col-md-3 text-right">
+                                                <strong>Merchant:</strong>
+                                                <input name="merchant" type="checkbox" value="Amazon"
+                                                       data-toggle="toggle"
+                                                       data-onstyle="warning"
+                                                       data-on="Amazon"
+                                                       data-off="ANY"
+                                                       data-width="75"
+                                                       data-size="small">
+                                            </div>
+
+                                            <div class="col-md-7 text-right">
+                                                <button type="submit" class="btn btn-primary pull-right">
+                                                    Search by filters!
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </dd>
+
+                                    </dd>
+                                </dl>
+                            </div>
 
                             <input name="form_key" type="hidden"
                                    value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>"/>
                             <input name="isAjax" type="hidden" value="true"/>
 
                         </form>
+
                     </div>
                 </div>
             </div>
@@ -51,16 +109,16 @@
 
             <!-- API Status Block -->
             <div class="col-md-6">
-                <div class="panel panel-<?php echo $this->getAmazonConfig() ? 'info' : 'danger'; ?>">
+                <div class="panel block-eq panel-<?php echo $this->getAmazonConfig() ? 'info' : 'danger'; ?>">
                     <div class="panel-heading">
                         Amazon Account Settings
                         <span class="badge pull-right">
                             <?php echo $this->getAmazonConfig() ? 'connected' : 'disconnected'; ?>
                         </span>
                     </div>
-                    <div class="panel-body block-eq">
+                    <div class="panel-body">
                         <?php if ($this->getAmazonConfig()) : ?>
-                            <dl class="dl-horizontal col-md-8">
+                            <dl class="dl-horizontal amazon-info col-md-8">
                                 <dt>Access Key ID:</dt>
                                 <dd><?php echo $this->getAmazonConfig('access_key_id'); ?></dd>
 
@@ -109,7 +167,9 @@
                             remove failed?
                         </span>
 
-                        <button class="add-ready-products btn btn-success btn-sm pull-right">Add ready products to queue</button>
+                        <button class="add-ready-products btn btn-success btn-sm pull-right">Add ready products to
+                            queue
+                        </button>
                         <select name="attribute_set_id" class="pull-right form-control global" style="width: 220px">
                             <option value=""> &rarr; Set AttributeSet For All</option>
                             <?php /** @var Mage_Catalog_Model_Category $category */ ?>
