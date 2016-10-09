@@ -6,69 +6,79 @@
 class Colibo_Amazonia_Helper_Data extends Mage_Core_Helper_Abstract
 {
 
-    private $searchIndexes = [
-
+    private $amazonRootNodes = [
         'Featured' => [
-            'Photo' => 'Kamera & Foto',
-            'PCHardware' => 'Computer & Zubehör',
-            'Software' => 'Software',
+            571860 => ['Photo' => 'Kamera & Foto'],
         ],
-
-        'Other' => [
-            'UnboxVideo' => 'Amazon Instant Video',
-            'Pantry' => 'Amazon Pantry',
-            'MobileApps' => 'Apps & Spiele',
-            'Automotive' => 'Auto & Motorrad',
-            'Baby' => 'Baby',
-            'Tools' => 'Baumarkt',
-            'Beauty' => 'Beauty',
-            'Apparel' => 'Bekleidung',
-            'Lighting' => 'Beleuchtung',
-            'Books' => 'Bücher',
-            'OfficeProducts' => 'Bürobedarf & Schreibwaren',
-            'PCHardware' => 'Computer & Zubehör',
-            'DVD' => 'DVD & Blu-ray',
-            'HealthPersonalCare' => 'Drogerie & Körperpflege',
-            'Appliances' => 'Elektro-Großgeräte',
-            'Electronics' => 'Elektronik & Foto',
-            'ForeignBooks' => 'Fremdsprachige Bücher',
-            'VideoGames' => 'Games',
-            'HomeGarden' => 'Garten',
-            'GiftCards' => 'Geschenkgutscheine',
-            'PetSupplies' => 'Haustier',
-            'Photo' => 'Kamera & Foto',
-            'KindleStore' => 'Kindle-Shop',
-            'Classical' => 'Klassik',
-            'Luggage' => 'Koffer, Rucksäcke & Taschen',
-            'Kitchen' => 'Küche & Haushalt',
-            'Grocery' => 'Lebensmittel & Getränke',
-            'Music' => 'Musik-CDs & Vinyl',
-            'MP3Downloads' => 'Musik-Downloads',
-            'MusicalInstruments' => 'Musikinstrumente & DJ-Equipment',
-            'Jewelry' => 'Schmuck',
-            'Shoes' => 'Schuhe & Handtaschen',
-            'Software' => 'Software',
-            'Toys' => 'Spielzeug',
-            'SportingGoods' => 'Sport & Freizeit',
-            'Industrial' => 'Technik & Wissenschaft',
-            'Watches' => 'Uhren',
-            'Magazines' => 'Zeitschriften',
-            'Blended' => 'Blended'
+        'General' => [
+            3010076031 => ['UnboxVideo' => 'Amazon Instant Video'],
+            1661650031 => ['MobileApps' => 'Apps & Spiele'],
+            79899031 => ['Automotive' => 'Auto & Motorrad'],
+            357577011 => ['Baby' => 'Baby'],
+            80085031 => ['Tools' => 'Baumarkt'],
+            64257031 => ['Beauty' => 'Beauty'],
+            78689031 => ['Apparel' => 'Bekleidung'],
+            213084031 => ['Lighting' => 'Beleuchtung'],
+            541686 => ['Books' => 'Bücher'],
+            192417031 => ['OfficeProducts' => 'Bürobedarf & Schreibwaren'],
+            569604 => ['PCHardware' => 'Computer & Zubehör'],
+            547664 => ['DVD' => 'DVD & Blu-ray'],
+            931573031 => ['Appliances' => 'Elektro-Großgeräte'],
+            54071011 => ['ForeignBooks' => 'Fremdsprachige Bücher'],
+            541708 => ['VideoGames' => 'Games'],
+            10925241 => ['HomeGarden' => 'Garten'],
+            1571257031 => ['GiftCards' => 'Geschenkgutscheine'],
+            427727031 => ['PetSupplies' => 'Haustier'],
+            571860 => ['Photo' => 'Kamera & Foto'],
+            530485031 => ['KindleStore' => 'Kindle-Shop'],
+            2454119031 => ['Luggage' => 'Koffer], Rucksäcke & Taschen'],
+            3169011 => ['Kitchen' => 'Küche & Haushalt'],
+            344162031 => ['Grocery' => 'Lebensmittel & Getränke'],
+            542676 => ['Music' => 'Musik-CDs & Vinyl'],
+            180529031 => ['MP3Downloads' => 'Musik-Downloads'],
+            340850031 => ['MusicalInstruments' => 'Musikinstrumente & DJ-Equipment'],
+            327473011 => ['Jewelry' => 'Schmuck'],
+            362995011 => ['Shoes' => 'Schuhe & Handtaschen'],
+            542064 => ['Software' => 'Software'],
+            12950661 => ['Toys' => 'Spielzeug'],
+            16435121 => ['SportingGoods' => 'Sport & Freizeit'],
+            5866099031 => ['Industrial' => 'Technik & Wissenschaft'],
+            193708031 => ['Watches' => 'Uhren'],
+            1161660 => ['Magazines' => 'Zeitschriften']
         ]
     ];
 
 
     /**
-     * Get Amazon Search Indexes.
-     * --------------------------
+     * Get Amazon Root Nodes.
+     * ----------------------
+     *
+     * @return array
+     */
+    public function getAmazonRootNodes()
+    {
+
+        $results = [];
+        foreach ($this->amazonRootNodes as $group) {
+            foreach ($group as $nodeId => $searchIndexPair) {
+                $results[$nodeId] = $searchIndexPair;
+            }
+        }
+
+        return $results;
+    }
+
+
+    /**
+     * Get Amazon Search Index.
+     * ------------------------
      *
      * @return array
      */
     public function getSearchIndexes()
     {
-        return $this->searchIndexes;
+        return $this->amazonRootNodes;
     }
-
 
     /**
      * Generate HTML Tree from Array.

@@ -3,6 +3,7 @@
 require_once(Mage::getBaseDir() . '/vendor/autoload.php');
 
 use ApaiIO\Configuration\GenericConfiguration;
+use ApaiIO\Operations\BrowseNodeLookup;
 use ApaiIO\Operations\Search;
 use ApaiIO\ApaiIO;
 
@@ -13,31 +14,155 @@ use ApaiIO\ApaiIO;
 class Colibo_Amazonia_Adminhtml_AmazonController extends Mage_Adminhtml_Controller_Action
 {
 
+
+    /**
+     * Prepare Amazon Nodes.
+     * --------------------
+     */
+    public function prepareAmazonNodes()
+    {
+        $results = [
+            'id' => '/',
+            'icon' => 'folder',
+            'state' => [
+                'opened' => true,
+                'disabled' => true,
+            ],
+            'text' => 'Amazon.de'
+        ];
+
+        $amazonRootNodes = Mage::helper('amazonia')->getAmazonRootNodes();
+        foreach ($amazonRootNodes as $nodeId => $amazonRootNode) {
+            foreach ($amazonRootNode as $searchIndex => $localeName) {
+
+                $results['children'][] = [
+                    'id' => $nodeId,
+                    'icon' => 'folder',
+                    'state' => [
+                        'opened' => false,
+                        'disabled' => false,
+                    ],
+                    'text' => $localeName,
+                    'children' => true
+                ];
+            }
+        }
+
+        return $results;
+    }
+
+
+    /**
+     * Get Amazon Nodes.
+     * -----------------
+     */
+    public function nodeAction()
+    {
+
+        try {
+
+            /** Get Request */
+            $response = [];
+            $nodeId = trim($this->getRequest()->getParam('id', null));
+
+            if ($nodeId == '#') {
+
+                /** Get Amazon Root Nodes */
+                $response = $this->prepareAmazonNodes();
+
+            } else {
+
+                /** Set Amazon Config */
+                $amazonConfig = Mage::helper('amazonia')->getAmazonConfig();
+
+                /** Init ApaIO */
+                $conf = new GenericConfiguration();
+                $client = new \GuzzleHttp\Client();
+                $request = new \ApaiIO\Request\GuzzleRequest($client);
+
+                $conf
+                    ->setCountry($amazonConfig['country_code'])
+                    ->setAccessKey($amazonConfig['access_key_id'])
+                    ->setSecretKey($amazonConfig['secret_access_key'])
+                    ->setAssociateTag($amazonConfig['partner_tag'])
+                    ->setRequest($request)
+                    ->setResponseTransformer(new \ApaiIO\ResponseTransformer\XmlToSimpleXmlObject());
+
+                /** Build Lookup Request */
+                $apaiIO = new ApaiIO($conf);
+                $browseNodeLookup = new BrowseNodeLookup();
+                $browseNodeLookup->setNodeId((int)$nodeId);
+
+                $formattedResponse = $apaiIO->runOperation($browseNodeLookup);
+
+                /** Validate Response */
+                /** @var SimpleXMLElement[] $errors */
+                $childrenNodes = $formattedResponse->BrowseNodes->BrowseNode->Children->BrowseNode ?: [];
+                foreach ($childrenNodes as $childrenNode) {
+
+                    /** Validation */
+                    if (empty($childrenNode->BrowseNodeId) || empty($childrenNode->Name)) {
+                        throw new \Exception('error..');
+                    }
+
+                    $response[] = [
+                        'id' => !empty($childrenNode->BrowseNodeId) ? current($childrenNode->BrowseNodeId) : 0,
+                        'icon' => 'folder',
+                        'state' => [
+                            'opened' => false,
+                            'disabled' => false,
+                        ],
+                        'text' => !empty($childrenNode->Name) ? current($childrenNode->Name) : 'ERROR',
+                        'children' => true
+                    ];
+                }
+            }
+
+        } catch (\Exception $e) {
+
+            $response = [
+                'status' => false,
+                'notify' => [
+                    'title' => "Error Code: " . $e->getCode(),
+                    'message' => strip_tags($e->getMessage()),
+                    'trace' => $e->getFile() . ":" . $e->getLine()
+                ]
+            ];
+        }
+
+        $this->getResponse()->clearHeaders()->setHeader('Content-type', 'application/json', true);
+        $this->getResponse()->setBody(json_encode($response));
+    }
+
+
     /**
      * Search Products by Query.
      * -------------------------
      */
     public function searchAction()
     {
+
         try {
 
             $this->loadLayout();
 
             /** Get Request */
-            $mode = trim($this->getRequest()->getParam('mode', null));
             $page = trim($this->getRequest()->getParam('page', 1));
+            $mode = trim($this->getRequest()->getParam('mode', null));
+            $node = trim($this->getRequest()->getParam('node', null));
+            $category = trim($this->getRequest()->getParam('category'));
             $keywords = trim($this->getRequest()->getParam('keywords'));
             $merchant = trim($this->getRequest()->getParam('merchant', null));
-            $category = trim($this->getRequest()->getParam('category'));
             $condition = trim($this->getRequest()->getParam('condition', null));
             list($minPrice, $maxPrice) = explode(';', trim($this->getRequest()->getParam('price')));
 
             /** Prepare Params */
             $params = [
                 'page' => $page,
+                'node' => $node,
                 'keywords' => $keywords,
-                'merchant' => $merchant,
                 'category' => $category,
+                'merchant' => $merchant,
                 'condition' => $condition,
                 'price_min' => $minPrice,
                 'price_max' => $maxPrice,
@@ -164,8 +289,10 @@ class Colibo_Amazonia_Adminhtml_AmazonController extends Mage_Adminhtml_Controll
 
 
         /** Set Params */
-        $search->setCategory($params['category']);
-        $search->setKeywords($params['keywords']);
+
+        if (!empty($params['node'])) {
+            $search->setBrowseNode(intval($params['node']));
+        }
 
         if (!empty($params['condition'])) {
             $search->setCondition($params['condition']);
@@ -175,9 +302,10 @@ class Colibo_Amazonia_Adminhtml_AmazonController extends Mage_Adminhtml_Controll
             $search->setMerchantId($params['merchant']);
         }
 
+        $search->setKeywords($params['keywords']);
         $search->setMinimumPrice(floatval($params['price_min']));
         $search->setMaximumPrice(floatval($params['price_max']));
-
+        $search->setCategory($params['category']);
         $search->setPage($params['page']);
 
         /** Send Request */

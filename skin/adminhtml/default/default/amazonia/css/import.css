@@ -30,7 +30,7 @@ dd, dt {
 
 #amazon-products-import .import-divider {
     text-align: center;
-    margin: 25px 0;
+    margin: 55px 0;
 }
 
 #amazon-products-import .import-divider i {
@@ -69,11 +69,20 @@ dd, dt {
 }
 
 .block-eq {
-    height: 202px;
+    height: 217px;
+}
+
+.modal-dialog {
+    overflow-y: initial !important
+}
+
+.modal-body {
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
 }
 
 .amazon-info {
-    margin: 15px 0 !important;
+    margin: 20px 0 !important;
 }
 
 .amazon-info dt,
@@ -269,15 +278,16 @@ select[multiple], select[size] {
     line-height: 30px;
 }
 
-.search-form dl dt,
-.search-form dl dd {
-    margin-top: 10px;
-    margin-bottom: 10px;
+.search-form dl dt {
+    height: 35px;
     line-height: 35px;
+    margin-bottom: 10px;
 }
 
-.search-form dl dt.last {
-    line-height: 15px;
+.search-form dl dd {
+    height: 35px;
+    line-height: 35px;
+    margin-bottom: 10px;
 }
 
 .irs-from, .irs-to, .irs-single,
@@ -728,6 +738,31 @@ td.product-status.ready {
     display: inline-block !important;
 }
 
-.btn-group.bootstrap-select {
+.search-form dl [data-toggle="modal"] {
     margin-left: 10px !important;
+    padding-right: 20px;
+    position: relative;
+    width: 65%;
+    text-align: left !important;
+    overflow: hidden;
+    padding-left: 10px;
+}
+
+.search-form dl [data-toggle="modal"] span {
+    line-height: 1.35em;
+    background-repeat: no-repeat;
+    background-position: 0 50%;
+    width: 100%;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
+    text-overflow: ellipsis;
+}
+
+.search-form dl [data-toggle="modal"]:after {
+    content: "\f0d7";
+    position: absolute;
+    font-family: 'FontAwesome';
+    right: 10px;
+    top: 7px;
 }

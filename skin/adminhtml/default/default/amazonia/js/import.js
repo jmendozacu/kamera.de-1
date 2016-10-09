@@ -230,6 +230,42 @@ function saveMagentoJobs($rows) {
 jQuery(document).ready(function () {
 
     /**
+     * Nodes Tree.
+     * -----------------------
+     */
+    var $tree = jQuery('#tree');
+    var $treeForm = $tree.closest('form');
+
+    $tree.jstree({
+        'core': {
+            'data': {
+                'url': $treeForm.attr('action'),
+                'data': function ($node) {
+                    return {
+                        'id': $node.id
+                    };
+                }
+            },
+            'themes': {
+                'stripes': true
+            }
+        },
+        'sort': function (a, b) {
+            return this.get_type(a) === this.get_type(b) ? (this.get_text(a) > this.get_text(b) ? 1 : -1) : (this.get_type(a) >= this.get_type(b) ? 1 : -1);
+        },
+        'plugins': ['state', 'dnd', 'sort', 'types']
+
+    }).on('changed.jstree', function ($event, $data) {
+
+        /** Node Selection */
+        if ($data && $data.selected && $data.selected.length) {
+            jQuery('[data-target="#treeModal"] span').text($data.node.text);
+            jQuery('.search-form').find('[name="node"]').val($data.node.id);
+        }
+    });
+
+
+    /**
      * Category Select Plugin.
      * -----------------------
      */
@@ -237,7 +273,7 @@ jQuery(document).ready(function () {
         style: 'btn-default',
         size: 10,
         liveSearch: true,
-        width: '70%'
+        width: '100%'
     });
 
 
