@@ -31,11 +31,13 @@
  */
 ?>
 <ul class="product-tabs">
-    <?php foreach ($this->getTabs() as $_index => $_tab): ?>
+    <?php $_index = 0; ?>
+    <?php foreach ($this->getTabs() as $_tab): ?>
         <?php if (trim(strip_tags($this->getChildHtml($_tab['alias'], '<iframe>'))) != ''): ?>
             <li id="product_tabs_<?php echo $_tab['alias'] ?>"
                 class="<?php echo !$_index ? ' active first' : (($_index == count($this->getTabs()) - 1) ? ' last' : '') ?>">
                 <a href="#"><?php echo $_tab['title'] ?></a></li>
+            <?php $_index++; ?>
         <?php endif; ?>
     <?php endforeach; ?>
 </ul>

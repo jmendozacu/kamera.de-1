@@ -4081,7 +4081,7 @@ p.welcome-msg {
     background: #eee;
 }
 
-.product-tabs li.first a {
+.product-tabs li:first-child a {
     border-left: 1px solid #e5e5e5;
 }
 
@@ -8213,4 +8213,8 @@ a {
 .product-view .coumputeruniverse-table tr:hover td.attr-value {
     color: #000;
     background: #ccc;
+}
+
+.review-iframe h2 {
+    display: none;
 }

@@ -8,6 +8,7 @@
             $reviewsUrl = str_replace('http:', 'https:', $reviewsUrl);
             ?>
             <?php if (!empty($reviewsUrl)) : ?>
+                <h2>Customer Reviews</h2>
                 <iframe src="<?php echo $reviewsUrl; ?>" frameborder="0" scrolling="0"></iframe>
             <?php endif; ?>
         </div>
