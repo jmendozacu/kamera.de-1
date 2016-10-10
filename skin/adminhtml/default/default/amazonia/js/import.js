@@ -332,7 +332,7 @@ jQuery(document).ready(function () {
     monitorJobs();
     setInterval(function () {
         monitorJobs();
-    }, 5000);
+    }, 10000);
 
 
     /**
