@@ -6,7 +6,7 @@
 
         <?php $class = key($entry['message']); ?>
         <?php $content = array_shift($entry['message']); ?>
-        <tr<?php echo $isFirstRow ? 'class="first-row"' : ''; ?>>
+        <tr<?php echo $isFirstRow ? ' class="first-row"' : ''; ?>>
             <td class="text-center">
                 <?php echo $ASIN; ?><br>
                 <span class="label label-<?php echo $class; ?>"><?php echo $class; ?></span>
