@@ -17,6 +17,7 @@
     "components-font-awesome": "^4.6.3",
     "bootstrap-select": "^1.11.2",
     "ion.rangeSlider": "ionrangeslider#^2.1.4",
-    "bootstrap-toggle": "^2.2.2"
+    "bootstrap-toggle": "^2.2.2",
+    "malihu-custom-scrollbar-plugin": "^3.1.5"
   }
 }

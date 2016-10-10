@@ -2,16 +2,17 @@
 
 <?php foreach ($this->getResults() as $ASIN => $entry): ?>
 
-    <?php if (!empty($entry['message']) || !empty($entry['error'])): ?>
+    <?php if (!empty($entry['message'])): ?>
+
+        <?php $class = key($entry['message']); ?>
+        <?php $content = array_shift($entry['message']); ?>
         <tr<?php echo $isFirstRow ? 'class="first-row"' : ''; ?>>
             <td class="text-center">
                 <?php echo $ASIN; ?><br>
-                <span class="label label-danger">fail</span>
+                <span class="label label-<?php echo $class; ?>"><?php echo $class; ?></span>
             </td>
             <td colspan="9">
-                <?php $class = !empty($entry['error']) ? 'danger' : 'info'; ?>
-                <?php $content = !empty($entry['error']) ? $entry['error'] : $entry['message']; ?>
-                <pre class="alert alert-<?php echo $class ?>"><?php echo trim(strip_tags($content)); ?></pre>
+                <pre class="alert alert-<?php echo $class; ?>"><?php echo trim(strip_tags($content)); ?></pre>
             </td>
             <td class="text-center">
                 <a class="remove">
@@ -19,6 +20,7 @@
                 </a>
             </td>
         </tr>
+
     <?php else: ?>
 
         <?php $attributes = !empty($entry['data']['ItemAttributes']) ? $entry['data']['ItemAttributes'] : []; ?>
@@ -79,7 +81,7 @@
                 <?php if (!empty($data['OfferSummary']['LowestNewPrice']['Amount'])): ?>
                     <span class="price-box">
                             <span class="price-label new">
-                                New Price:
+                                New Price (lowest):
                             </span>
                             <span class="price">
                                  <?php $newPrice = $data['OfferSummary']['LowestNewPrice']['Amount']; ?>
@@ -92,7 +94,7 @@
                 <?php if (!empty($data['OfferSummary']['LowestUsedPrice']['Amount'])): ?>
                     <span class="price-box">
                             <span class="price-label used">
-                                Used Price:
+                                Used Price (lowest):
                             </span>
                             <span class="price">
                                  <?php $newPrice = $data['OfferSummary']['LowestUsedPrice']['Amount']; ?>

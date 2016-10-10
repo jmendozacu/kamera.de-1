@@ -11,6 +11,7 @@
             <action method="addItem"><type>js_css</type><file>bower/ion.rangeSlider/css/ion.rangeSlider.css</file></action>
             <action method="addItem"><type>js_css</type><file>bower/ion.rangeSlider/css/normalize.css</file></action>
             <action method="addItem"><type>js_css</type><file>bower/ion.rangeSlider/css/ion.rangeSlider.skinModern.css</file></action>
+            <action method="addItem"><type>js_css</type><file>bower/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css</file></action>
             <action method="addItem"><type>skin_css</type><file>amazonia/css/tree.min.css</file></action>
             <action method="addItem"><type>skin_css</type><file>amazonia/css/import.css</file></action>
 
@@ -22,6 +23,7 @@
             <action method="addItem"><type>js</type><file>bower/bootstrap-select/dist/js/bootstrap-select.min.js</file></action>
             <action method="addItem"><type>js</type><file>bower/bootstrap-toggle/js/bootstrap-toggle.min.js</file></action>
             <action method="addItem"><type>js</type><file>bower/ion.rangeSlider/js/ion.rangeSlider.min.js</file></action>
+            <action method="addItem"><type>js</type><file>bower/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.js</file></action>
             <action method="addItem"><type>skin_js</type><file>amazonia/js/jstree.min.js</file></action>
             <action method="addItem"><type>skin_js</type><file>amazonia/js/import.js</file></action>
         </reference>

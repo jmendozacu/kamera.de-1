@@ -609,6 +609,41 @@ td.product-status.ready {
     position: relative;
 }
 
+.search-form [name="brand"] {
+    width: 65%;
+    margin-left: 10px;
+}
+
+ul.paginator {
+    position: absolute;
+    white-space: nowrap;
+    overflow: auto;
+    left: 70%;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    margin: 0 10px;
+}
+
+.sort .btn-group.bootstrap-select {
+    margin-left: 10px;
+}
+
+.mCSB_horizontal.mCSB_inside > .mCSB_container {
+    margin-right: 0;
+    margin-bottom: 20px !important;
+}
+
+ul.paginator li {
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 1px;
+}
+
+ul.paginator li.active {
+    cursor: text !important;
+}
+
 #results #pagination .current-info {
     width: 70%;
     padding: 0;
@@ -617,7 +652,7 @@ td.product-status.ready {
     border-top: none;
     background: #f1f1f1;
     border-radius: 0 0 15px 15px;
-    height: 100px;
+    height: 120px;
     line-height: 40px;
     position: relative;
 }
@@ -625,7 +660,7 @@ td.product-status.ready {
 #results #pagination .page-title {
     width: 65%;
     vertical-align: middle;
-    line-height: 70px;
+    line-height: 90px;
     border-right: 1px solid #ddd;
     text-align: center;
     font-size: 23px;
@@ -634,13 +669,13 @@ td.product-status.ready {
     padding: 0 20px 0 50px;
     margin: 15px 0;
     overflow: hidden;
-    height: 70px;
+    height: 90px;
     text-overflow: ellipsis;
 }
 
 #results #pagination .counters {
     width: 35%;
-    padding: 10px 20px;
+    padding: 20px;
 }
 
 #results #pagination .current-info .current {
@@ -682,14 +717,14 @@ td.product-status.ready {
     background: rgba(238, 238, 238, 0.22);
     border-radius: 0 0 15px 0;
     border-left: none;
-    line-height: 75px;
+    line-height: 70px;
     box-shadow: 0 0 15px #ddd inset;
     overflow: hidden;
 }
 
 #results #load-next {
     width: 100%;
-    height: 77px;
+    height: 70px;
     border: 0;
     background: #f0ad4e;
     color: #fff;
@@ -698,7 +733,7 @@ td.product-status.ready {
     margin: 0;
     font-weight: normal;
     font-size: 18px;
-    line-height: 75px;
+    line-height: 70px;
     text-transform: uppercase;
     box-shadow: 0 0 10px #c77215 inset;
     text-shadow: 0 2px #c37c1e;
@@ -720,7 +755,7 @@ td.product-status.ready {
 #results #load-next span {
     width: 50px;
     height: 50px;
-    margin: 13px 0 0 0;
+    margin: 10px 0 0 0;
     border-radius: 999px;
     text-align: center;
     vertical-align: middle;

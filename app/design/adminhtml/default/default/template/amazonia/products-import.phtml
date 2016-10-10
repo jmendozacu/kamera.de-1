@@ -33,9 +33,15 @@
                                     <dt>Keywords:</dt>
                                     <dd>
                                         <div class="row">
-                                            <div class="col-md-12">
+                                            <div class="col-md-5">
                                                 <input autofocus type="text" class="form-control" name="keywords"
                                                        placeholder="Keywords or direct ASIN ...">
+                                            </div>
+                                            <div class="col-md-7 text-right">
+                                                <strong>Brand name:</strong>
+                                                <input autofocus type="text" class="form-control pull-right"
+                                                       name="brand"
+                                                       placeholder="Nikon, Canon ...">
                                             </div>
                                         </div>
                                     </dd>
@@ -97,10 +103,28 @@
                                                        data-width="75"
                                                        data-size="small">
                                             </div>
+                                            <div class="col-md-6 text-right sort">
+                                                <strong>Results sort:</strong>
+                                                <select class="selectpicker" name="sort">
+                                                    <optgroup label="Ranks">
+                                                        <option value="relevancerank">Relevance</option>
+                                                        <option value="salesrank">Bestselling</option>
+                                                        <option value="reviewrank">Highest to lowest ratings</option>
+                                                    </optgroup>
+                                                    <optgroup label="Price">
+                                                        <option value="price">Price: low to high</option>
+                                                        <option value="-price">Price: high to low</option>
+                                                    </optgroup>
+                                                    <optgroup label="Alphabet">
+                                                        <option value="titlerank">Alphabetical: A to Z</option>
+                                                        <option value="-titlerank">Alphabetical: Z to A</option>
+                                                    </optgroup>
+                                                </select>
+                                            </div>
 
-                                            <div class="col-md-7 text-right">
+                                            <div class="col-md-1 text-right">
                                                 <button type="submit" class="btn btn-primary pull-right">
-                                                    Search by filters!
+                                                    <i class="fa fa-search"></i>
                                                 </button>
                                             </div>
                                         </div>

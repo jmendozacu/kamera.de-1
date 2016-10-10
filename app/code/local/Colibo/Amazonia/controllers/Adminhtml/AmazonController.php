@@ -149,7 +149,9 @@ class Colibo_Amazonia_Adminhtml_AmazonController extends Mage_Adminhtml_Controll
             /** Get Request */
             $page = trim($this->getRequest()->getParam('page', 1));
             $mode = trim($this->getRequest()->getParam('mode', null));
+            $sort = trim($this->getRequest()->getParam('sort', null));
             $node = trim($this->getRequest()->getParam('node', null));
+            $brand = trim($this->getRequest()->getParam('brand', null));
             $category = trim($this->getRequest()->getParam('category'));
             $keywords = trim($this->getRequest()->getParam('keywords'));
             $merchant = trim($this->getRequest()->getParam('merchant', null));
@@ -160,6 +162,8 @@ class Colibo_Amazonia_Adminhtml_AmazonController extends Mage_Adminhtml_Controll
             $params = [
                 'page' => $page,
                 'node' => $node,
+                'sort' => $sort,
+                'brand' => $brand,
                 'keywords' => $keywords,
                 'category' => $category,
                 'merchant' => $merchant,
@@ -167,10 +171,6 @@ class Colibo_Amazonia_Adminhtml_AmazonController extends Mage_Adminhtml_Controll
                 'price_min' => $minPrice,
                 'price_max' => $maxPrice,
             ];
-
-            if (empty($keywords)) {
-                throw new \Exception('Sir.. Enter keywords or direct ASIN ..');
-            }
 
             /** Amazon API*/
             $results = $this->importAction($params);
@@ -225,9 +225,9 @@ class Colibo_Amazonia_Adminhtml_AmazonController extends Mage_Adminhtml_Controll
             $response = [
                 'status' => false,
                 'notify' => [
-                    'title' => "Error Code: " . $e->getCode(),
-                    'message' => strip_tags($e->getMessage()),
-                    'trace' => $e->getFile() . ":" . $e->getLine()
+                    'title' => $e->getCode() != 911 ? "Error Code: " . $e->getCode() : 'Amazon.de',
+                    'message' => $e->getCode() == 503 ? 'API Limit. Wait a moment and try again.' : strip_tags($e->getMessage()),
+                    'trace' => $e->getCode() != 911 ? $e->getFile() . ":" . $e->getLine() : null
                 ]
             ];
         }
@@ -246,6 +246,11 @@ class Colibo_Amazonia_Adminhtml_AmazonController extends Mage_Adminhtml_Controll
      */
     protected function importAction($params)
     {
+        /** Init Resources */
+        $resource = Mage::getSingleton('core/resource');
+        $dbWrite = $resource->getConnection('core_write');
+        $table = $resource->getTableName('colibo_products_jobs');
+
         /** Set Amazon Config */
         $amazonConfig = Mage::helper('amazonia')->getAmazonConfig();
 
@@ -290,6 +295,14 @@ class Colibo_Amazonia_Adminhtml_AmazonController extends Mage_Adminhtml_Controll
 
         /** Set Params */
 
+        if (!empty($params['sort'])) {
+            $search->setSort($params['sort']);
+        }
+
+        if (!empty($params['brand'])) {
+            $search->setBrand($params['brand']);
+        }
+
         if (!empty($params['node'])) {
             $search->setBrowseNode(intval($params['node']));
         }
@@ -303,8 +316,8 @@ class Colibo_Amazonia_Adminhtml_AmazonController extends Mage_Adminhtml_Controll
         }
 
         $search->setKeywords($params['keywords']);
-        $search->setMinimumPrice(floatval($params['price_min']));
-        $search->setMaximumPrice(floatval($params['price_max']));
+        $search->setMinimumPrice(floatval($params['price_min'] * 100));
+        $search->setMaximumPrice(floatval($params['price_max'] * 100));
         $search->setCategory($params['category']);
         $search->setPage($params['page']);
 
@@ -318,13 +331,25 @@ class Colibo_Amazonia_Adminhtml_AmazonController extends Mage_Adminhtml_Controll
         if (!empty($errors)) {
 
             $message = '';
+            $code = 0;
 
             /** @var SimpleXMLElement $error */
             foreach ($errors as $error) {
-                $message .= $error->Message . " (code: " . $error->Code . ")\n";
+
+                switch ($error->Code) {
+                    case 'AWS.ECommerceService.NoExactMatches':
+                        $message .= "Your search did not match any products\n";
+                        $code = 911;
+                        break;
+
+                    default:
+                        $message .= $error->Message . " (code: " . $error->Code . ")\n";
+                        break;
+                }
+
             }
 
-            throw new \Exception($message);
+            throw new \Exception($message, $code);
         }
 
         /** Pagination */
@@ -337,20 +362,23 @@ class Colibo_Amazonia_Adminhtml_AmazonController extends Mage_Adminhtml_Controll
 
             $item = Mage::helper('amazonia')->xml2array($item);
 
-            /** Check Exists Product */
-            if (Mage::getModel('catalog/product')->loadByAttribute('sku', $item['ASIN'])) {
-                $data[$item['ASIN']] = [
-                    'message' => 'Product was found, but already exists into Magento catalog.'
-                ];
+            /** Check Exists Job */
+            $query = "SELECT * FROM " . $table . " WHERE amazon_asin = '" . $item['ASIN'] . "' LIMIT 0, 1;";
+            $existJobs = $dbWrite->query($query)->fetchAll();
+
+            if (count($existJobs)) {
+                $data[$item['ASIN']]['message']['warning'] = 'Product was added to queue for import.';
+            } else if (Mage::getModel('catalog/product')->loadByAttribute('sku', $item['ASIN'])) {
+
+                /** Check Exists Product */
+                $data[$item['ASIN']]['message']['success'] = 'Product already imported to Magento.';
             }
 
-            $data[$item['ASIN']] = [
-                'data' => $item
-            ];
+            $data[$item['ASIN']]['data'] = $item;
         }
 
-        return [
-            'data' => $data,
+
+        return ['data' => $data,
             'pages' => [
                 'current' => $params['page'],
                 'last' => $last

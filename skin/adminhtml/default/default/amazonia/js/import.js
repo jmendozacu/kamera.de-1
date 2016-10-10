@@ -89,6 +89,57 @@ jQuery(document)
 
 
 /**
+ * Load Page by Number.
+ * --------------------
+ *
+ * @param $page
+ */
+function loadPage($page) {
+
+    /** Init Current State */
+    var $form = jQuery('form.search-form');
+
+    jQuery.ajax({
+        url: $form.attr('action'),
+        type: $form.attr('method'),
+        data: $form.serialize() + '&page=' + $page + '&mode=next',
+        dataType: 'json',
+        beforeSend: function () {
+        }
+    }).done(function ($response) {
+
+        if ($response.status) {
+            jQuery('#results table tbody').append($response.html.list);
+            jQuery('#results #pagination').replaceWith($response.html.pagination);
+            updateProductTypes($response.types);
+            showMessage('Notification', 'Next page was loaded. Scroll page down and check new products', false, "info");
+
+            jQuery('html, body').animate({
+                scrollTop: jQuery("tr.first-row").last().offset().top - 10
+            }, 500);
+
+            /** Custom Pagination Scrollbar */
+            jQuery(".paginator").mCustomScrollbar({
+                axis: "x",
+                theme: "rounded-dark",
+                scrollInertia: 100,
+                advanced: {
+                    autoExpandHorizontalScroll: true
+                }
+            });
+
+        } else {
+            showMessage($response.notify.title, $response.notify.message, $response.notify.trace, "error");
+        }
+
+    }).fail(function (jqXHR) {
+        var $trace = "url: " + $form.attr('action') + "<br>" + "response: " + jqXHR.statusText + " [" + jqXHR.status + "]";
+        showMessage("XHR Error", "", $trace, "error");
+    });
+}
+
+
+/**
  * Show Notification
  * -----------------
  * @param $title
@@ -269,11 +320,23 @@ jQuery(document).ready(function () {
      * Category Select Plugin.
      * -----------------------
      */
-    jQuery('.selectpicker').selectpicker({
+    jQuery('[name="category"]').selectpicker({
         style: 'btn-default',
         size: 10,
         liveSearch: true,
         width: '100%'
+    });
+
+
+    /**
+     * Sort Select Plugin.
+     * ------------------
+     */
+    jQuery('[name="sort"]').selectpicker({
+        style: 'btn-default',
+        size: 10,
+        liveSearch: true,
+        width: '58%'
     });
 
 
@@ -326,9 +389,20 @@ jQuery(document).ready(function () {
                 updateProductTypes($response.types);
 
                 jQuery('.results-block').slideDown(function () {
+
                     jQuery('html, body').animate({
                         scrollTop: jQuery(".results-block").offset().top - 10
                     }, 500);
+
+                    /** Custom Pagination Scrollbar */
+                    jQuery(".paginator").mCustomScrollbar({
+                        axis: "x",
+                        theme: "rounded-dark",
+                        scrollInertia: 100,
+                        advanced: {
+                            autoExpandHorizontalScroll: true
+                        }
+                    });
                 });
 
             } else {
@@ -345,42 +419,29 @@ jQuery(document).ready(function () {
 
 
     /**
+     * Search Products: Direct Page.
+     * -----------------------------
+     */
+    jQuery(document).on('click', '.page', function () {
+
+        var $button = jQuery(this);
+        if (!$button.hasClass('.active')) {
+            var $page = parseInt($button.text().trim());
+            loadPage($page);
+        }
+
+        return false;
+    });
+
+
+    /**
      * Search Products: Next.
      * ----------------------
      */
     jQuery(document).on('click', '#load-next', function () {
 
-        /** Init Current State */
-        var $form = jQuery('form.search-form');
-        var $page = parseInt(jQuery('#current-page').text().trim());
-
-        jQuery.ajax({
-            url: $form.attr('action'),
-            type: $form.attr('method'),
-            data: $form.serialize() + '&page=' + ++$page + '&mode=next',
-            dataType: 'json',
-            beforeSend: function () {
-            }
-        }).done(function ($response) {
-
-            if ($response.status) {
-                jQuery('#results table tbody').append($response.html.list);
-                jQuery('#results #pagination').replaceWith($response.html.pagination);
-                updateProductTypes($response.types);
-                showMessage('Notification', 'Next page was loaded. Scroll page down and check new products', false, "info");
-
-                jQuery('html, body').animate({
-                    scrollTop: jQuery("tr.first-row").last().offset().top - 10
-                }, 500);
-
-            } else {
-                showMessage($response.notify.title, $response.notify.message, $response.notify.trace, "error");
-            }
-
-        }).fail(function (jqXHR) {
-            var $trace = "url: " + $form.attr('action') + "<br>" + "response: " + jqXHR.statusText + " [" + jqXHR.status + "]";
-            showMessage("XHR Error", "", $trace, "error");
-        });
+        var $currentPage = parseInt(jQuery('#current-page').text().trim());
+        loadPage(++$currentPage);
 
         return false;
     });

@@ -7,10 +7,16 @@
             </div>
             <div class="counters pull-right">
                 <div class="current clearfix">
-                    Current page: <span id="current-page" class="pull-right"><?php echo $pagination['current']; ?></span>
+                    Current page:
+                    <span id="current-page" class="pull-right">
+                        <?php echo $pagination['current']; ?>
+                    </span>
                 </div>
                 <div class="clearfix">
-                    Total pages: <span class="pull-right"><?php echo $pagination['last']; ?></span>
+                    Total pages:
+                    <span class="pull-right">
+                        <?php echo $pagination['last']; ?>
+                    </span>
                 </div>
             </div>
         </div>
@@ -21,6 +27,13 @@
                     <span><i class="fa fa-angle-right"></i></span>
                 </button>
             </div>
+            <ul class="paginator">
+                <?php for ($i = 1; $i <= $pagination['last']; $i++) : ?>
+                    <li class="page btn btn-xs btn-<?php if ($pagination['current'] == $i): ?>warning active<?php else: ?>default<?php endif; ?>">
+                        <?php echo $i; ?>
+                    </li>
+                <?php endfor; ?>
+            </ul>
         <?php endif; ?>
     </div>
 <?php endif; ?>
