@@ -133,6 +133,11 @@ form.search-form {
     padding: 10px 15px 0;
 }
 
+.add-ready-products .badge {
+    background: #fff !important;
+    color: #000 !important;
+}
+
 form.search-form.input-group-addon {
     padding: 12px 15px;
     background: none;

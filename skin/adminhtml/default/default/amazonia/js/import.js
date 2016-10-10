@@ -261,8 +261,13 @@ function checkProductReadiness($row) {
     var $category = $form.find('[name="category_id"]');
 
     if ($attributeSet.val() != '' && $category.val() != '') {
+
         $row.find('td.product-status').removeClass('pending').addClass('ready');
         $row.find('a.add2jobs').show();
+
+        var $count = jQuery('td.product-status.ready').size();
+        jQuery('.add-ready-products .badge').text($count > 0 ? $count : '');
+
     } else {
         $row.find('td.product-status').removeClass('ready').addClass('pending');
         $row.find('a.add2jobs').hide();
