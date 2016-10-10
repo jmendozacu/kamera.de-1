@@ -6,8 +6,8 @@
             <?php
             $amazonAttributes = json_decode($this->getProduct()->getAmazonAttributes(), true);
             $reviewsUrl = !empty($amazonAttributes['CustomerReviews']['IFrameURL']) ? $amazonAttributes['CustomerReviews']['IFrameURL'] : false;
+            $reviewsUrl = str_replace('http:', 'https:', $reviewsUrl);
             ?>
-
             <?php if (!empty($reviewsUrl)) : ?>
                 <iframe src="<?php echo $reviewsUrl; ?>" frameborder="0" scrolling="0"></iframe>
             <?php endif; ?>
