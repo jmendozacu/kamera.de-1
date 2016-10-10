@@ -45,7 +45,7 @@ class Colibo_Amazonia_Model_Sync
             ->addAttributeToSelect(array('sku', 'updated_at'), 'inner')
             ->addAttributeToFilter('updated_at', array('lt' => date('Y-m-d H:i:s', strtotime('-1 days'))));
 
-        $collection->getSelect()->limit(10);
+        $collection->getSelect()->limit(100);
         Mage::getSingleton('core/resource_iterator')->walk($collection->getSelect(), array(array($this, 'productWalker')));
 
         $amazonData = $this->getAmazonData();
