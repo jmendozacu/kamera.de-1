@@ -138,8 +138,9 @@ function monitorJobs() {
  * --------------------
  *
  * @param $page
+ * @param $button
  */
-function loadPage($page) {
+function loadPage($page, $button) {
 
     /** Init Current State */
     var $form = jQuery('form.search-form');
@@ -150,6 +151,7 @@ function loadPage($page) {
         data: $form.serialize() + '&page=' + $page + '&mode=next',
         dataType: 'json',
         beforeSend: function () {
+            $button.attr('disabled', true);
         }
     }).done(function ($response) {
 
@@ -177,9 +179,12 @@ function loadPage($page) {
             showMessage($response.notify.title, $response.notify.message, $response.notify.trace, "error");
         }
 
+        $button.attr('disabled', false);
+
     }).fail(function (jqXHR) {
         var $trace = "url: " + $form.attr('action') + "<br>" + "response: " + jqXHR.statusText + " [" + jqXHR.status + "]";
         showMessage("XHR Error", "", $trace, "error");
+        $button.attr('disabled', false);
     });
 }
 
@@ -279,7 +284,7 @@ function checkProductReadiness($row) {
  * Save Products To Jobs.
  * ---------------------
  */
-function saveMagentoJobs($rows) {
+function saveMagentoJobs($rows, $button) {
 
     var $data = {};
 
@@ -306,7 +311,7 @@ function saveMagentoJobs($rows) {
         data: $form.serialize(),
         dataType: 'json',
         beforeSend: function () {
-
+            $button.attr('disabled', true);
         }
     }).done(function ($response) {
 
@@ -322,9 +327,14 @@ function saveMagentoJobs($rows) {
             }, 200 * $index);
         });
 
+        $button.attr('disabled', false);
+
     }).fail(function (jqXHR) {
+
         var $trace = "url: " + $action + "<br>" + "response: " + jqXHR.statusText + " [" + jqXHR.status + "]";
         showMessage("XHR Error", "", $trace, "error");
+
+        $button.attr('disabled', false);
     });
 
 }
@@ -438,6 +448,9 @@ jQuery(document).ready(function () {
     jQuery('form.search-form').on('submit', function () {
 
         var $form = jQuery(this);
+        if ($form.hasClass('running')) {
+            return false;
+        }
 
         jQuery.ajax({
             url: $form.attr('action'),
@@ -447,6 +460,8 @@ jQuery(document).ready(function () {
             beforeSend: function () {
                 jQuery('.results-block').hide();
                 jQuery('#results').empty();
+                $form.addClass('running');
+                $form.find('[type="submit"]').attr('disabled', true);
             }
         }).done(function ($response) {
 
@@ -477,9 +492,17 @@ jQuery(document).ready(function () {
                 showMessage($response.notify.title, $response.notify.message, $response.notify.trace, "error");
             }
 
+            $form.removeClass('running');
+            $form.find('[type="submit"]').attr('disabled', false);
+
         }).fail(function (jqXHR) {
+
             var $trace = "url: " + $form.attr('action') + "<br>" + "response: " + jqXHR.statusText + " [" + jqXHR.status + "]";
             showMessage("XHR Error", "", $trace, "error");
+
+            $form.removeClass('running');
+            $form.find('[type="submit"]').attr('disabled', false);
+
         });
 
         return false;
@@ -495,7 +518,7 @@ jQuery(document).ready(function () {
         var $button = jQuery(this);
         if (!$button.hasClass('.active')) {
             var $page = parseInt($button.text().trim());
-            loadPage($page);
+            loadPage($page, $button);
         }
 
         return false;
@@ -541,8 +564,9 @@ jQuery(document).ready(function () {
      */
     jQuery(document).on('click', '#load-next', function () {
 
+        var $button = jQuery(this);
         var $currentPage = parseInt(jQuery('#current-page').text().trim());
-        loadPage(++$currentPage);
+        loadPage(++$currentPage, $button);
 
         return false;
     });
@@ -573,14 +597,16 @@ jQuery(document).ready(function () {
             data: $form.serialize(),
             dataType: 'json',
             beforeSend: function () {
-
+                $button.attr('disabled', true);
             }
         }).done(function ($response) {
             updateProductTypes($response.types);
             showMessage('Success!', 'Products types relation was saved and apply to queue', false, "info");
+            $button.attr('disabled', false);
         }).fail(function (jqXHR) {
             var $trace = "url: " + $form.attr('action') + "<br>" + "response: " + jqXHR.statusText + " [" + jqXHR.status + "]";
             showMessage("XHR Error", "", $trace, "error");
+            $button.attr('disabled', false);
         });
 
         return false;
@@ -686,10 +712,10 @@ jQuery(document).ready(function () {
      */
     jQuery(document).on('click', '.add2jobs', function () {
 
-        var $link = jQuery(this);
-        var $row = $link.closest('tr');
+        var $button = jQuery(this);
+        var $row = $button.closest('tr');
 
-        saveMagentoJobs($row);
+        saveMagentoJobs($row, $button);
         return false;
     });
 
@@ -701,6 +727,7 @@ jQuery(document).ready(function () {
     jQuery(document).on('click', '.add-ready-products', function () {
 
         var $rows = [];
+        var $button = jQuery(this);
 
         /** Collect Ready Products */
         jQuery('td.product-status.ready').each(function () {
@@ -708,7 +735,7 @@ jQuery(document).ready(function () {
             $rows.push($td.closest('tr'));
         });
 
-        saveMagentoJobs($rows);
+        saveMagentoJobs($rows, $button);
         return false;
     });
 

@@ -133,6 +133,14 @@ form.search-form {
     padding: 10px 15px 0;
 }
 
+[disabled], :disabled, .disabled {
+    cursor: not-allowed !important;
+    filter: alpha(opacity=65) !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    opacity: .65 !important;
+}
+
 .add-ready-products .badge {
     background: #fff !important;
     color: #000 !important;
@@ -790,6 +798,10 @@ ul.paginator li.active {
 
 #results #load-next:hover i:before {
     margin-left: 10px;
+}
+
+#results #load-next:disabled:hover i:before {
+    margin-left: 0px !important;
 }
 
 #results #load-next span {
