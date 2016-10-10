@@ -29,7 +29,19 @@
                             </div>
                         </div>
 
-                        <p class="availability in-stock">Availability: <span>In stock</span></p>
+                        <p class="availability
+                            <?php if ($_product->getPrice() != 0.00 && $_product->getPriceUsed() != 0.00): ?>
+                                in-stock
+                            <?php else: ?>
+                                out-of-stock
+                            <?php endif; ?>">
+                            Availability:
+                            <?php if ($_product->getPrice() != 0.00 && $_product->getPriceUsed() != 0.00): ?>
+                                <span>In stock</span>
+                            <?php else: ?>
+                                <span>Out of stock</span>
+                            <?php endif; ?>
+                        </p>
 
                         <ul>
                             <li class="asin">
@@ -63,9 +75,9 @@
                                               <?php echo Mage::helper('core')->currency($_product->getPrice(), true, false); ?>
                                         </span>
                                         <span class="total-count col-md-4 text-right">
-                                            <?php if (!empty($amazonAttributes['OfferSummary']['TotalNew'])) : ?>
-                                                <?php echo $amazonAttributes['OfferSummary']['TotalNew']; ?> items
-                                            <?php endif; ?>
+                                           <?php if (!empty($_product->getOffersNumberNew())) : ?>
+                                               <?php echo $_product->getOffersNumberNew(); ?> items
+                                           <?php endif; ?>
                                         </span>
                                     </span>
                                 </span>
@@ -79,8 +91,8 @@
                                              <?php echo Mage::helper('core')->currency($_product->getPriceUsed(), true, false); ?>
                                         </span>
                                         <span class="total-count col-md-4 text-right">
-                                            <?php if (!empty($amazonAttributes['OfferSummary']['TotalUsed'])) : ?>
-                                                <?php echo $amazonAttributes['OfferSummary']['TotalUsed']; ?> items
+                                            <?php if (!empty($_product->getOffersNumberUsed())) : ?>
+                                                <?php echo $_product->getOffersNumberUsed(); ?> items
                                             <?php endif; ?>
                                         </span>
                                     </span>

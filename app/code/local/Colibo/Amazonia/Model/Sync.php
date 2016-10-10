@@ -147,6 +147,8 @@ class Colibo_Amazonia_Model_Sync
             } else {
                 $attributes['price'] = 0.00;
             }
+            $attributes['offers_number_new'] = !empty($offers['TotalNew']) ? (int)$offers['TotalNew'] : 0;
+
 
             /** Update Used Price */
             if (!empty($offers['LowestUsedPrice']['Amount'])) {
@@ -154,10 +156,14 @@ class Colibo_Amazonia_Model_Sync
             } else {
                 $attributes['price_used'] = 0.00;
             }
+            $attributes['offers_number_used'] = !empty($offers['TotalUsed']) ? (int)$offers['TotalUsed'] : 0;
+
 
             /** Update Rating */
             $frameUrl = !empty($product['data']['CustomerReviews']['IFrameURL'])
                 ? $product['data']['CustomerReviews']['IFrameURL'] : false;
+            $attributes['reviews_url'] = preg_replace('/http[s]?:/i', '', $frameUrl);
+
 
             $rating = $this->parseProductRating($frameUrl);
             if (!empty($rating)) {

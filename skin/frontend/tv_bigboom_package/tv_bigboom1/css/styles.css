@@ -3211,11 +3211,8 @@ p.welcome-msg {
     margin: 0;
 }
 
-.availability span {
-    font-weight: bold;
-}
-
 .availability.in-stock span {
+    color: #B0D95E;
 }
 
 .availability.out-of-stock span {
@@ -3712,10 +3709,9 @@ p.welcome-msg {
     font-size: 13px;
 }
 
-.product-view .product-shop .availability span {
+.product-view .product-shop .availability.in-stock span {
     font-weight: normal;
     color: #B0D95E;
-    font-weight: bold;
 }
 
 .product-view .product-shop .add-to-box-cart {

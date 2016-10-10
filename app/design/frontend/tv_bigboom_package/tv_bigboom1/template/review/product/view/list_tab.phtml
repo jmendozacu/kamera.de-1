@@ -2,11 +2,7 @@
     <div class="col-md-12">
 
         <div class="review-iframe">
-            <?php
-            $amazonAttributes = json_decode($this->getProduct()->getAmazonAttributes(), true);
-            $reviewsUrl = !empty($amazonAttributes['CustomerReviews']['IFrameURL']) ? $amazonAttributes['CustomerReviews']['IFrameURL'] : false;
-            $reviewsUrl = str_replace('http:', 'https:', $reviewsUrl);
-            ?>
+            <?php $reviewsUrl = $this->getProduct()->getReviewsUrl(); ?>
             <?php if (!empty($reviewsUrl)) : ?>
                 <h2>Customer Reviews</h2>
                 <iframe src="<?php echo $reviewsUrl; ?>" frameborder="0" scrolling="0"></iframe>

@@ -59,11 +59,17 @@ $helpLabels = $this->helper('themevast/labels');
                                 </div>
 
                                 <div class="price-box">
-                                    <span class="regular-price">
-                                        <span class="price">
-                                            <?php echo Mage::helper('core')->currency($_product->getPrice(), true, false); ?>
-                                        </span>
-                                    </span>
+                        <span class="regular-price">
+                            <span class="price">
+                                 <?php if ($_product->getPrice() != 0.00): ?>
+                                     <?php echo Mage::helper('core')->currency($_product->getPrice(), true, false); ?>
+                                 <?php elseif ($_product->getPriceUsed() != 0.00): ?>
+                                     <?php echo Mage::helper('core')->currency($_product->getPriceUsed(), true, false); ?>
+                                 <?php else: ?>
+                                     <span class="availability out-of-stock"><span>Out of stock</span></span>
+                                 <?php endif; ?>
+                            </span>
+                        </span>
                                 </div>
 
                                 <div class="actions">
@@ -136,11 +142,17 @@ $helpLabels = $this->helper('themevast/labels');
                     </div>
 
                     <div class="price-box">
-                        <span class="regular-price">
-                            <span class="price">
-                                <?php echo Mage::helper('core')->currency($_product->getPrice(), true, false); ?>
-                            </span>
-                        </span>
+            <span class="regular-price">
+                <span class="price">
+                    <?php if ($_product->getPrice() != 0.00): ?>
+                        <?php echo Mage::helper('core')->currency($_product->getPrice(), true, false); ?>
+                    <?php elseif ($_product->getPriceUsed() != 0.00): ?>
+                        <?php echo Mage::helper('core')->currency($_product->getPriceUsed(), true, false); ?>
+                    <?php else: ?>
+                        <span class="availability out-of-stock"><span>Out of stock</span></span>
+                    <?php endif; ?>
+                </span>
+            </span>
                     </div>
 
                     <div class="actions">
