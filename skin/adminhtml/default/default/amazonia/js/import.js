@@ -308,6 +308,8 @@ function saveMagentoJobs($rows) {
         var $type = $response.data > 0 ? 'info' : 'warning';
         showMessage('Import: add product to jobs', '<strong>' + $response.data + '</strong> products was added to import queue', false, $type);
 
+        monitorJobs();
+
         /** Remove Processed Items */
         jQuery.each($rows, function ($index, $row) {
             setTimeout(function () {
@@ -330,9 +332,15 @@ jQuery(document).ready(function () {
      * -------------
      */
     monitorJobs();
-    setInterval(function () {
+
+    /**
+     * Refresh Jobs.
+     * ------------
+     */
+    jQuery(document).on('click', '.refresh-jobs', function () {
         monitorJobs();
-    }, 600000);
+        return false;
+    });
 
 
     /**

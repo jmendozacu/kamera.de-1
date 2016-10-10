@@ -149,8 +149,16 @@
             <div class="col-md-3">
                 <div class="jobs-monitor panel block-eq panel-warning">
                     <div class="panel-heading">
-                        Import Queue
-                        <span class="badge pull-right">...</span>
+                        <div class="row">
+                            <div class="col-md-10">
+                                Import Queue &nbsp;
+                                <span class="badge">...</span></div>
+                            <div class="col-md-2 text-center">
+                                <button class="refresh-jobs btn btn-xs btn-warning">
+                                    <i class="fa fa-refresh"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     <div class="panel-body no-padding">
                         <form action="<?php echo $this->getUrl('amazon/adminhtml_magento/monitor/') ?>"
