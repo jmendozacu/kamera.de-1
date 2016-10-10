@@ -330,9 +330,9 @@ jQuery(document).ready(function () {
      * -------------
      */
     monitorJobs();
-    //setInterval(function () {
-    monitorJobs();
-    //}, 5000);
+    setInterval(function () {
+        monitorJobs();
+    }, 5000);
 
 
     /**
@@ -507,10 +507,11 @@ jQuery(document).ready(function () {
                 data: $form.serialize() + '&asin=' + $asin,
                 dataType: 'json',
                 beforeSend: function () {
-
+                    $button.attr('disabled', true);
                 }
             }).done(function () {
                 monitorJobs();
+                $button.attr('disabled', false);
             }).fail(function (jqXHR) {
                 var $trace = "url: " + $form.attr('action') + "<br>" + "response: " + jqXHR.statusText + " [" + jqXHR.status + "]";
                 showMessage("XHR Error", "", $trace, "error");
