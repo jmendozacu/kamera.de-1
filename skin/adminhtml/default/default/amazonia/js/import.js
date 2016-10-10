@@ -89,6 +89,51 @@ jQuery(document)
 
 
 /**
+ * Monitor Jobs.
+ * -------------
+ */
+function monitorJobs() {
+
+    /** Get Form */
+    var $monitor = jQuery('.jobs-monitor');
+    var $form = $monitor.find('form');
+
+    jQuery.ajax({
+        url: $form.attr('action'),
+        type: $form.attr('method'),
+        data: $form.serialize(),
+        dataType: 'json',
+        beforeSend: function () {
+        }
+    }).done(function ($response) {
+
+        if ($response.status) {
+
+            /** Set Jobs List */
+            $monitor.find('ul').replaceWith($response.html);
+
+            /** Jobs Counter */
+            $monitor.find('.badge').text(Object.keys($response.data).length);
+
+            /** Custom Pagination Scrollbar */
+            $form.find('ul').mCustomScrollbar({
+                axis: "y",
+                theme: "rounded-dark",
+                scrollInertia: 100
+            });
+
+        } else {
+            showMessage($response.notify.title, $response.notify.message, $response.notify.trace, "error");
+        }
+
+    }).fail(function (jqXHR) {
+        var $trace = "url: " + $form.attr('action') + "<br>" + "response: " + jqXHR.statusText + " [" + jqXHR.status + "]";
+        showMessage("XHR Error", "", $trace, "error");
+    });
+}
+
+
+/**
  * Load Page by Number.
  * --------------------
  *
@@ -281,6 +326,16 @@ function saveMagentoJobs($rows) {
 jQuery(document).ready(function () {
 
     /**
+     * Jobs Monitor.
+     * -------------
+     */
+    monitorJobs();
+    //setInterval(function () {
+    monitorJobs();
+    //}, 5000);
+
+
+    /**
      * Nodes Tree.
      * -----------------------
      */
@@ -428,6 +483,38 @@ jQuery(document).ready(function () {
         if (!$button.hasClass('.active')) {
             var $page = parseInt($button.text().trim());
             loadPage($page);
+        }
+
+        return false;
+    });
+
+
+    /**
+     * Remove Job.
+     * -----------------------------
+     */
+    jQuery(document).on('click', '.remove-job', function () {
+
+        if (confirm('Are you sure to remove this job from queue?')) {
+
+            var $button = jQuery(this);
+            var $asin = $button.closest('li').find('.job-asin').text().trim();
+            var $form = $button.closest('li').find('form');
+
+            jQuery.ajax({
+                url: $form.attr('action'),
+                type: $form.attr('method'),
+                data: $form.serialize() + '&asin=' + $asin,
+                dataType: 'json',
+                beforeSend: function () {
+
+                }
+            }).done(function () {
+                monitorJobs();
+            }).fail(function (jqXHR) {
+                var $trace = "url: " + $form.attr('action') + "<br>" + "response: " + jqXHR.statusText + " [" + jqXHR.status + "]";
+                showMessage("XHR Error", "", $trace, "error");
+            });
         }
 
         return false;

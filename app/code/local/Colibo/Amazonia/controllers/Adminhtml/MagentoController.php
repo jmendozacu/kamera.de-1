@@ -211,4 +211,116 @@ class Colibo_Amazonia_Adminhtml_MagentoController extends Mage_Adminhtml_Control
         $this->getResponse()->setBody(json_encode($response));
     }
 
+
+    /**
+     * Get Products Jobs.
+     * ------------------
+     */
+    public function monitorAction()
+    {
+        try {
+
+            $this->loadLayout();
+
+            $data = [];
+            $categories = Mage::helper('amazonia')->getCategories()->toArray();
+            $attributeSets = Mage::helper('amazonia')->getAttributeSets()->toArray();
+
+            /** Init Resources */
+            $resource = Mage::getSingleton('core/resource');
+            $dbWrite = $resource->getConnection('core_write');
+            $table = $resource->getTableName('colibo_products_jobs');
+
+            /**
+             * Get Products Jobs
+             * ------------------
+             */
+            $query = "SELECT * FROM " . $table . " ORDER BY id DESC;";
+            $jobs = $dbWrite->query($query)->fetchAll();
+            foreach ($jobs as $job) {
+
+                $magentoData = json_decode($job['magento_data'], true);
+
+                $attributeSetName = 'NONE';
+                foreach ($attributeSets['items'] as $attributeSet) {
+                    if ($attributeSet['attribute_set_id'] == $magentoData['attribute_set_id']) {
+                        $attributeSetName = $attributeSet['attribute_set_name'];
+                        break;
+                    }
+                }
+
+                $data[] = [
+                    'id' => $job['id'],
+                    'asin' => $job['amazon_asin'],
+                    'category' => $categories[$magentoData['category_id']]['name'],
+                    'attribute_set' => $attributeSetName
+                ];
+            }
+
+            $jobsBlock = Mage::app()->getLayout()->getBlock('magento_jobs');
+            $jobsBlock->setJobs($data);
+
+            $response = [
+                'status' => true,
+                'data' => $data,
+                'html' => $jobsBlock->toHtml()
+            ];
+
+        } catch (\Exception $e) {
+
+            $response = [
+                'status' => false,
+                'notify' => [
+                    'title' => "Error Code: " . $e->getCode(),
+                    'message' => strip_tags($e->getMessage()),
+                    'trace' => $e->getFile() . ":" . $e->getLine()
+                ]
+
+            ];
+        }
+
+        $this->getResponse()->clearHeaders()->setHeader('Content-type', 'application/json', true);
+        $this->getResponse()->setBody(json_encode($response));
+    }
+
+    /**
+     * Remove Job.
+     * -------------
+     */
+    public function removeJobAction()
+    {
+        try {
+
+            /** Init Resources */
+            $resource = Mage::getSingleton('core/resource');
+            $dbWrite = $resource->getConnection('core_write');
+            $table = $resource->getTableName('colibo_products_jobs');
+
+            $asin = trim($this->getRequest()->getParam('asin', null));
+
+            $query = "DELETE FROM " . $table . " WHERE amazon_asin = '" . $asin . "';";
+            $dbWrite->query($query);
+
+            $response = [
+                'status' => true
+            ];
+
+        } catch (\Exception $e) {
+
+            $response = [
+                'status' => false,
+                'notify' => [
+                    'title' => "Error Code: " . $e->getCode(),
+                    'message' => strip_tags($e->getMessage()),
+                    'trace' => $e->getFile() . ":" . $e->getLine()
+                ]
+
+            ];
+        }
+
+        $this->getResponse()->clearHeaders()->setHeader('Content-type', 'application/json', true);
+        $this->getResponse()->setBody(json_encode($response));
+    }
+
+
 }

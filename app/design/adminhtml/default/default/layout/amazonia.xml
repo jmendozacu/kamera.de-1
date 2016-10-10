@@ -45,4 +45,12 @@
         </reference>
     </amazonia_adminhtml_amazon_search>
 
+    <amazonia_adminhtml_magento_monitor>
+        <reference name="content">
+            <block type="amazonia/adminhtml_products" name="magento_jobs"
+                   template="amazonia/magento-jobs.phtml">
+            </block>
+        </reference>
+    </amazonia_adminhtml_magento_monitor>
+
 </layout>

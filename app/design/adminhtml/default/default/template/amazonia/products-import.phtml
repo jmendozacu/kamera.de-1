@@ -145,9 +145,28 @@
                 </div>
             </div>
 
+            <!-- Products Queue -->
+            <div class="col-md-3">
+                <div class="jobs-monitor panel block-eq panel-warning">
+                    <div class="panel-heading">
+                        Import Queue
+                        <span class="badge pull-right">...</span>
+                    </div>
+                    <div class="panel-body no-padding">
+                        <form action="<?php echo $this->getUrl('amazon/adminhtml_magento/monitor/') ?>"
+                              method="post">
+                            <ul></ul>
+                            <input name="form_key" type="hidden"
+                                   value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>"/>
+                            <input name="isAjax" type="hidden" value="true"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
 
             <!-- API Status Block -->
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <div class="panel block-eq panel-<?php echo $this->getAmazonConfig() ? 'info' : 'danger'; ?>">
                     <div class="panel-heading">
                         Amazon Account Settings
@@ -157,7 +176,7 @@
                     </div>
                     <div class="panel-body">
                         <?php if ($this->getAmazonConfig()) : ?>
-                            <dl class="dl-horizontal amazon-info col-md-8">
+                            <dl class="dl-horizontal amazon-info col-md-12">
                                 <dt>Access Key ID:</dt>
                                 <dd><?php echo $this->getAmazonConfig('access_key_id'); ?></dd>
 
@@ -167,12 +186,6 @@
                                 <dt>Partner Tag:</dt>
                                 <dd><?php echo $this->getAmazonConfig('partner_tag'); ?></dd>
                             </dl>
-                            <div class="col-md-4">
-                                <img class="pull-right amazon-logo"
-                                     src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) .
-                                         'adminhtml/default/default/amazonia/images/amazon-logo.png'; ?>"
-                                />
-                            </div>
                         <?php elseif ($this->getAmazonMessage()) : ?>
                             <div class="amazon-message well well-sm">
                                 <?php echo $this->getAmazonMessage(); ?>
@@ -210,6 +223,7 @@
                         <button class="add-ready-products btn btn-success btn-sm pull-right">Add ready products to
                             queue
                         </button>
+
                         <select name="attribute_set_id" class="pull-right form-control global" style="width: 220px">
                             <option value=""> &rarr; Set AttributeSet For All</option>
                             <?php /** @var Mage_Catalog_Model_Category $category */ ?>
@@ -219,6 +233,7 @@
                                 </option>
                             <?php endforeach; ?>
                         </select>
+
                         <select name="category_id" class="pull-right form-control global" style="width: 220px">
                             <option value=""> &rarr; Set Category For All</option>
                             <?php /** @var Mage_Catalog_Model_Category $category */ ?>

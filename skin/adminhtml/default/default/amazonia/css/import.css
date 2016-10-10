@@ -85,9 +85,44 @@ dd, dt {
     margin: 20px 0 !important;
 }
 
+.no-padding {
+    padding: 0 !important;
+}
+
 .amazon-info dt,
 .amazon-info dd {
     line-height: 35px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.jobs-monitor ul li:first-child {
+    background: #eae0a7 !important;
+}
+
+.mCSB_inside > .mCSB_container {
+    margin-right: 0px !important;
+}
+
+.mCSB_scrollTools {
+    top: 35px !important;
+    bottom: 5px !important;
+}
+
+.jobs-monitor ul {
+    height: 176px;
+    overflow: auto;
+    width: 100%;
+    display: block;
+}
+
+.jobs-monitor ul li {
+    display: block;
+    line-height: 30px;
+}
+
+.jobs-monitor ul li:nth-child(odd) {
+    background: #f5f5f5;
 }
 
 form.search-form {
