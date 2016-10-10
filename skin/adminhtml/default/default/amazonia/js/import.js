@@ -577,8 +577,8 @@ jQuery(document).ready(function () {
      * --------------------------
      * */
     jQuery('#results').bind("DOMSubtreeModified", function () {
-        jQuery('.asins-counter.success').empty().text(jQuery('#results').find('table .label-success').length);
-        jQuery('.asins-counter.failed').empty().text(jQuery('#results').find('table .label-danger').length);
+        jQuery('.asins-counter.success').empty().text(jQuery('#results').find('table td.product-img').length);
+        jQuery('.asins-counter.failed').empty().text(jQuery('#results').find('table pre').length);
     });
 
 
