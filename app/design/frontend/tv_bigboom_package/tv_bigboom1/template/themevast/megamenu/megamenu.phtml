@@ -28,25 +28,6 @@ $className = Mage::getConfig()->getBlockClassName('megamenu/megamenu');
             <?php $megamenu =  $this->getLayout()->createBlock('megamenu/megamenu'); ?>       
             <?php echo $megamenu->drawMegamenuHome(); ?>
             <?php //echo $megamenu->drawMegamenuMain(); ?>
-            <div class="megamenu nav_product nav_newproduct">
-                <div class="level-top"><a href="<?php echo $this->getUrl('newproduct')?>"><span><?php echo $this->__('Shop') ?></span><i class="fa fa-angle-down"></i></a><span class="new"><?php echo $this->__('New')?></span></div>
-                <div class="dropdown">
-                 <?php   $block =$this->getLayout()->createBlock('newproduct/newproduct')
-                         ->setTemplate('themevast/newproduct/newproduct.phtml');
-                         echo $block->toHtml();
-                 ?>
-                </div>
-            </div>
-            <?php echo $megamenu->drawMegamenuExtra(); ?>
-            <div class="megamenu nav_product nav_saleproduct">
-                <div class="level-top"><a href="<?php echo $this->getUrl('saleproduct')?>"><span><?php echo $this->__('clearance') ?></span><i class="fa fa-angle-down"></i></a><span class="hot"><?php echo $this->__('Hot')?></span></div>
-                <div class="dropdown">
-                 <?php   $block =$this->getLayout()->createBlock('saleproduct/saleproduct')
-                         ->setTemplate('themevast/saleproduct/saleproduct.phtml');
-                         echo $block->toHtml();
-                 ?>
-                </div>
-            </div>
             <?php echo $megamenu->drawMegamenuLink(); ?>
             
             
