@@ -24,39 +24,33 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-<div class="block-static-information">
-    <div class="container">
-        <div class="static-info">
-            <div class="row">
-                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('block_static_information')->toHtml() ?>
+    <div class="block-static-information">
+        <div class="container">
+            <div class="static-info">
+                <div class="row">
+                </div>
             </div>
         </div>
     </div>
-</div>
-<footer class="footer-wrapper">
-    <div class="container">
-        <div class="footer-inner">
-            <div class="footer-information">
+    <footer class="footer-wrapper">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-information">
                     <div class="row">
                         <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer_info')->toHtml() ?>
                     </div>
-            </div>
-            <div class="footer-container">
+                </div>
+                <div class="footer-container">
                     <div class="footer">
                         <div class="row">
                             <div class="col-xs-12 col-sm-6">
-                                <?php echo $this->getChildHtml() ?>
                                 <address class="copyright"><?php echo $this->getCopyright() ?></address>
                             </div>
-                            <div class="col-xs-12 col-sm-6">
-                                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer_social')->toHtml() ?>
-                            </div>
                         </div>
-                        
                     </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div id="back-top" class="hidden-xs"><i class="fa fa-angle-up"></i></div>
-</footer>
+        <div id="back-top" class="hidden-xs"><i class="fa fa-angle-up"></i></div>
+    </footer>
 <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('block_social_right')->toHtml() ?>
