@@ -96,6 +96,7 @@
 "Sent","Gesendet"
 "Sign Up for Our Newsletter:","Anmeldung für unseren Newsletter:"
 "Sign up for our newsletter","Anmeldung für unseren Newsletter"
+"Sign Up for Our Newsletter","Anmeldung für unseren Newsletter"
 "Sorry, but administrator denied subscription for guests. Please <a href=""%s"">register</a>.","Leider gestattet der Administrator keine Gastanmeldung. Bitte <a href=""%s"">registrieren Sie sich</a>."
 "Start","Starten"
 "Status","Status"
@@ -135,3 +136,4 @@
 "Website","Website"
 "You have been unsubscribed.","Sie haben sich erfolgreich abgemeldet."
 "Your subscription has been confirmed.","Ihre Anmeldung wurde bestätigt."
+
