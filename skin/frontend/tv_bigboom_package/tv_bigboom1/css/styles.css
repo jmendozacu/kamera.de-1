@@ -7423,6 +7423,22 @@ footer {
 .brandlogo-contain .bx-wrapper img {
     display: inline;
 }
+li.item {
+    margin: 10px;
+}
+.item .brand_block {
+    width: 200px;
+    height: 150px;
+}
+
+.brand_block .brand_label {
+    margin-top: 30%;
+    vertical-align	: middle;
+}
+
+.brand_block .brand_image {
+    height: 100%;
+}
 
 /*-------------------------------------------------------------------------------*/
 
