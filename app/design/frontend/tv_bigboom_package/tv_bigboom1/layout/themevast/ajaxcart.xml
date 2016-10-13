@@ -4,16 +4,6 @@
         <reference name="head">    
             <action method="addJs" ><script>themevast/jquery.min.js</script></action>
         </reference>
-        <reference name="header">
-            <block type="checkout/cart_sidebar" before="-" as="top_cart_mini" name="cart_sidebar_mini" template="themevast/ajaxcart/checkout/cart/topcart.phtml">
-                <action method="addItemRender"><type>simple</type><block>checkout/cart_item_renderer</block><template>checkout/cart/sidebar/default.phtml</template></action>
-                <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/cart/sidebar/default.phtml</template></action>
-                <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/cart/sidebar/default.phtml</template></action>
-                <block type="core/text_list" name="cart_sidebar.extra_actions" as="extra_actions" translate="label" module="checkout">
-                    <label>Shopping Cart Sidebar Extra Actions</label>
-                </block>
-            </block>
-        </reference>
     </default>
     <ajaxcart_index_productview translate="label">
         <label>Catalog Product View (Any)</label>
