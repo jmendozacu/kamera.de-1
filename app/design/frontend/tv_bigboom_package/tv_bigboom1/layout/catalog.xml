@@ -213,6 +213,10 @@ Product view
                     </action>
                 </block>
 
+                <block type="similarproducts/productlist" name="similarproducts.productlist" as="similarproducts_list"
+                       template="catalog/product/view/similarproducts.phtml">
+                </block>
+
                 <block type="catalog/product_list_upsell" name="product.info.upsell" as="upsell_products" template="catalog/product/list/upsell.phtml">
                     <action method="setColumnCount"><columns>4</columns></action>
                     <action method="setItemLimit"><type>upsell</type><limit>4</limit></action>
