@@ -7432,6 +7432,7 @@ li.item {
 }
 
 .brand_block .brand_label {
+    display: block;
     margin-top: 30%;
     vertical-align	: middle;
 }

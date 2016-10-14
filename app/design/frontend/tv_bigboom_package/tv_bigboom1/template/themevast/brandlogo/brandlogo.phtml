@@ -1,6 +1,6 @@
 <?php
-$attribute = Mage::getModel('eav/config')->getAttribute('catalog_product', 'manufacturer');
-$manufacturers = $attribute->getSource()->getAllOptions();
+$manufacturerAttribute = Mage::getModel('eav/config')->getAttribute('catalog_product', 'manufacturer');
+$manufacturers = $manufacturerAttribute->getSource()->getAllOptions();
 ?>
 
 <section class="brandlogo-wrapper">
@@ -8,20 +8,21 @@ $manufacturers = $attribute->getSource()->getAllOptions();
 
         <div class="bx-title brand-title"><h2><?php echo $this->__('Brand & Cliens') ?></h2></div>
         <ul class="bxslider">
-
-            <?php foreach ($manufacturers as $option) : ?>
-                <?php $brandImage = Mage::helper('attributeimage')->getAttributeImage($option['value']); ?>
-                    <li class="item">
-                        <div class="brand_block">
-                            <?php if ($brandImage): ?>
-                                <a href="#" title=""><img class="brand_image" src="<?php echo $brandImage; ?>"/></a>
-                            <?php else : ?>
-                                <h3 class="brand_label"><?php echo $option['label']; ?></h3>
-                            <?php endif; ?>
-                        </div>
-                    </li>
+            <?php foreach ($manufacturers as $manufacturer) : ?>
+                <?php $filterUrl = Mage::getUrl('filter.html', array('_query' => 'manufacturer=' . $manufacturer['value'])); ?>
+                <?php $brandImage = Mage::helper('attributeimage')->getAttributeImage($manufacturer['value']); ?>
+                <li class="item">
+                    <div class="brand_block">
+                        <?php if ($brandImage): ?>
+                            <a href="<?php echo $filterUrl; ?>" title=""><img class="brand_image"
+                                                                              src="<?php echo $brandImage; ?>"/></a>
+                        <?php else : ?>
+                            <a href="<?php echo $filterUrl; ?>" title=""><h3
+                                    class="brand_label"><?php echo $manufacturer['label']; ?></h3></a>
+                        <?php endif; ?>
+                    </div>
+                </li>
             <?php endforeach; ?>
-
         </ul>
 
         <script type="text/javascript">

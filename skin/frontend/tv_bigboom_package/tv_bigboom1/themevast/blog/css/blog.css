@@ -61,12 +61,14 @@
     margin-bottom: 0px;
 }
 
+.box-info .des ol li,
 .postContentText ol li,
 .postContent ol li {
     list-style: inside decimal;
     padding: 5px;
 }
 
+.box-info .des ul li,
 .postContentText ul li,
 .postContent ul li {
     list-style: inside disc;
