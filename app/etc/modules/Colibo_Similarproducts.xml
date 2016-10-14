@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Colibo_Similarproducts>
+		
+            <active>true</active>
+
+            <codePool>local</codePool>
+
+        </Colibo_Similarproducts>
+    </modules>
+    <global>
+        <blocks>
+            <similarproducts>
+                <class>Colibo_Similarproducts_Block</class>
+            </similarproducts>
+        </blocks>
+    </global>
+</config>

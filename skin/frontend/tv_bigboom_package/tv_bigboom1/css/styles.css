@@ -8231,3 +8231,18 @@ a {
 .review-iframe h2 {
     display: none;
 }
+
+/* <Similar Products>*/
+
+.colibo-similarproducts{
+    display: flex;
+    border: 1px solid #e5e5e5;
+    padding: 5px;
+    margin-top: 20px;
+}
+
+.similarproducts-item{
+    margin:0 auto;
+}
+
+/* </Similar Products>*/

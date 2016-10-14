@@ -1,0 +1,24 @@
+<?php
+/** @var Colibo_Similarproducts_Block_Productlist $this */
+
+$_products = $this->getSimilarProducts();
+if ($_products) {
+    ?>
+
+    <div class="colibo-similarproducts">
+        <?php
+
+        $_helper = $this->helper('catalog/output');
+
+        /** @var Mage_Catalog_Model_Product $_product */
+        foreach ($_products as $_product) {
+            $_img = '<img src="' . $this->helper('catalog/image')->init($_product, 'image')->resize(165) . '" alt="' . $this->escapeHtml($this->getImageLabel()) . '" title="' . $this->escapeHtml($this->getImageLabel()) . '" />';
+            echo "<div class='similarproducts-item'><a href='" . $_product->getUrlPath() . "'>" . $_helper->productAttribute($_product, $_img, 'image') . "</a></div>";
+        }
+
+        ?>
+    </div>
+<?php } ?>
+
+
+
