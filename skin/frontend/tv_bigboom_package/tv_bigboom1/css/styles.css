@@ -8245,3 +8245,8 @@ a {
 }
 
 /* </Similar Products>*/
+
+.add-to-wishlist {
+    position: absolute;
+    right: 10px;
+}

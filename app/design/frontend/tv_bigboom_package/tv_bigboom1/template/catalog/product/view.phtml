@@ -55,6 +55,10 @@
                         <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
                     </div>
 
+                    <div class="row f-right add-to-wishlist">
+                        <?php echo $this->getChildHtml('addto') ?>
+                    </div>
+
                     <div class="ratings">
                         <div class="rating-box">
                             <div class="rating"
