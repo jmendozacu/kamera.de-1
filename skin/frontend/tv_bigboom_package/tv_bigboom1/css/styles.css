@@ -8234,15 +8234,14 @@ a {
 
 /* <Similar Products>*/
 
-.colibo-similarproducts{
+.colibo-similarproducts .products-list {
     display: flex;
     border: 1px solid #e5e5e5;
-    padding: 5px;
     margin-top: 20px;
 }
 
-.similarproducts-item{
-    margin:0 auto;
+.colibo-similarproducts .similarproducts-item.item {
+    margin-bottom: 10px;
 }
 
 /* </Similar Products>*/

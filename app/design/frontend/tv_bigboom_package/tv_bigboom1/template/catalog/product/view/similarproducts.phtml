@@ -1,22 +1,32 @@
 <?php
 /** @var Colibo_Similarproducts_Block_Productlist $this */
 
-$_products = $this->getSimilarProducts();
-if ($_products) {
+/** @var Mage_Catalog_Model_Resource_Product_Collection $products */
+$products = $this->getSimilarProducts();
+
+if (count($products)) {
     ?>
 
     <div class="colibo-similarproducts">
-        <?php
+        <ol class="products-list" id="products-list">
+            <?php
 
-        $_helper = $this->helper('catalog/output');
+            $helper = $this->helper('catalog/output');
 
-        /** @var Mage_Catalog_Model_Product $_product */
-        foreach ($_products as $_product) {
-            $_img = '<img src="' . $this->helper('catalog/image')->init($_product, 'image')->resize(165) . '" alt="' . $this->escapeHtml($this->getImageLabel()) . '" title="' . $this->escapeHtml($this->getImageLabel()) . '" />';
-            echo "<div class='similarproducts-item'><a href='" . $_product->getUrlPath() . "'>" . $_helper->productAttribute($_product, $_img, 'image') . "</a></div>";
-        }
-
-        ?>
+            /** @var Mage_Catalog_Model_Product $product */
+            foreach ($products as $product) {
+                $img = '<img src="' . $this->helper('catalog/image')->init($product, 'image')->resize(165) . '" alt="' . $this->escapeHtml($this->getImageLabel()) . '" title="' . $this->escapeHtml($this->getImageLabel()) . '" />';
+                ?>
+                <li class='item similarproducts-item'>
+                    <a class="view-detail" <?php if (Mage::getStoreConfig('quickview/general/enabled')): ?> id='fancybox<?php echo $product->getId() ?>'  href="<?php echo $this->getUrl('quickview/index/ajax', array('product_id' => $product->getId())); ?>"<?php else: ?> href="<?php echo $product->getProductUrl() ?>" href="<?php echo $product->getProductUrl() ?>" <?php endif ?>
+                       title="<?php echo $this->stripTags($product->getName(), null, true) ?>"><i
+                            class="fa fa-search"></i></a>
+                    <a href='<?php echo $product->getUrlPath(); ?>'><?php echo $helper->productAttribute($product, $img, 'image') ?></a>
+                </li>
+                <?php
+            }
+            ?>
+        </ol>
     </div>
 <?php } ?>
 
