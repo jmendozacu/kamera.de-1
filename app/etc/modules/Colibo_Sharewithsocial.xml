@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Colibo_Sharewithsocial>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Colibo_Sharewithsocial>
+    </modules>
+    <global>
+        <blocks>
+            <sharewithsocial>
+                <class>Colibo_Sharewithsocial_Block</class>
+            </sharewithsocial>
+        </blocks>
+    </global>
+</config>

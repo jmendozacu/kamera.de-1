@@ -217,6 +217,16 @@ Product view
                        template="catalog/product/view/similarproducts.phtml">
                 </block>
 
+                <block type="sharewithsocial/sharelinks" name="sharewithsocial.sharelinks"
+                       as="sharewithsocial_sharelinks"
+                       template="catalog/product/view/sharewithsocial.phtml">
+                    <reference name="head">
+                        <action method="addJs">
+                            <script>colibo/sharewithsocial/sharewithsocial.js</script>
+                        </action>
+                    </reference>
+                </block>
+
                 <block type="catalog/product_list_upsell" name="product.info.upsell" as="upsell_products" template="catalog/product/list/upsell.phtml">
                     <action method="setColumnCount"><columns>4</columns></action>
                     <action method="setItemLimit"><type>upsell</type><limit>4</limit></action>

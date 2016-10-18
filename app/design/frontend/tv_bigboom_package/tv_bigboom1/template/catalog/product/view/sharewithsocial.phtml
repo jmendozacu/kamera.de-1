@@ -1,0 +1,22 @@
+<?php
+$currentUrl = $this->getUrl();
+?>
+
+<div class="sharewithsocial">
+    <div class="fb-share-button"
+         data-href="<?php echo $currentUrl; ?>"
+         data-layout="button_count">
+    </div>
+
+    <div class="twitter-share-button">
+        <a class="twitter-share-button" href="https://twitter.com/intent/tweet">
+            Tweet
+            <link rel="canonical"
+                  href="<?php echo $currentUrl; ?>">
+        </a>
+    </div>
+
+    <div class="g-plus-share-button">
+        <div class="g-plus" data-action="share" data-annotation="none" data-href="<?php echo $currentUrl; ?>"></div>
+    </div>
+</div>

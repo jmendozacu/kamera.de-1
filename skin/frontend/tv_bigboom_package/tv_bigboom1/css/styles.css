@@ -8246,6 +8246,18 @@ a {
 
 /* </Similar Products>*/
 
+/* <Sharewithsocial>*/
+
+.sharewithsocial{
+    display:flex;
+}
+
+.sharewithsocial div{
+    margin:5px 0 5px 5px;
+}
+
+/* </Sharewithsocial>*/
+
 .add-to-wishlist {
     position: absolute;
     right: 10px;
