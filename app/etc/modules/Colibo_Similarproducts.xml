@@ -6,11 +6,4 @@
             <codePool>local</codePool>
         </Colibo_Similarproducts>
     </modules>
-    <global>
-        <blocks>
-            <similarproducts>
-                <class>Colibo_Similarproducts_Block</class>
-            </similarproducts>
-        </blocks>
-    </global>
 </config>

@@ -1,11 +1,11 @@
 <?php
-$currentUrl = $this->getUrl();
+$currentUrl = Mage::helper('core/url')->getCurrentUrl();
 ?>
 
 <div class="sharewithsocial">
     <div class="fb-share-button"
          data-href="<?php echo $currentUrl; ?>"
-         data-layout="button_count">
+         data-layout="button">
     </div>
 
     <div class="twitter-share-button">

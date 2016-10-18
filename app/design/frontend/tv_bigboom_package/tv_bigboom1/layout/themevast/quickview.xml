@@ -70,6 +70,20 @@
                        template="catalog/product/view/similarproducts.phtml">
                 </block>
 
+                <block type="sharewithsocial/sharelinks" name="sharewithsocial.sharelinks"
+                       as="sharewithsocial_sharelinks"
+                       template="catalog/product/view/sharewithsocial.phtml">
+                    <reference name="before_body_end">
+                        <block type="page/html_head" name="scripts_in_footer"
+                               template="page/html/before_body_end.phtml">
+                            <action method="addItem">
+                                <type>skin_js</type>
+                                <name>js/colibo/sharewithsocial/sharewithsocial.js</name>
+                            </action>
+                        </block>
+                    </reference>
+                </block>
+
                 <block type="catalog/product_list_upsell" name="product.info.upsell" as="upsell_products" template="catalog/product/list/upsell.phtml">
                     <action method="setColumnCount"><columns>4</columns></action>
                     <action method="setItemLimit"><type>upsell</type><limit>4</limit></action>

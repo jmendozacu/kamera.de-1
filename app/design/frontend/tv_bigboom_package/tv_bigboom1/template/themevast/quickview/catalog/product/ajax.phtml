@@ -22,6 +22,10 @@
                             <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
                         </div>
 
+                        <div class="row f-right add-to-wishlist">
+                            <?php echo $this->getChildHtml('addto') ?>
+                        </div>
+
                         <div class="ratings">
                             <div class="rating-box">
                                 <div class="rating"
@@ -42,6 +46,10 @@
                                 <span>Out of stock</span>
                             <?php endif; ?>
                         </p>
+
+                        <div class="row f-right add-to-wishlist">
+                            <?php echo $this->getChildHtml('sharewithsocial_sharelinks') ?>
+                        </div>
 
                         <ul>
                             <li class="asin">

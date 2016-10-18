@@ -220,10 +220,14 @@ Product view
                 <block type="sharewithsocial/sharelinks" name="sharewithsocial.sharelinks"
                        as="sharewithsocial_sharelinks"
                        template="catalog/product/view/sharewithsocial.phtml">
-                    <reference name="head">
-                        <action method="addJs">
-                            <script>colibo/sharewithsocial/sharewithsocial.js</script>
-                        </action>
+                    <reference name="before_body_end">
+                        <block type="page/html_head" name="scripts_in_footer"
+                               template="page/html/before_body_end.phtml">
+                            <action method="addItem">
+                                <type>skin_js</type>
+                                <name>js/colibo/sharewithsocial/sharewithsocial.js</name>
+                            </action>
+                        </block>
                     </reference>
                 </block>
 

@@ -6,11 +6,4 @@
             <codePool>local</codePool>
         </Colibo_Sharewithsocial>
     </modules>
-    <global>
-        <blocks>
-            <sharewithsocial>
-                <class>Colibo_Sharewithsocial_Block</class>
-            </sharewithsocial>
-        </blocks>
-    </global>
 </config>

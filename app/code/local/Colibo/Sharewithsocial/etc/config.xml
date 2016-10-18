@@ -5,4 +5,11 @@
             <version>0.0.1</version>
         </Colibo_Sharewithsocial>
     </modules>
+    <global>
+        <blocks>
+            <sharewithsocial>
+                <class>Colibo_Sharewithsocial_Block</class>
+            </sharewithsocial>
+        </blocks>
+    </global>
 </config>
