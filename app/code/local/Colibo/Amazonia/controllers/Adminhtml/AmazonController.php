@@ -368,11 +368,12 @@ class Colibo_Amazonia_Adminhtml_AmazonController extends Mage_Adminhtml_Controll
             $existJobs = $dbWrite->query($query)->fetchAll();
 
             if (count($existJobs)) {
-                $data[$item['ASIN']]['message']['warning'] = 'Product was added to queue for import.';
+                /** $data[$item['ASIN']]['message']['warning'] = 'Product was added to queue for import.'; */
+                continue;
             } else if (Mage::getModel('catalog/product')->loadByAttribute('sku', $item['ASIN'])) {
-
                 /** Check Exists Product */
-                $data[$item['ASIN']]['message']['success'] = 'Product already imported to Magento.';
+                /** $data[$item['ASIN']]['message']['success'] = 'Product already imported to Magento.'; */
+                continue;
             }
 
             $data[$item['ASIN']]['data'] = $item;
