@@ -156,7 +156,8 @@ class Colibo_Amazonia_Adminhtml_AmazonController extends Mage_Adminhtml_Controll
             $keywords = trim($this->getRequest()->getParam('keywords'));
             $merchant = trim($this->getRequest()->getParam('merchant', null));
             $condition = trim($this->getRequest()->getParam('condition', null));
-            list($minPrice, $maxPrice) = explode(';', trim($this->getRequest()->getParam('price')));
+            $minPrice = $this->getRequest()->getParam('min_price');
+            $maxPrice = $this->getRequest()->getParam('max_price');
 
             /** Prepare Params */
             $params = [

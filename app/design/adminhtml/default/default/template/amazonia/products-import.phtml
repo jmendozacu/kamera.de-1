@@ -72,11 +72,24 @@
                                             </div>
                                         </div>
                                     </dd>
-                                    <dt>Price range:</dt>
+
+
+                                    <dt>Price, minimum:</dt>
                                     <dd>
                                         <div class="row">
-                                            <div class="col-md-12">
-                                                <input type="text" id="price-selector" name="price" value=""/>
+                                            <div class="col-md-5">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" name="min_price" value="50">
+                                                    <span class="input-group-addon">.00 &euro;</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7 text-right">
+                                                <strong>Price, maximum:</strong>
+                                                <div class="max-price input-group pull-right">
+                                                    <input type="text" class="form-control" name="max_price"
+                                                           value="20000">
+                                                    <span class="input-group-addon">.00 &euro;</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </dd>

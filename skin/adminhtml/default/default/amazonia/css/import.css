@@ -531,6 +531,8 @@ select[multiple], select[size] {
     line-height: 25px;
     vertical-align: top;
     display: inline-block;
+    letter-spacing: 1px;
+    font-family: Arial;
 }
 
 #results .table thead th {
@@ -657,7 +659,8 @@ td.product-status.ready {
     position: relative;
 }
 
-.search-form [name="brand"] {
+.search-form [name="brand"],
+.search-form .max-price.input-group {
     width: 65%;
     margin-left: 10px;
 }
