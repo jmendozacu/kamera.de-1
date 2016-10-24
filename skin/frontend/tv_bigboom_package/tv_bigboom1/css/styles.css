@@ -8258,6 +8258,62 @@ a {
 
 /* </Sharewithsocial>*/
 
+/* <Recently viewed> */
+
+.recently-viewed-collapsible{
+    position: fixed;
+    bottom: 0px;
+    right: 5%;
+    background:white;
+}
+
+.recently-viewed-clapper{
+    width: 183px;
+    padding: 10px;
+    background: #262626;
+    color:#f6f5f5;
+    cursor: pointer;
+}
+
+.recently-viewed-clapper:after {
+    position: absolute;
+    right: 10px;
+    font-family:"FontAwesome";
+    content: "\f0d7";
+}
+
+.recently-viewed-collapsible ul{
+    height:500px;
+    overflow-y:scroll !important;
+    padding:5px;
+    border:1px solid rgb(240, 240, 240);
+}
+
+
+.recently-viewed-collapsible ul::-webkit-scrollbar-track
+{
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+.recently-viewed-collapsible ul::-webkit-scrollbar
+{
+    width: 6px;
+    background-color: #F5F5F5;
+}
+
+.recently-viewed-collapsible ul::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    background-color: rgb(200, 200, 200);
+}
+
+.recently-viewed-collapsible.collapsed .recently-viewed-clapper:after{
+    content: "\f0d8";
+}
+
+/* </Recently viewed> */
+
 .add-to-wishlist {
     position: absolute;
     right: 10px;

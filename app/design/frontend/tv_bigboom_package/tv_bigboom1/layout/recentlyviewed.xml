@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="footer">
+            <block type="recentlyviewed/productlist" name="recently_viewed" as="recently_viewed" template="reports/footer_products_viewed.phtml"/>
+        </reference>
+        <reference name="footer_scripts">
+                <action method="addItem">
+                    <type>skin_js</type>
+                    <name>js/colibo/recentlyviewed/recentlyviewed.js</name>
+                </action>
+        </reference>
+    </default>
+</layout>
+

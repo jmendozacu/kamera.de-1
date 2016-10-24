@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Colibo_Recentlyviewed>
+            <version>0.0.1</version>
+        </Colibo_Recentlyviewed>
+    </modules>
+    <global>
+        <blocks>
+            <recentlyviewed>
+                <class>Colibo_Recentlyviewed_Block</class>
+            </recentlyviewed>
+        </blocks>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <recentlyviewed>
+                    <file>recentlyviewed.xml</file>
+                </recentlyviewed>
+            </updates>
+        </layout>
+    </frontend>
+</config>

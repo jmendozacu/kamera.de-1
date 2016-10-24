@@ -1,0 +1,32 @@
+<?php
+/** @var Colibo_Recentlyviewed_Block_Productlist $this */
+
+/** @var Mage_Reports_Model_Resource_Product_Index_Viewed_Collection $recentlyViewedCollection */
+$recentlyViewedCollection = $this->getRecentlyViewedProducts();
+
+$helper = $this->helper('catalog/output');
+
+if (count($recentlyViewedCollection)) {
+    ?>
+    <div class="recently-viewed-collapsible">
+        <div class="recently-viewed-clapper collapsed">
+            <?php echo Mage::helper('catalog')->__('Recently viewed') ?>
+        </div>
+        <ul style="display:none;">
+            <?php
+            /** @var Mage_Catalog_Model_Product $product */
+            foreach ($recentlyViewedCollection as $product) {
+                $img = '<div class="recently-viewed-image"><img src="' . $this->helper('catalog/image')->init($product, 'image')->resize(165) . '" alt="' . $this->escapeHtml($this->getImageLabel($product)) . '" title="' . $this->escapeHtml($this->getImageLabel($product)) . '" /></div>';
+                $productName = '<div class="recently-viewed-name">' . Mage::helper('core/string')->truncate($product->getName(), 20, '...') . '</div>';
+                echo "<li><a href='" . $product->getProductUrl() . "'>" .
+                    $helper->productAttribute($product, $img, 'image') .
+                    $productName .
+                    $this->getPriceHtml($product) .
+                    "</a></li>";
+            }
+            ?>
+        </ul>
+    </div>
+    <?php
+}
+?>
