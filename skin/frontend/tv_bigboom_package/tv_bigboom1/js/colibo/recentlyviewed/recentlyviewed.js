@@ -1,13 +1,9 @@
 (function ($) {
-    $( document ).on('ready',function() {
-
-        $('.recently-viewed-clapper ul').hide();
-
+    $(document).on('ready', function () {
         $('.recently-viewed-clapper').on('click', function () {
-            $('.recently-viewed-collapsible').toggleClass("collapsed");
-            $( ".recently-viewed-collapsible ul" ).slideToggle( "fast", function() {});
+            $('.recently-viewed-collapsible').toggleClass("collapsed").find('ul').slideToggle("fast", function () {
+            });
         });
-
     });
 })
 (jQuery);
