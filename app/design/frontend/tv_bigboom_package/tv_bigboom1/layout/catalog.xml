@@ -209,7 +209,7 @@ Product view
                         <alias>product_additional_data</alias>
                         <title>Reviews</title>
                         <block>review/product_view_list</block>
-                        <template>review/product/view/list_tab.phtml</template>
+                        <template>review/product/view/list.phtml</template>
                     </action>
                 </block>
 
