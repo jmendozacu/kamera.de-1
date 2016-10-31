@@ -7423,7 +7423,7 @@ footer {
 .brandlogo-contain .bx-wrapper img {
     display: inline;
 }
-li.item {
+.brandlogo-contain li.item {
     margin: 10px;
 }
 .item .brand_block {
