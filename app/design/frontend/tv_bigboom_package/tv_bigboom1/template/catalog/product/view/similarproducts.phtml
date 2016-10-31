@@ -15,13 +15,13 @@ if (count($products)) {
 
             /** @var Mage_Catalog_Model_Product $product */
             foreach ($products as $product) {
-                $img = '<img src="' . $this->helper('catalog/image')->init($product, 'image')->resize(165) . '" alt="' . $this->escapeHtml($this->getImageLabel()) . '" title="' . $this->escapeHtml($this->getImageLabel()) . '" />';
+                $img = '<img src="' . $this->helper('catalog/image')->init($product, 'small_image')->resize(165) . '" alt="' . $this->escapeHtml($this->getImageLabel($product)) . '" title="' . $this->escapeHtml($this->getImageLabel($product)) . '" />';
                 ?>
                 <li class='item similarproducts-item'>
                     <a class="view-detail" <?php if (Mage::getStoreConfig('quickview/general/enabled')): ?> id='fancybox<?php echo $product->getId() ?>'  href="<?php echo $this->getUrl('quickview/index/ajax', array('product_id' => $product->getId())); ?>"<?php else: ?> href="<?php echo $product->getProductUrl() ?>"<?php endif ?>
                        title="<?php echo $this->stripTags($product->getName(), null, true) ?>"><i
                             class="fa fa-search"></i></a>
-                    <a href='<?php echo $product->getUrlPath(); ?>'><?php echo $helper->productAttribute($product, $img, 'image') ?></a>
+                    <a href='<?php echo $product->getProductUrl(); ?>'><?php echo $helper->productAttribute($product, $img, 'image') ?></a>
                 </li>
                 <?php
             }

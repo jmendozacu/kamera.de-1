@@ -8265,6 +8265,7 @@ a {
     bottom: 0px;
     right: 5%;
     background:white;
+    z-index:999;
 }
 
 .recently-viewed-clapper{

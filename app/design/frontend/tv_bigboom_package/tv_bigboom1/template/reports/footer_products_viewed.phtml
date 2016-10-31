@@ -16,7 +16,7 @@ if (count($recentlyViewedCollection)) {
             <?php
             /** @var Mage_Catalog_Model_Product $product */
             foreach ($recentlyViewedCollection as $product) {
-                $img = '<div class="recently-viewed-image"><img src="' . $this->helper('catalog/image')->init($product, 'image')->resize(165) . '" alt="' . $this->escapeHtml($this->getImageLabel($product)) . '" title="' . $this->escapeHtml($this->getImageLabel($product)) . '" /></div>';
+                $img = '<div class="recently-viewed-image"><img src="' . $this->helper('catalog/image')->init($product, 'small_image')->resize(165) . '" alt="' . $this->escapeHtml($this->getImageLabel($product)) . '" title="' . $this->escapeHtml($this->getImageLabel($product)) . '" /></div>';
                 $productName = '<div class="recently-viewed-name">' . Mage::helper('core/string')->truncate($product->getName(), 20, '...') . '</div>';
                 echo "<li><a href='" . $product->getProductUrl() . "'>" .
                     $helper->productAttribute($product, $img, 'image') .
