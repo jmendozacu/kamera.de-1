@@ -65,7 +65,7 @@
         <?php //endif;?>
     </div>
     <div class="ma-review-col2 span6">
-        <?php echo $this->getChildHtml('review_form') ?>
+        <?php echo $this->getParentBlock()->getChildHtml('review_form'); ?>
         <?php
             //$layout = Mage::getSingleton('core/layout');
             //echo $layout->getBlock('content')->getChild('product.info')->getChild('info_tabs')->getChild('review_form')->toHtml();

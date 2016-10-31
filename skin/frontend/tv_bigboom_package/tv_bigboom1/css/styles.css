@@ -8244,6 +8244,14 @@ a {
     margin-bottom: 10px;
 }
 
+.similarproducts-item {
+    margin: 10px 10px 10px 0px;
+}
+
+.similarproducts-item:first-child {
+    margin-left: 10px;
+}
+
 /* </Similar Products>*/
 
 /* <Sharewithsocial>*/
