@@ -3560,6 +3560,32 @@ p.welcome-msg {
     margin: 5px 0 0;
 }
 
+.link-compare .link_text {
+    position:absolute;
+    bottom:25px;
+    left:-13px;
+    visibility:hidden;
+    white-space: nowrap;
+    font-size: 10px;
+}
+
+.link-compare:hover .link_text {
+    visibility:visible;
+}
+
+.link-wishlist .link_text {
+    position:absolute;
+    bottom:25px;
+    left:-34px;
+    visibility:hidden;
+    white-space: nowrap;
+    font-size: 10px;
+}
+
+.link-wishlist:hover .link_text {
+    visibility:visible;
+}
+
 .add-to-links .separator {
 }
 
