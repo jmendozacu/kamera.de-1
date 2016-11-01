@@ -79,7 +79,6 @@ jQuery(document).ready(function($){
 
     var $nav = $(selector);
     var $megamenu  = $('.megamenu', $nav);
-
     $megamenu.hover(function(){
       var $dropdown = $(this).find('.dropdown');
       if(!$dropdown.hasClass('fixedWidth')){
@@ -95,6 +94,19 @@ jQuery(document).ready(function($){
       $(this).find('.dropdown').removeClass('active');
     })
   })('#nav_vmegamenu');
+
+    (function (selector) {
+        var $clapper = $(selector);
+
+        $clapper.mouseenter(function () {
+            $('.collapsible .vmegamenu-contain').show();
+        });
+
+        $('.nav-vcontainer.collapsible').mouseleave(function () {
+            $('.collapsible .vmegamenu-contain').hide();
+        });
+
+    })('.collapsible .vmegamenu-title');
 
 
   // Mobiemenu
