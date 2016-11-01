@@ -61,7 +61,7 @@
 //<![CDATA[
     jQuery(document).ready(function($) {
 
-        (function(selector){
+       // (function(selector){
             var popupCookie = Mage.Cookies.get('popupNewsletterOff');
             if(!popupCookie || popupCookie == 'undefined'){
                 var $content = $(selector);
@@ -90,6 +90,6 @@
             }
 
         })(".block-subscribe.popup");
-    });
+   // });
 //]]>
 </script>
