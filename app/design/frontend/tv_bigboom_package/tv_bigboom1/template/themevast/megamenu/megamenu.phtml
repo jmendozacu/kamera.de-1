@@ -34,10 +34,7 @@ $className = Mage::getConfig()->getBlockClassName('megamenu/megamenu');
 
     <?php if ($this->getRequest()->getControllerModule() == 'Themevast_Blog'){ ?>
         <div class="vmegamenu-blog">
-            <?php $block =$this->getLayout()->createBlock('megamenu/megamenu')
-                ->setTemplate('themevast/megamenu/vmegamenu.phtml');
-            echo $block->toHtml();
-            ?>
+            <?php echo $megamenu->drawVerticalMenu(); ?>
         </div>
     <?php } ?>
 

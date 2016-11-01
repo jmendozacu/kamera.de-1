@@ -95,20 +95,6 @@ jQuery(document).ready(function($){
     })
   })('#nav_vmegamenu');
 
-    (function (selector) {
-        var $clapper = $(selector);
-
-        $clapper.mouseenter(function () {
-            $('.collapsible .vmegamenu-contain').show();
-        });
-
-        $('.nav-vcontainer.collapsible').mouseleave(function () {
-            $('.collapsible .vmegamenu-contain').hide();
-        });
-
-    })('.collapsible .vmegamenu-title');
-
-
   // Mobiemenu
   (function($){
        $.fn.extend({  
