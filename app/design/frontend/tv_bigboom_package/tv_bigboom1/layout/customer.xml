@@ -235,7 +235,6 @@ Customer account pages, rendered for all tabs in dashboard
             <block type="customer/account_navigation" name="customer_account_navigation" after="vmegamenu" template="customer/account/navigation.phtml">
                 <action method="addLink" translate="label" module="customer"><name>account</name><path>customer/account/</path><label>Account Dashboard</label></action>
                 <action method="addLink" translate="label" module="customer"><name>account_edit</name><path>customer/account/edit/</path><label>Account Information</label></action>
-                <action method="addLink" translate="label" module="customer"><name>address_book</name><path>customer/address/</path><label>Address Book</label></action>
             </block>
         </reference>
         <reference name="left">
@@ -267,7 +266,6 @@ Customer account home dashboard layout
                 <block type="core/template" name="customer_account_dashboard_top" as="top" />
                 <block type="customer/account_dashboard_info" name="customer_account_dashboard_info" as="info" template="customer/account/dashboard/info.phtml"/>
                 <block type="customer/account_dashboard_newsletter" name="customer_account_dashboard_newsletter" as="newsletter" template="customer/account/dashboard/newsletter.phtml"/>
-                <block type="customer/account_dashboard_address" name="customer_account_dashboard_address" as="address" template="customer/account/dashboard/address.phtml"/>
             </block>
         </reference>
 

@@ -71,6 +71,11 @@ Default layout, loads most of the pages
         <reference name="vmegamenu_banner">
             <block type="page/html" name="vmegamenu.banner" template="themevast/vmegamenu_banner.phtml"/>
         </reference>
+        <reference name="before_footer">
+            <block type="cms/block" name="before.footer" before="b_footer">
+                <action method="setBlockId"><block_id>b_footer</block_id></action>
+            </block>
+        </reference>
         <block type="newsletter/subscribe" name="popup.newsletter" template="themevast/newsletter/subscribe.phtml"/>
         <reference name="content">
             <action method="insert">
