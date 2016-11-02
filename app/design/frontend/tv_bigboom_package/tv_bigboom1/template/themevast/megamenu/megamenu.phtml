@@ -24,14 +24,20 @@ $className = Mage::getConfig()->getBlockClassName('megamenu/megamenu');
                 </div>
             </div>
         <?php endif ?>
-        <div id="nav_megamenu" class="nav_megamenu visible-lg visible-md">
-            <?php $megamenu =  $this->getLayout()->createBlock('megamenu/megamenu'); ?>       
-            <?php echo $megamenu->drawMegamenuHome(); ?>
-            <?php //echo $megamenu->drawMegamenuMain(); ?>
-            <?php echo $megamenu->drawMegamenuLink(); ?>
-            
-            
+
+    <div id="nav_megamenu" class="nav_megamenu visible-lg visible-md">
+        <?php $megamenu = $this->getLayout()->createBlock('megamenu/megamenu'); ?>
+        <?php echo $megamenu->drawMegamenuHome(); ?>
+        <?php //echo $megamenu->drawMegamenuMain(); ?>
+        <?php echo $megamenu->drawMegamenuLink(); ?>
+    </div>
+
+    <?php if ($this->getRequest()->getControllerModule() == 'Themevast_Blog'){ ?>
+        <div class="vmegamenu-blog">
+            <?php echo $megamenu->drawVerticalMenu(); ?>
         </div>
+    <?php } ?>
+
     <script type="text/javascript">
     var MEGAMENU_EFFECT = <?php echo (int)Mage::getStoreConfig('megamenu/general/effect')?>;
     jQuery(window).scroll(function () {

@@ -1,4 +1,11 @@
-<div class="nav-vcontainer hidden-xs hidden-sm">
+<?php
+$collapsible = '';
+if (Mage::registry('current_category') || $this->getRequest()->getControllerModule() == 'Themevast_Blog') {
+    $collapsible = 'collapsible';
+}
+?>
+
+<div class="nav-vcontainer <?php echo $collapsible; ?> hidden-xs hidden-sm">
     <div class="nav-inner">
         <div class="vmegamenu-title"><h2><i class="fa fa-bars"></i><?php echo $this->__('Categories') ?></h2></div>
         <div class="vmegamenu-contain">

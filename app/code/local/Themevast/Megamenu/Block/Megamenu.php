@@ -349,5 +349,11 @@ class Themevast_Megamenu_Block_Megamenu extends Mage_Catalog_Block_Navigation
         $html .= '</div>';
         return $html;
     }
+
+    public function drawVerticalMenu()
+    {
+        $block = $this->getLayout()->createBlock('megamenu/megamenu')->setTemplate('themevast/megamenu/vmegamenu.phtml');
+        return $block->toHtml();
+    }
 }
 

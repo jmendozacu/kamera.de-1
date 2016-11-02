@@ -79,7 +79,6 @@ jQuery(document).ready(function($){
 
     var $nav = $(selector);
     var $megamenu  = $('.megamenu', $nav);
-
     $megamenu.hover(function(){
       var $dropdown = $(this).find('.dropdown');
       if(!$dropdown.hasClass('fixedWidth')){
@@ -95,7 +94,6 @@ jQuery(document).ready(function($){
       $(this).find('.dropdown').removeClass('active');
     })
   })('#nav_vmegamenu');
-
 
   // Mobiemenu
   (function($){

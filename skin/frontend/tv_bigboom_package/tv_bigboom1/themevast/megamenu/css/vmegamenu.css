@@ -219,3 +219,13 @@
     clear:both;
 }
 
+.collapsible .vmegamenu-contain {
+    display: none;
+}
+
+.vmegamenu-blog {
+    width: 270px;
+    position: absolute;
+    z-index: 999;
+    top: 168px;
+}
