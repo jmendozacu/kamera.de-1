@@ -96,7 +96,7 @@
 
                         <?php if ($_product->getPrice() > 0) : ?>
                             <span class="price-box row">
-                            <span class="price-label col-md-4 new">Lowest New Price:</span>
+                            <span class="price-label col-md-4 new"><?php echo $this->__("Lowest New Price:");?></span>
                             <span class="price col-md-8">
                                 <span class="col-md-8">
                                       <?php echo Mage::helper('core')->currency($_product->getPrice(), true, false); ?>
@@ -107,7 +107,7 @@
 
                         <?php if ($_product->getPriceUsed() > 0) : ?>
                             <span class="price-box row">
-                            <span class="price-label col-md-4 used">Lowest Used Price:</span>
+                            <span class="price-label col-md-4 used"><?php echo $this->__("Lowest Used Price:");?></span>
                             <span class="price col-md-8">
                                 <span class="col-md-8">
                                      <?php echo Mage::helper('core')->currency($_product->getPriceUsed(), true, false); ?>
