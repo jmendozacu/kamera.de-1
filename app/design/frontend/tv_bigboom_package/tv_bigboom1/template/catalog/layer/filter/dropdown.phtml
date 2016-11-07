@@ -1,0 +1,14 @@
+<select class="filter-dropdown">
+    <option value="" disabled selected><?php echo $this->__('all'); ?></option>
+    <?php foreach ($this->getItems() as $item): ?>
+        <?php if ($item->getCount() > 0): ?>
+            <option url="<?php echo $this->urlEscape($item->getUrl()); ?>">
+            <?php echo $item->getLabel(); ?>
+        <?php else: echo $item->getLabel() ?>
+        <?php endif; ?>
+        <?php if ($this->shouldDisplayProductCount()): ?>
+            (<?php echo $item->getCount() ?>)
+        <?php endif; ?>
+        </option>
+    <?php endforeach ?>
+</select>

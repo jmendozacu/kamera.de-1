@@ -1,0 +1,20 @@
+<div class="slidable-wrapper">
+    <div class="filter-slidable" data-val-min="<?php echo $this->getDataMin(); ?>"
+         data-val-max="<?php echo $this->getDataMax(); ?>" data-delimiter="<?php echo $this->getDelimiter(); ?>"
+         data-min="0" data-max="<?php echo $this->getMaxAttributeVal(); ?>"
+         data-name="<?php echo $this->getAttributeCode(); ?>">
+        <div class="filter-values"><?php echo (int)$this->getDataMin(); ?>&euro;
+            - <?php echo (int)$this->getDataMax(); ?>&euro;</div>
+        <div class="marker-container-min">
+            <div class="slider-marker slider-marker-min"></div>
+        </div>
+        <div class="marker-container-max">
+            <div class="slider-marker slider-marker-max"></div>
+        </div>
+        <div class="filter-slider">
+            <div class="filter-bar">
+
+            </div>
+        </div>
+    </div>
+</div>
