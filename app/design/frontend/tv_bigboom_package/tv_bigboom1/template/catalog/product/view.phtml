@@ -52,7 +52,9 @@
                 <div class="product-shop col-sm-12 col-md-7 col-sms-6 col-smb-12">
 
                     <div class="product-name">
-                        <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+                        <?php $foolProductName = $_helper->productAttribute($_product, $_product->getName(), 'name') ;?>
+                        <?php $shortProductName = $_helper->getShortProductName($foolProductName);?>
+                        <h1><?php echo $shortProductName ;?></h1>
                     </div>
 
                     <div class="row f-right add-to-wishlist">

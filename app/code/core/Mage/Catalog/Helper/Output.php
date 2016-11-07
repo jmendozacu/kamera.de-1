@@ -143,6 +143,20 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
         return $attributeHtml;
     }
 
+    /***
+     * get short name of product with out description parameters
+     *
+     * @param string $foolProductName
+     * @return string
+     */
+    public function getShortProductName($foolProductName)
+    {
+        while (preg_match("/\\([^(]+?\\)/", $foolProductName)){
+            $foolProductName=preg_replace("/\\([^(]+?\\)/", "", $foolProductName, 1) ;
+        }
+        return $foolProductName;
+    }
+
     /**
      * Prepare category attribute html output
      *
