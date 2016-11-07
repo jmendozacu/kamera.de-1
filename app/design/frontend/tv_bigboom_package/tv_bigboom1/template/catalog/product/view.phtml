@@ -66,28 +66,14 @@
                         </div>
                     </div>
 
-                    <p class="availability
-                            <?php if ($_product->getPrice() != 0.00 && $_product->getPriceUsed() != 0.00): ?>
-                                in-stock
-                            <?php else: ?>
-                                out-of-stock
-                            <?php endif; ?>">
-                        Availability:
-                        <?php if ($_product->getPrice() != 0.00 && $_product->getPriceUsed() != 0.00): ?>
-                            <span>In stock</span>
-                        <?php else: ?>
-                            <span>Out of stock</span>
-                        <?php endif; ?>
-                    </p>
-
                     <div class="row f-right">
                         <?php echo $this->getChildHtml('sharewithsocial_sharelinks') ?>
                     </div>
 
                     <ul>
                         <li class="asin">
-                            ASIN:
-                            <strong><?php echo $_product->getData('sku'); ?></strong>
+                            manufacturer's article number:
+                            <strong><?php echo $_product->getData("model") ; ?></strong>
                         </li>
                     </ul>
 
@@ -110,15 +96,10 @@
 
                         <?php if ($_product->getPrice() > 0) : ?>
                             <span class="price-box row">
-                            <span class="price-label col-md-4 new">Lowest New Price:</span>
+                            <span class="price-label col-md-4 new"><?php echo $this->__("Lowest New Price:");?></span>
                             <span class="price col-md-8">
                                 <span class="col-md-8">
                                       <?php echo Mage::helper('core')->currency($_product->getPrice(), true, false); ?>
-                                </span>
-                                <span class="total-count col-md-4 text-right">
-                                    <?php if (!empty($_product->getOffersNumberNew())) : ?>
-                                        <?php echo $_product->getOffersNumberNew(); ?> items
-                                    <?php endif; ?>
                                 </span>
                             </span>
                         </span>
@@ -126,15 +107,10 @@
 
                         <?php if ($_product->getPriceUsed() > 0) : ?>
                             <span class="price-box row">
-                            <span class="price-label col-md-4 used">Lowest Used Price:</span>
+                            <span class="price-label col-md-4 used"><?php echo $this->__("Lowest Used Price:");?></span>
                             <span class="price col-md-8">
                                 <span class="col-md-8">
                                      <?php echo Mage::helper('core')->currency($_product->getPriceUsed(), true, false); ?>
-                                </span>
-                                <span class="total-count col-md-4 text-right">
-                                    <?php if (!empty($_product->getOffersNumberUsed())) : ?>
-                                        <?php echo $_product->getOffersNumberUsed(); ?> items
-                                    <?php endif; ?>
                                 </span>
                             </span>
                         </span>

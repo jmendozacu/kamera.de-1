@@ -102,6 +102,7 @@ Default layout, loads most of the pages
             <block type="core/text_list" name="home_banner_content" as="home_banner_content" translate="label" />
             <block type="core/text_list" name="brand_logo" as="brand_logo" translate="label" />
             <block type="core/text_list" name="top_banner_static" as="top_banner_static" translate="label" />
+            <block type="core/text_list" name="before_footer" as="before_footer" translate="label" />
             <block type="core/text_list" name="banner_left" as="banner_left" translate="label" />
             <block type="core/text_list" name="blog_content" as="blog_content" translate="label" />
             <block type="core/text_list" name="vmegamenu_banner" as="vmegamenu_banner" translate="label" />

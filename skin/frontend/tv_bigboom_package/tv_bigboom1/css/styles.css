@@ -1342,7 +1342,6 @@ tr.summary-details-excluded {
     background: url(../images/bkg_collapse.gif) 100% 5px no-repeat;
     cursor: pointer;
 }
-
 .cart-tax-info .price,
 .cart-tax-total .price {
     display: inline !important;
@@ -1356,6 +1355,22 @@ tr.summary-details-excluded {
 /* Class: std - styles for admin-controlled content */
 .std .subtitle {
     padding: 0;
+}
+
+.info_block {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 30px;
+}
+
+.info_block .row {
+    margin-top: 20px;
+}
+
+.info_block .h1-title {
+    border-bottom: none;
+    text-transform: none;
+    font-size: 18px;
 }
 
 .std ol.ol {
@@ -8258,6 +8273,11 @@ a {
 
 .sharewithsocial{
     display:flex;
+    margin-top: 19%;
+}
+
+.product-shop ul li.asin {
+    margin-top: 9%;
 }
 
 .sharewithsocial div{
