@@ -16,6 +16,23 @@
                             ->setTemplate('themevast/randomslider/randomslider.phtml');
                             echo $block->toHtml();
                     ?>
+            <?php
+            $block = $this->getLayout()->createBlock('randomslider/randomslider')
+                ->setTemplate('themevast/randomslider/digitalslider.phtml');
+            echo $block->toHtml();
+
+            $block = $this->getLayout()->createBlock('randomslider/randomslider')
+                ->setTemplate('themevast/randomslider/objectiveslider.phtml');
+            echo $block->toHtml();
+
+            $block = $this->getLayout()->createBlock('randomslider/randomslider')
+                ->setTemplate('themevast/randomslider/topseller.phtml');
+            echo $block->toHtml();
+
+            $block = $this->getLayout()->createBlock('randomslider/randomslider')
+                ->setTemplate('themevast/randomslider/latest.phtml');
+            echo $block->toHtml();
+            ?>
             </div>
             <div class="position position3">
             <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('top_banner_static')->toHtml() ?>
