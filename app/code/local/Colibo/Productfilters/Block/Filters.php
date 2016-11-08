@@ -2,8 +2,16 @@
 
 class Colibo_Productfilters_Block_Filters extends Mage_Catalog_Block_Layer_View
 {
+    /**
+     *Array of filter params
+     *
+     * @var array
+     */
     public $config;
 
+    /**
+     * Constructor
+     */
     public function __construct(array $args)
     {
         parent::__construct($args);
@@ -17,6 +25,12 @@ class Colibo_Productfilters_Block_Filters extends Mage_Catalog_Block_Layer_View
         ];
     }
 
+    /**
+     * Get maximum value of attribute
+     *
+     * @param   string $attr
+     * @return  Mixed
+     */
     public function getMaxAttributeVal($attr = 'price')
     {
         return Mage::getResourceModel('catalog/product_collection')
@@ -24,6 +38,11 @@ class Colibo_Productfilters_Block_Filters extends Mage_Catalog_Block_Layer_View
             ->getMaxAttributeValue($attr);
     }
 
+    /**
+     * Get filters for current category
+     *
+     * @return array
+     */
     public function getFilters()
     {
         $filters = array();

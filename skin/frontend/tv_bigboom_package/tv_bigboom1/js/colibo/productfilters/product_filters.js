@@ -3,16 +3,17 @@ jQuery(document).ready(function ($) {
     $('.filter-slidable').each(function (index, selector) {
         var $filter = $(selector);
 
+        /*initialising min marker position*/
         leftPos = $filter.attr('data-val-min') / $filter.attr('data-max') * $filter.width();
-        $filter.find('.marker-container-max').width(((1 - (leftPos + $filter.find('.slider-marker-min').width()) / $filter.width()) * 100) + '%');
-        $filter.find('.filter-bar').css('left', leftPos + $filter.find('slider-marker-min').width() / 2);
-        $filter.find('.filter-bar').width($filter.width() - leftPos - parseInt($filter.find('.slider-marker-max').css('right')) - $filter.find('.slider-marker-min').width());
-        $filter.find('.slider-marker-min').css('left', leftPos);
+        $filter.find('.marker-container-max').width(((1 - (leftPos + $filter.find('.slider-marker-min').width()) / $filter.width()) * 100) + '%'); //setting max marker bound
+        $filter.find('.filter-bar').css('left', leftPos + $filter.find('slider-marker-min').width() / 2); //setting middle-bar left indent
+        $filter.find('.slider-marker-min').css('left', leftPos); //setting min marker left indent
 
+        /*initialising max marker position*/
         rightPos = ($filter.attr('data-max') - $filter.attr('data-val-max')) / $filter.attr('data-max') * $filter.width();
-        $filter.find('.slider-marker-max').css('right', rightPos);
-        $filter.find('.marker-container-min').width(((1 - (rightPos + $filter.find('.slider-marker-max').width()) / $filter.width()) * 100) + '%');
-        $filter.find('.filter-bar').width($filter.width() - parseInt($filter.find('.slider-marker-min').css('left')) - parseInt($filter.find('.slider-marker-max').css('right')) - $filter.find('.slider-marker-max').width());
+        $filter.find('.slider-marker-max').css('right', rightPos); //setting max marker right indent
+        $filter.find('.marker-container-min').width(((1 - (rightPos + $filter.find('.slider-marker-max').width()) / $filter.width()) * 100) + '%'); //setting min marker bound
+        $filter.find('.filter-bar').width($filter.width() - parseInt($filter.find('.slider-marker-min').css('left')) - parseInt($filter.find('.slider-marker-max').css('right')) - $filter.find('.slider-marker-max').width()); //setting middle-bar width
 
 
         $filter.find('.slider-marker').draggable({
@@ -21,20 +22,20 @@ jQuery(document).ready(function ($) {
                 drag: function (event, ui) {
                     var $slidable = $(this).parent().parent();
                     if ($(this).hasClass('slider-marker-min')) {
-                        $slidable.find('.marker-container-max').width(((1 - (ui.position.left + $(this).width()) / $slidable.width()) * 100) + '%');
+                        $slidable.find('.marker-container-max').width(((1 - (ui.position.left + $(this).width()) / $slidable.width()) * 100) + '%'); //setting max marker bound
                         var $filterBar = $slidable.find('.filter-bar');
-                        $filterBar.css('left', ui.position.left + $(this).width() / 2);
-                        $filterBar.width($slidable.width() - ui.position.left - parseInt($slidable.find('.slider-marker-max').css('right')) - $(this).width());
+                        $filterBar.css('left', ui.position.left + $(this).width() / 2); //setting middle-bar left indent
+                        $filterBar.width($slidable.width() - ui.position.left - parseInt($slidable.find('.slider-marker-max').css('right')) - $(this).width()); //setting middle-bar width
 
                         updateSliderValues($slidable);
                     }
                     if ($(this).hasClass('slider-marker-max')) {
                         leftPos = ui.position.left + $slidable.width() - $slidable.find('.marker-container-max').width();
                         rightPos = $slidable.width() - leftPos - $(this).width();
-                        $(this).css('right', rightPos);
-                        $slidable.find('.marker-container-min').width(((1 - (rightPos + $(this).width()) / $slidable.width()) * 100) + '%');
+                        $(this).css('right', rightPos); //setting max marker right indent
+                        $slidable.find('.marker-container-min').width(((1 - (rightPos + $(this).width()) / $slidable.width()) * 100) + '%'); //setting min marker bound
                         var $filterBar = $slidable.find('.filter-bar');
-                        $filterBar.width($slidable.width() - parseInt($slidable.find('.slider-marker-min').css('left')) - parseInt($slidable.find('.slider-marker-max').css('right')) - $(this).width());
+                        $filterBar.width($slidable.width() - parseInt($slidable.find('.slider-marker-min').css('left')) - parseInt($slidable.find('.slider-marker-max').css('right')) - $(this).width()); //setting middle-bar width
 
                         updateSliderValues($slidable);
                     }
