@@ -52,8 +52,7 @@
                 <div class="product-shop col-sm-12 col-md-7 col-sms-6 col-smb-12">
 
                     <div class="product-name">
-                        <?php $foolProductName = $_helper->productAttribute($_product, $_product->getName(), 'name') ;?>
-                        <?php $shortProductName = $_helper->getShortProductName($foolProductName);?>
+                        <?php $shortProductName = $_helper->getShortProductName($_product->getName());?>
                         <h1><?php echo $shortProductName ;?></h1>
                     </div>
 
