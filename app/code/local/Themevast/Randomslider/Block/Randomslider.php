@@ -38,15 +38,21 @@ class Themevast_Randomslider_Block_Randomslider extends Mage_Catalog_Block_Produ
         return $collection;
     }
 
-    protected function getCategoryProductCollection($category, $maxPrice = false)
+    /**
+     * get collection of spicified category products
+     *
+     * @var Mage_Catalog_Model_Resource_Product_Collection
+     */
+    protected function getCategoryProductCollection($categoryId, $maxPrice = false)
     {
         /** @var Mage_Catalog_Model_Category $category */
-        $category = Mage::getResourceModel('catalog/category_collection')->addFieldToFilter('name', $category)->getFirstItem();
+        $category = Mage::getModel('catalog/category')->setStoreId($store_id)->load($categoryId);
 
         /** @var Mage_Catalog_Model_Resource_Product_Collection $c */
         $collection = Mage::getResourceModel('catalog/product_collection')
             ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
             ->addFieldToFilter('visibility', Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH)
+            ->addAttributeToFilter('status', array('gt' => 0))
             ->addTaxPercents()
             ->addCategoryFilter($category);
 
@@ -61,12 +67,18 @@ class Themevast_Randomslider_Block_Randomslider extends Mage_Catalog_Block_Produ
         return $collection;
     }
 
+    /**
+     * get collection of top sellable products
+     *
+     * @var Mage_Catalog_Model_Resource_Product_Collection
+     */
     protected function getTopSellerProductCollection()
     {
         $collection = Mage::getResourceModel('reports/product_collection')
             ->addOrderedQty()
             ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
             ->addFieldToFilter('visibility', Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH)
+            ->addAttributeToFilter('status', array('gt' => 0))
             ->addTaxPercents()
             ->setOrder('ordered_qty', 'desc');
         $collection->getSelect()->order('rand()');
@@ -74,11 +86,17 @@ class Themevast_Randomslider_Block_Randomslider extends Mage_Catalog_Block_Produ
         return $collection;
     }
 
-    protected function getLatestProductcollection()
+    /**
+     * get collection latest products
+     *
+     * @var Mage_Catalog_Model_Resource_Product_Collection
+     */
+    protected function getLatestProductCollection()
     {
         $collection = Mage::getResourceModel('reports/product_collection')
             ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
             ->addFieldToFilter('visibility', Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH)
+            ->addAttributeToFilter('status', array('gt' => 0))
             ->addTaxPercents()
             ->addAttributeToSort('created_at', 'desc');
         $collection->setPageSize($this->getConfig('qty'))->setCurPage(1);
@@ -108,9 +126,7 @@ class Themevast_Randomslider_Block_Randomslider extends Mage_Catalog_Block_Produ
   			$cfg  =  $this->getConfig($value);
   			if($cfg) $script    .= "$key: '$value', ";
   		}
-
         return $script;
-
     }
 
 }

@@ -57,39 +57,3 @@
         </script>
     </div>
 </div>
-<script type="text/javascript">
-//<![CDATA[
-/*    jQuery(document).ready(function($) {
-
-        (function(selector){
-            var popupCookie = Mage.Cookies.get('popupNewsletterOff');
-            if(!popupCookie || popupCookie == 'undefined'){
-                var $content = $(selector);
-                var popup   = $('#popup-newsletter', $content);
-                var pwidth =  950;
-                var pheight =  540;
-                var overlay = '#363636';
-                popup.width(pwidth).height(pheight)
-                $content.fancybox({
-                    padding: '0px',
-                    transitionIn: 'fade',
-                    transitionOut: 'fade',
-                    // showCloseButton: false,
-                    centerOnScroll: true,
-                    type: 'inline',
-                    overlayColor: overlay,
-                    href : '#popup-newsletter',
-                }).trigger('click');
-                $('.subscribe-bottom input', popup).on('click', function(){
-                    if($(this).parent().find('input:checked').length){
-                        Mage.Cookies.set('popupNewsletterOff', true);
-                    } else {
-                        Mage.Cookies.set('popupNewsletterOff', undefined);
-                    }
-                });
-            }
-
-        })(".block-subscribe.popup");
-    });*/
-//]]>
-</script>
