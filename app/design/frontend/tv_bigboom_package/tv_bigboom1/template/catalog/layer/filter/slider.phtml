@@ -1,10 +1,15 @@
+<?php
+    $currency = Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol();
+?>
+
 <div class="slidable-wrapper">
     <div class="filter-slidable" data-val-min="<?php echo $this->getDataMin(); ?>"
          data-val-max="<?php echo $this->getDataMax(); ?>" data-delimiter="<?php echo $this->getDelimiter(); ?>"
          data-min="0" data-max="<?php echo $this->getMaxAttributeVal(); ?>"
+         data-prefix="<?php echo $currency; ?>"
          data-name="<?php echo $this->getAttributeCode(); ?>">
-        <div class="filter-values"><?php echo (int)$this->getDataMin(); ?>&euro;
-            - <?php echo (int)$this->getDataMax(); ?>&euro;</div>
+        <div class="filter-values"><?php echo (int)$this->getDataMin(); echo $currency ?>
+            - <?php echo (int)$this->getDataMax(); echo $currency ?></div>
         <div class="marker-container-min">
             <div class="slider-marker slider-marker-min"></div>
         </div>

@@ -38,6 +38,53 @@ class Themevast_Randomslider_Block_Randomslider extends Mage_Catalog_Block_Produ
         return $collection;
     }
 
+    protected function getCategoryProductCollection($category, $maxPrice = false)
+    {
+        /** @var Mage_Catalog_Model_Category $category */
+        $category = Mage::getResourceModel('catalog/category_collection')->addFieldToFilter('name', $category)->getFirstItem();
+
+        /** @var Mage_Catalog_Model_Resource_Product_Collection $c */
+        $collection = Mage::getResourceModel('catalog/product_collection')
+            ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
+            ->addFieldToFilter('visibility', Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH)
+            ->addTaxPercents()
+            ->addCategoryFilter($category);
+
+        if ($maxPrice) {
+            $collection->addFieldToFilter('price', array('lt' => $maxPrice));
+            $collection->addFieldToFilter('price', array('gt' => 0));
+        }
+
+        $collection->getSelect()->order('rand()');
+        $collection->setPageSize($this->getConfig('qty'))->setCurPage(1);
+
+        return $collection;
+    }
+
+    protected function getTopSellerProductCollection()
+    {
+        $collection = Mage::getResourceModel('reports/product_collection')
+            ->addOrderedQty()
+            ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
+            ->addFieldToFilter('visibility', Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH)
+            ->addTaxPercents()
+            ->setOrder('ordered_qty', 'desc');
+        $collection->getSelect()->order('rand()');
+        $collection->setPageSize($this->getConfig('qty'))->setCurPage(1);
+        return $collection;
+    }
+
+    protected function getLatestProductcollection()
+    {
+        $collection = Mage::getResourceModel('reports/product_collection')
+            ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
+            ->addFieldToFilter('visibility', Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH)
+            ->addTaxPercents()
+            ->addAttributeToSort('created_at', 'desc');
+        $collection->setPageSize($this->getConfig('qty'))->setCurPage(1);
+        return $collection;
+    }
+
     public function setBxslider()
     {
   		$options = array(

@@ -115,11 +115,11 @@ Category layered navigation layout
                     </action>
                     <action method="addItem">
                         <type>skin_js</type>
-                        <name>js/colibo/productfilters/productfilters.js</name>
+                        <name>js/colibo/productfilters/product_filters.js</name>
                     </action>
                     <action method="addItem">
                         <type>skin_css</type>
-                        <name>css/colibo/productfilters/productfilters.css</name>
+                        <name>css/colibo/productfilters/product_filters.css</name>
                     </action>
                 </reference>
             </block>

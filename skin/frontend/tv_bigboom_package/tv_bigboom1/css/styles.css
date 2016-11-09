@@ -7289,7 +7289,7 @@ footer {
 .randomslider {
     border: 1px solid #efefef;
     padding: 22px 20px;
-
+    margin-bottom: 10px;
 }
 
 .randomslider .products-grid li.item .product-image {

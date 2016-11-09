@@ -78,8 +78,9 @@ $_helper = $this->helper('catalog/output');
 		</div>
 		<?php endif ?>
 	<?php endif ?>
-</div> 
+</div>
 
+<?php if($_productCollection->count()): ?>
 <script type="text/javascript">
 	jQuery(document).ready(function($){
 		(function(selector){
@@ -96,4 +97,5 @@ $_helper = $this->helper('catalog/output');
 		})(".randomslider");
 	});
 </script>
+<?php endif ?>
 
