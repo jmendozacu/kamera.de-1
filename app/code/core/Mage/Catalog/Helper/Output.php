@@ -146,15 +146,15 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
     /***
      * get short name of product with out description parameters
      *
-     * @param string $foolProductName
+     * @param string $fullProductName
      * @return string
      */
-    public function getShortProductName($foolProductName)
+    public function getShortProductName($fullProductName)
     {
-        while (preg_match("/\\([^(]+?\\)/", $foolProductName)){
-            $foolProductName=preg_replace("/\\([^(]+?\\)/", "", $foolProductName, 1) ;
+        while (preg_match("/\\([^(]+?\\)/", $fullProductName)){
+            $fullProductName=preg_replace("/\\([^(]+?\\)/", "", $fullProductName, 1) ;
         }
-        return $foolProductName;
+        return $fullProductName;
     }
 
     /**
