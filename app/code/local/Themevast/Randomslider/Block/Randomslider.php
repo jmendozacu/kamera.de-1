@@ -52,9 +52,10 @@ class Themevast_Randomslider_Block_Randomslider extends Mage_Catalog_Block_Produ
         $collection = Mage::getResourceModel('catalog/product_collection')
             ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
             ->addFieldToFilter('visibility', Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH)
-            ->addAttributeToFilter('status', array('gt' => 0))
+            ->addAttributeToFilter('status', array('eq' => Mage_Catalog_Model_Product_Status::STATUS_ENABLED))
             ->addTaxPercents()
             ->addCategoryFilter($category);
+
 
         if ($maxPrice) {
             $collection->addFieldToFilter('price', array('lt' => $maxPrice));
@@ -78,7 +79,7 @@ class Themevast_Randomslider_Block_Randomslider extends Mage_Catalog_Block_Produ
             ->addOrderedQty()
             ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
             ->addFieldToFilter('visibility', Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH)
-            ->addAttributeToFilter('status', array('gt' => 0))
+            ->addAttributeToFilter('status', array('eq' => Mage_Catalog_Model_Product_Status::STATUS_ENABLED))
             ->addTaxPercents()
             ->setOrder('ordered_qty', 'desc');
         $collection->getSelect()->order('rand()');
@@ -96,7 +97,7 @@ class Themevast_Randomslider_Block_Randomslider extends Mage_Catalog_Block_Produ
         $collection = Mage::getResourceModel('reports/product_collection')
             ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
             ->addFieldToFilter('visibility', Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH)
-            ->addAttributeToFilter('status', array('gt' => 0))
+            ->addAttributeToFilter('status', array('eq' => Mage_Catalog_Model_Product_Status::STATUS_ENABLED))
             ->addTaxPercents()
             ->addAttributeToSort('created_at', 'desc');
         $collection->setPageSize($this->getConfig('qty'))->setCurPage(1);
