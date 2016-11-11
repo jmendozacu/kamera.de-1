@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Colibo_Colorvariants>
+            <version>0.0.1</version>
+        </Colibo_Colorvariants>
+    </modules>
+    <global>
+        <blocks>
+            <colorvariants>
+                <class>Colibo_Colorvariants_Block</class>
+            </colorvariants>
+        </blocks>
+        <resources>
+            <colorvariants_setup>
+                <setup>
+                    <module>Colibo_Colorvariants</module>
+                    <class>Mage_Eav_Model_Entity_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </colorvariants_setup>
+        </resources>
+    </global>
+    <admin>
+        <routers>
+            <colorvariants>
+                <use>admin</use>
+                <args>
+                    <module>Colibo_Colorvariants</module>
+                    <frontName>colorvariants</frontName>
+                </args>
+            </colorvariants>
+        </routers>
+    </admin>
+    <adminhtml>
+        <menu>
+            <colorvariants>
+                <title>Color Variants</title>
+                <sort_order>0</sort_order>
+                <children>
+                    <products>
+                        <title>Update products attributes</title>
+                        <action>colorvariants/adminhtml_products/updateAttributes</action>
+                    </products>
+                </children>
+            </colorvariants>
+        </menu>
+    </adminhtml>
+</config>

@@ -1,0 +1,23 @@
+<?php
+/** @var Colibo_Colorvariants_Block_Colors $this */
+/** @var Mage_Catalog_Model_Resource_Product_Collection $colors */
+
+$colors = $this->getVariants();
+$helper = $this->helper('catalog/output');
+?>
+<ul class="color-variants">
+    <?php
+    /** @var Mage_Catalog_Model_Product $product */
+    foreach ($colors as $product) {
+        $img = '<img src="' . $this->helper('catalog/image')->init($product, 'small_image')->resize(78) . '" alt="' . $this->escapeHtml($this->getImageLabel($product)) . '" title="' . $this->escapeHtml($this->getImageLabel($product)) . '" />';
+        $name = Mage::helper('core/string')->truncate($product->getName(), $length = 30);
+        ?>
+        <li>
+            <a class="color-variants-item" href='<?php echo $product->getProductUrl(); ?>'>
+                <?php echo $helper->productAttribute($product, $img, 'image') ?><div class="color-label"><?php echo $name; ?></div>
+            </a>
+        </li>
+        <?php
+    }
+    ?>
+</ul>
