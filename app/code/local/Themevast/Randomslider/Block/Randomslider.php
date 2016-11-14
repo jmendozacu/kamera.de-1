@@ -4,6 +4,11 @@ class Themevast_Randomslider_Block_Randomslider extends Mage_Catalog_Block_Produ
 
 	protected $_config = array();
 
+    private $filterCategory;
+    private $filterMaxPrice;
+    private $filterSpecial;
+
+
 	protected function _construct()
 	{
 		if(!$this->_config) $this->_config = Mage::getStoreConfig('randomslider/general'); 
@@ -27,80 +32,41 @@ class Themevast_Randomslider_Block_Randomslider extends Mage_Catalog_Block_Produ
     protected function getProductCollection()
     {
         $collection = Mage::getResourceModel('catalog/product_collection')
-                            ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
-							->addFieldToFilter('visibility', Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH)
-                            ->addMinimalPrice()
-                            ->addTaxPercents()
-                            ->addStoreFilter();
-        $collection->getSelect()->order('rand()');
-        $collection->setPageSize($this->getConfig('qty'))->setCurPage(1);		
-        Mage::getModel('review/review')->appendSummary($collection);                       
-        return $collection;
-    }
-
-    /**
-     * get collection of spicified category products
-     *
-     * @var Mage_Catalog_Model_Resource_Product_Collection
-     */
-    protected function getCategoryProductCollection($categoryId, $maxPrice = false)
-    {
-        /** @var Mage_Catalog_Model_Category $category */
-        $category = Mage::getModel('catalog/category')->setStoreId($store_id)->load($categoryId);
-
-        /** @var Mage_Catalog_Model_Resource_Product_Collection $c */
-        $collection = Mage::getResourceModel('catalog/product_collection')
             ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
             ->addFieldToFilter('visibility', Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH)
-            ->addAttributeToFilter('status', array('eq' => Mage_Catalog_Model_Product_Status::STATUS_ENABLED))
+            ->addMinimalPrice()
             ->addTaxPercents()
-            ->addCategoryFilter($category);
+            ->addStoreFilter();
 
+        if ($this->filterCategory) {
+            /** @var Mage_Catalog_Model_Category $category */
+            $category = Mage::getModel('catalog/category')->setStoreId(Mage::app()->getStore()->getId())->load($this->filterCategory);
+            $collection->addCategoryFilter($category);
+        }
 
-        if ($maxPrice) {
-            $collection->addFieldToFilter('price', array('lt' => $maxPrice));
+        if ($this->filterMaxPrice) {
+            $collection->addFieldToFilter('price', array('lt' => $this->filterMaxPrice));
             $collection->addFieldToFilter('price', array('gt' => 0));
         }
 
-        $collection->getSelect()->order('rand()');
-        $collection->setPageSize($this->getConfig('qty'))->setCurPage(1);
+        if ($this->filterSpecial) {
+            switch ($this->filterSpecial) {
+                case 'top_sellable':
+                    $collection->setOrder('ordered_qty', 'desc');
+                    break;
+                case 'latest':
+                    $collection->addAttributeToSort('created_at', 'desc');
+                    break;
+                default:
+                    break;
+            }
+        }
 
-        return $collection;
-    }
-
-    /**
-     * get collection of top sellable products
-     *
-     * @var Mage_Catalog_Model_Resource_Product_Collection
-     */
-    protected function getTopSellerProductCollection()
-    {
-        $collection = Mage::getResourceModel('reports/product_collection')
-            ->addOrderedQty()
-            ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
-            ->addFieldToFilter('visibility', Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH)
-            ->addAttributeToFilter('status', array('eq' => Mage_Catalog_Model_Product_Status::STATUS_ENABLED))
-            ->addTaxPercents()
-            ->setOrder('ordered_qty', 'desc');
-        $collection->getSelect()->order('rand()');
+        if (!$this->filterSpecial) {
+            $collection->getSelect()->order('rand()');
+        }
         $collection->setPageSize($this->getConfig('qty'))->setCurPage(1);
-        return $collection;
-    }
-
-    /**
-     * get collection latest products
-     *
-     * @var Mage_Catalog_Model_Resource_Product_Collection
-     */
-    protected function getLatestProductCollection()
-    {
-        $collection = Mage::getResourceModel('reports/product_collection')
-            ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
-            ->addFieldToFilter('visibility', Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH)
-            ->addAttributeToFilter('status', array('eq' => Mage_Catalog_Model_Product_Status::STATUS_ENABLED))
-            ->addTaxPercents()
-            ->addAttributeToSort('created_at', 'desc');
-        $collection->setPageSize($this->getConfig('qty'))->setCurPage(1);
+        Mage::getModel('review/review')->appendSummary($collection);
         return $collection;
     }
 
@@ -128,6 +94,24 @@ class Themevast_Randomslider_Block_Randomslider extends Mage_Catalog_Block_Produ
   			if($cfg) $script    .= "$key: '$value', ";
   		}
         return $script;
+    }
+
+    public function setFilterCategory($categoryId)
+    {
+        $this->filterCategory = $categoryId;
+        return $this;
+    }
+
+    public function setFilterMaxPrice($maxPrice)
+    {
+        $this->filterMaxPrice = $maxPrice;
+        return $this;
+    }
+
+    public function setFilterSpecial($name)
+    {
+        $this->filterSpecial = $name;
+        return $this;
     }
 
 }
