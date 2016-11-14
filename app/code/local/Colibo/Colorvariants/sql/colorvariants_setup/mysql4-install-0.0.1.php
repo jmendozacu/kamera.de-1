@@ -16,18 +16,16 @@ $installer->addAttribute (Mage_Catalog_Model_Product::ENTITY, "parent_asin", arr
     "required" => false,
     "default" => "",
     "searchable" => true,
-    "filterable" => true,
+    "filterable" => false,
     "comparable" => true,
-    "visible_on_front" => false,
     "unique" => false,
     "note" => "",
     "frontend_label" => "Parent ASIN",
-    "is_global" => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
+    "is_global" => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_GLOBAL,
     "sort_order" => 2,
     "is_wysiwyg_enabled" => false,
     "visible_on_front" => true,
     "is_html_allowed_on_front" => false,
-
 ));
 
 $installer->endSetup ();

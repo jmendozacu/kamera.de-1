@@ -213,7 +213,7 @@ Product view
 
                 <action method="setTierPriceTemplate"><template>catalog/product/view/tierprices.phtml</template></action>
 
-                <block type="colorvariants/colors" name="color.variants" as="color_variants" template="catalog/product/colorvariants.phtml"></block>
+                <block type="colorvariants/colors" name="color.variants" as="color_variants" template="catalog/product/color_variants.phtml"></block>
 
                 <block type="catalog/product_view_tabs" name="product.info.tabs" as="info_tabs" template="catalog/product/view/tabs.phtml" >
                     <action method="addTab" translate="title" module="catalog"><alias>additional</alias><title>Technische Daten</title><block>catalog/product_view_attributes</block><template>catalog/product/view/attributes.phtml</template></action>
