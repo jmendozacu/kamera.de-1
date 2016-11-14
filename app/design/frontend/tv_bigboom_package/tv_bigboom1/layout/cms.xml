@@ -72,7 +72,7 @@ Default layout, loads most of the pages
             <block type="page/html" name="vmegamenu.banner" template="themevast/vmegamenu_banner.phtml"/>
         </reference>
         <reference name="before_footer">
-            <block type="cms/block" name="before.footer" before="b_footer">
+            <block type="cms/block" name="before.footer">
                 <action method="setBlockId"><block_id>b_footer</block_id></action>
             </block>
         </reference>
