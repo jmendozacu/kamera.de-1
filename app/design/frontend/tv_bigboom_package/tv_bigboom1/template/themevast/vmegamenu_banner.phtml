@@ -17,20 +17,27 @@
                             echo $block->toHtml();
                     ?>
             <?php
+            /** @var Themevast_Randomslider_Block_Randomslider $block */
             $block = $this->getLayout()->createBlock('randomslider/randomslider')
-                ->setTemplate('themevast/randomslider/digitalslider.phtml');
+                ->setTemplate('themevast/randomslider/randomslider.phtml');
+            $block->setFilterCategory(71);  //digitalcameras
+            $block->setFilterMaxPrice(300);
             echo $block->toHtml();
 
             $block = $this->getLayout()->createBlock('randomslider/randomslider')
-                ->setTemplate('themevast/randomslider/objectiveslider.phtml');
+                ->setTemplate('themevast/randomslider/randomslider.phtml');
+            $block->setFilterCategory(5);   //objectives
+            $block->setFilterMaxPrice(300);
             echo $block->toHtml();
 
             $block = $this->getLayout()->createBlock('randomslider/randomslider')
-                ->setTemplate('themevast/randomslider/topseller.phtml');
+                ->setTemplate('themevast/randomslider/randomslider.phtml');
+            $block->setFilterSpecial('top_sellable');
             echo $block->toHtml();
 
             $block = $this->getLayout()->createBlock('randomslider/randomslider')
-                ->setTemplate('themevast/randomslider/latest.phtml');
+                ->setTemplate('themevast/randomslider/randomslider.phtml');
+            $block->setFilterSpecial('latest');
             echo $block->toHtml();
             ?>
             </div>

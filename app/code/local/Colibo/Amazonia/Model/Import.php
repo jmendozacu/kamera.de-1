@@ -273,6 +273,7 @@ class Colibo_Amazonia_Model_Import
                     ? number_format(($item['OfferSummary']['LowestUsedPrice']['Amount'] / 100), 2, ',', '') : false,
 
                 'amazon_attributes' => json_encode($item),
+                'parent_asin' => !empty($item['ParentASIN']) ? $item['ParentASIN'] : false,
 
                 'msrp' => 0.00,
                 'rating' => 0.00,

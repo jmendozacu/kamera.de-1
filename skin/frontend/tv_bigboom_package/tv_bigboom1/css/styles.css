@@ -8343,6 +8343,31 @@ a {
 
 /* </Recently viewed> */
 
+/* <Color variants> */
+
+.color-variants-item {
+    width: 33.33%;
+    float: left;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.color-variants:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.color-variants {
+    margin-bottom: 10px;
+}
+
+.color-variants-item .color-label {
+    margin: auto 10px;
+}
+
+/* </Color variants> */
+
 .add-to-wishlist {
     position: absolute;
     right: 10px;
