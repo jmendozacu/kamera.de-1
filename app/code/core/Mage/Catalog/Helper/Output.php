@@ -151,8 +151,9 @@ class Mage_Catalog_Helper_Output extends Mage_Core_Helper_Abstract
      */
     public function getShortProductName($fullProductName)
     {
-        while (preg_match("/\\([^(]+?\\)/", $fullProductName)){
-            $fullProductName=preg_replace("/\\([^(]+?\\)/", "", $fullProductName, 1) ;
+        $pattern = "/\\([^(]+?\\)/";
+        while (preg_match($pattern, $fullProductName)){
+            $fullProductName=preg_replace($pattern, "", $fullProductName, 1) ;
         }
         return $fullProductName;
     }
