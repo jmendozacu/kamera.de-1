@@ -73,7 +73,7 @@ class Themevast_Randomslider_Block_Randomslider extends Mage_Catalog_Block_Produ
     /**
      * Sets slider options
      *
-     * @var string
+     * @return string
      */
     public function setBxslider()
     {
@@ -104,7 +104,7 @@ class Themevast_Randomslider_Block_Randomslider extends Mage_Catalog_Block_Produ
     /**
      * Sets category filter
      *
-     * @var Themevast_Randomslider_Block_Randomslider
+     * @return Themevast_Randomslider_Block_Randomslider
      */
     public function setFilterCategory($categoryId)
     {
@@ -115,7 +115,7 @@ class Themevast_Randomslider_Block_Randomslider extends Mage_Catalog_Block_Produ
     /**
      * Sets max price filter
      *
-     * @var Themevast_Randomslider_Block_Randomslider
+     * @return Themevast_Randomslider_Block_Randomslider
      */
     public function setFilterMaxPrice($maxPrice)
     {
@@ -126,7 +126,7 @@ class Themevast_Randomslider_Block_Randomslider extends Mage_Catalog_Block_Produ
     /**
      * Sets special filter
      *
-     * @var Themevast_Randomslider_Block_Randomslider
+     * @return Themevast_Randomslider_Block_Randomslider
      */
     public function setFilterSpecial($name)
     {
