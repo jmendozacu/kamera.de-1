@@ -45,10 +45,11 @@ $helpLabels = $this->helper('themevast/labels');
                             <div class="product-shop col-sm-9 col-md-9 col-sms-6 col-smb-12">
 
                                 <?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
+                                <?php $shortProductName = $_helper->getShortProductName($_productNameStripped);?>
                                 <h2 class="product-name">
                                     <a href="<?php echo $_product->getProductUrl() ?>"
                                        title="<?php echo $_productNameStripped; ?>">
-                                        <?php echo $_helper->productAttribute($_product, $_product->getName(), 'name'); ?></a>
+                                        <?php echo $shortProductName; ?></a>
                                 </h2>
 
                                 <div class="ratings">
