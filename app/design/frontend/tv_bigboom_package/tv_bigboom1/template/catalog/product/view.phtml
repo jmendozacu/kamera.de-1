@@ -95,7 +95,7 @@
 
                     <div class="add-to-box">
 
-                        <?php if (!empty($_product->getPrice())) : ?>
+                        <?php if ($_product->getPrice() > 0) : ?>
                             <span class="price-box row">
                             <span class="price-label col-md-4 new"><?php echo $this->__("Lowest New Price:");?></span>
                             <span class="price col-md-8">
@@ -106,7 +106,7 @@
                         </span>
                         <?php endif; ?>
 
-                        <?php if (!empty($_product->getPriceUsed())) : ?>
+                        <?php if ($_product->getPriceUsed() > 0) : ?>
                             <span class="price-box row">
                             <span class="price-label col-md-4 used"><?php echo $this->__("Lowest Used Price:");?></span>
                             <span class="price col-md-8">

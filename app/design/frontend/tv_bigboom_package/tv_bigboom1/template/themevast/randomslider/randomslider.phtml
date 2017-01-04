@@ -57,9 +57,9 @@ $_helper = $this->helper('catalog/output');
                     <div class="price-box">
                         <span class="regular-price">
                             <span class="price">
-                                 <?php if (!empty($_product->getPrice())): ?>
+                                 <?php if ($_product->getPrice() > 0): ?>
                                      <?php echo Mage::helper('core')->currency($_product->getPrice(), true, false); ?>
-                                 <?php elseif (!empty($_product->getPriceUsed())): ?>
+                                 <?php elseif ($_product->getPriceUsed() > 0): ?>
                                      <?php echo Mage::helper('core')->currency($_product->getPriceUsed(), true, false); ?>
                                  <?php else: ?>
                                      <span class="availability out-of-stock"><span>Out of stock</span></span>
