@@ -34,13 +34,13 @@
                         </div>
 
                         <p class="availability
-                            <?php if ($_product->getPrice() != 0.00 && $_product->getPriceUsed() != 0.00): ?>
+                            <?php if (!empty($_product->getPrice()) && !empty($_product->getPriceUsed())): ?>
                                 in-stock
                             <?php else: ?>
                                 out-of-stock
                             <?php endif; ?>">
                             Availability:
-                            <?php if ($_product->getPrice() != 0.00 && $_product->getPriceUsed() != 0.00): ?>
+                            <?php if (!empty($_product->getPrice()) && !empty($_product->getPriceUsed())): ?>
                                 <span>In stock</span>
                             <?php else: ?>
                                 <span>Out of stock</span>
@@ -75,7 +75,7 @@
 
                         <div class="add-to-box">
 
-                            <?php if ($_product->getPrice() > 0) : ?>
+                            <?php if (!empty($_product->getPrice())) : ?>
                                 <span class="price-box row">
                                     <span class="price-label col-md-4 new">Lowest New Price:</span>
                                     <span class="price col-md-8">
@@ -91,7 +91,7 @@
                                 </span>
                             <?php endif; ?>
 
-                            <?php if ($_product->getPriceUsed() > 0) : ?>
+                            <?php if (!empty($_product->getPriceUsed())) : ?>
                                 <span class="price-box row">
                                     <span class="price-label col-md-4 used">Lowest Used Price:</span>
                                     <span class="price col-md-8">

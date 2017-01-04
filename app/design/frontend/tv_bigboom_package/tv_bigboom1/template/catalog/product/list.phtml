@@ -61,9 +61,9 @@ $helpLabels = $this->helper('themevast/labels');
                                 <div class="price-box">
                         <span class="regular-price">
                             <span class="price">
-                                 <?php if ($_product->getPrice() != 0.00): ?>
+                                 <?php if (!empty($_product->getPrice())): ?>
                                      <?php echo Mage::helper('core')->currency($_product->getPrice(), true, false); ?>
-                                 <?php elseif ($_product->getPriceUsed() != 0.00): ?>
+                                 <?php elseif (!empty($_product->getPriceUsed())): ?>
                                      <?php echo Mage::helper('core')->currency($_product->getPriceUsed(), true, false); ?>
                                  <?php else: ?>
                                      <span class="availability out-of-stock"><span>Out of stock</span></span>
@@ -144,9 +144,9 @@ $helpLabels = $this->helper('themevast/labels');
                     <div class="price-box">
             <span class="regular-price">
                 <span class="price">
-                    <?php if ($_product->getPrice() != 0.00): ?>
+                    <?php if (!empty($_product->getPrice())): ?>
                         <?php echo Mage::helper('core')->currency($_product->getPrice(), true, false); ?>
-                    <?php elseif ($_product->getPriceUsed() != 0.00): ?>
+                    <?php elseif (!empty($_product->getPriceUsed())): ?>
                         <?php echo Mage::helper('core')->currency($_product->getPriceUsed(), true, false); ?>
                     <?php else: ?>
                         <span class="availability out-of-stock"><span>Out of stock</span></span>
