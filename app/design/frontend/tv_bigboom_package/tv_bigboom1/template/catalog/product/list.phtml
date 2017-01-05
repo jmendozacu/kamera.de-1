@@ -51,26 +51,8 @@ $helpLabels = $this->helper('themevast/labels');
                                         <?php echo $_helper->productAttribute($_product, $_product->getName(), 'name'); ?></a>
                                 </h2>
 
-                                <div class="ratings">
-                                    <div class="rating-box">
-                                        <div class="rating"
-                                             style="width:<?php echo ($_product->getRating() / 5) * 100 ?>%"></div>
-                                    </div>
-                                </div>
-
-                                <div class="price-box">
-                        <span class="regular-price">
-                            <span class="price">
-                                 <?php if ($_product->getPrice() > 0): ?>
-                                     <?php echo Mage::helper('core')->currency($_product->getPrice(), true, false); ?>
-                                 <?php elseif ($_product->getPriceUsed() > 0): ?>
-                                     <?php echo Mage::helper('core')->currency($_product->getPriceUsed(), true, false); ?>
-                                 <?php else: ?>
-                                     <span class="availability out-of-stock"><span>Out of stock</span></span>
-                                 <?php endif; ?>
-                            </span>
-                        </span>
-                                </div>
+                                <?php echo Mage::helper('amazonia')->renderRating($_product); ?>
+                                <?php echo Mage::helper('amazonia')->renderPrice($_product); ?>
 
                                 <div class="actions">
                                     <a class="button default" href="<?php echo $_product->getProductUrl() ?>">
@@ -134,26 +116,8 @@ $helpLabels = $this->helper('themevast/labels');
                         </a>
                     </h2>
 
-                    <div class="ratings">
-                        <div class="rating-box">
-                            <div class="rating"
-                                 style="width:<?php echo ($_product->getRating() / 5) * 100 ?>%"></div>
-                        </div>
-                    </div>
-
-                    <div class="price-box">
-            <span class="regular-price">
-                <span class="price">
-                    <?php if ($_product->getPrice() > 0): ?>
-                        <?php echo Mage::helper('core')->currency($_product->getPrice(), true, false); ?>
-                    <?php elseif ($_product->getPriceUsed() > 0): ?>
-                        <?php echo Mage::helper('core')->currency($_product->getPriceUsed(), true, false); ?>
-                    <?php else: ?>
-                        <span class="availability out-of-stock"><span>Out of stock</span></span>
-                    <?php endif; ?>
-                </span>
-            </span>
-                    </div>
+                    <?php echo Mage::helper('amazonia')->renderRating($_product); ?>
+                    <?php echo Mage::helper('amazonia')->renderPrice($_product); ?>
 
                     <div class="actions">
                         <a class="button default" href="<?php echo $_product->getProductUrl() ?>">

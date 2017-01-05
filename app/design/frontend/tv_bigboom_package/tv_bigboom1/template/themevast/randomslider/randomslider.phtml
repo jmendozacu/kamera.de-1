@@ -17,7 +17,6 @@ $_helper = $this->helper('catalog/output');
         $heightImage = $this->getConfig('heightImage') ? $this->getConfig('heightImage') : 135;
         $compare = $this->getConfig('compare');
         $wishlist = $this->getConfig('wishlist');
-        $review = $this->getConfig('review');
         $rows = $this->getConfig('rows');
         $class = ($rows > 1) ? '.slide-multirows' : '.products-grid';
         ?>
@@ -50,23 +49,9 @@ $_helper = $this->helper('catalog/output');
                     <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>"
                                                 title="<?php echo $_productNameStripped; ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name'); ?></a>
                     </h2>
-                    <?php if ($review): ?>
-                        <?php echo $this->getReviewsSummaryHtml($_product) ?>
-                    <?php endif; ?>
 
-                    <div class="price-box">
-                        <span class="regular-price">
-                            <span class="price">
-                                 <?php if ($_product->getPrice() > 0): ?>
-                                     <?php echo Mage::helper('core')->currency($_product->getPrice(), true, false); ?>
-                                 <?php elseif ($_product->getPriceUsed() > 0): ?>
-                                     <?php echo Mage::helper('core')->currency($_product->getPriceUsed(), true, false); ?>
-                                 <?php else: ?>
-                                     <span class="availability out-of-stock"><span>Out of stock</span></span>
-                                 <?php endif; ?>
-                            </span>
-                        </span>
-                    </div>
+                    <?php echo Mage::helper('amazonia')->renderRating($_product); ?>
+                    <?php echo Mage::helper('amazonia')->renderPrice($_product); ?>
 
                     <?php if ($compare || $wishlist): ?>
                         <ul class="add-to-links">

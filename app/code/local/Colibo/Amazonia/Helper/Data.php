@@ -192,4 +192,59 @@ class Colibo_Amazonia_Helper_Data extends Mage_Core_Helper_Abstract
             'country_code' => substr(Mage::getStoreConfig('general/country/default'), 0, 2)
         ];
     }
+
+
+    /**
+     * Get Amazon Prices HTML.
+     * ----------------------
+     *
+     * @param $product
+     * @return string
+     */
+    public function renderPrice($product)
+    {
+
+        $priceNew = Mage::getResourceModel('catalog/product')->getAttributeRawValue($product->getId(), 'price', 0);
+        $priceUsed = Mage::getResourceModel('catalog/product')->getAttributeRawValue($product->getId(), 'price_used', 0);
+
+        $html =
+            '<div class="price-box">' .
+            '    <span class="regular-price">' .
+            '        <span class="price">';
+
+        if (!empty($priceNew) && floatval($priceNew) > 0) {
+            $html .= Mage::helper('core')->currency($priceNew, true, false);
+        } else if (!empty($priceUsed) && floatval($priceUsed) > 0) {
+            $html .= Mage::helper('core')->currency($priceUsed, true, false);
+        } else {
+            $html .= '<span class="availability out-of-stock"><span>Out of stock</span></span>';
+        }
+
+        $html .=
+            '        </span>' .
+            '    </span>' .
+            '</div>';
+
+        return $html;
+    }
+
+
+    /**
+     * Get Amazon Product Rating.
+     * --------------------------
+     *
+     * @param $product
+     * @return string
+     */
+    public function renderRating($product)
+    {
+        $html = '<div class="ratings">
+                        <div class="rating-box">
+                            <div class="rating"
+                                 style="width: ' . (($product->getRating() / 5) * 100) . '%"></div>
+                        </div>
+                    </div>';
+
+        return $html;
+    }
 }
