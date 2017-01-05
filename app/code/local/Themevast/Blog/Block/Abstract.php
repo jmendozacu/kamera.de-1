@@ -94,9 +94,9 @@ abstract class Themevast_Blog_Block_Abstract extends Mage_Core_Block_Template
 
     public function getPostProductsHtml($post)
     {
-        if (trim($post->getTags())) {
+        if (trim($post->getProducts())) {
 
-            $asins = explode(',', $post->getTags());
+            $asins = explode(',', $post->getProducts());
             array_walk_recursive($asins, function (&$value) {
                 $value = trim($value);
             });

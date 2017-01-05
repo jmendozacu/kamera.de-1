@@ -12,16 +12,16 @@ class Themevast_Blog_Block_Manage_Blog_Edit_Tab_Form extends Mage_Adminhtml_Bloc
             'title',
             'text',
             array(
-                 'label'    => Mage::helper('blog')->__('Title'),
-                 'class'    => 'required-entry',
-                 'required' => true,
-                 'name'     => 'title',
+                'label' => Mage::helper('blog')->__('Title'),
+                'class' => 'required-entry',
+                'required' => true,
+                'name' => 'title',
             )
         );
 
-        $fieldset->addField('image','image', array(
-                 'label'    => Mage::helper('blog')->__('Image'),
-                 'name'     => 'image',
+        $fieldset->addField('image', 'image', array(
+                'label' => Mage::helper('blog')->__('Image'),
+                'name' => 'image',
             )
         );
 
@@ -37,12 +37,12 @@ class Themevast_Blog_Block_Manage_Blog_Edit_Tab_Form extends Mage_Adminhtml_Bloc
             'identifier',
             'text',
             array(
-                 'label'              => Mage::helper('blog')->__('Identifier'),
-                 'class'              => 'required-entry aw-blog-validate-identifier',
-                 'required'           => true,
-                 'name'               => 'identifier',
-                 'after_element_html' => '<span class="hint">' . $noticeMessage . '</span>'
-                     . "<script>
+                'label' => Mage::helper('blog')->__('Identifier'),
+                'class' => 'required-entry aw-blog-validate-identifier',
+                'required' => true,
+                'name' => 'identifier',
+                'after_element_html' => '<span class="hint">' . $noticeMessage . '</span>'
+                    . "<script>
                         Validation.add(
                             'aw-blog-validate-identifier',
                             '" . $validationErrorMessage . "',
@@ -63,11 +63,11 @@ class Themevast_Blog_Block_Manage_Blog_Edit_Tab_Form extends Mage_Adminhtml_Bloc
                 'store_id',
                 'multiselect',
                 array(
-                     'name'     => 'stores[]',
-                     'label'    => Mage::helper('cms')->__('Store View'),
-                     'title'    => Mage::helper('cms')->__('Store View'),
-                     'required' => true,
-                     'values'   => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(false, true),
+                    'name' => 'stores[]',
+                    'label' => Mage::helper('cms')->__('Store View'),
+                    'title' => Mage::helper('cms')->__('Store View'),
+                    'required' => true,
+                    'values' => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(false, true),
                 )
             );
         }
@@ -85,12 +85,12 @@ class Themevast_Blog_Block_Manage_Blog_Edit_Tab_Form extends Mage_Adminhtml_Bloc
             'cat_id',
             'multiselect',
             array(
-                 'name'     => 'cats[]',
-                 'label'    => Mage::helper('blog')->__('Category'),
-                 'title'    => Mage::helper('blog')->__('Category'),
-                 'required' => true,
-                 'style'    => 'height:100px',
-                 'values'   => $categories,
+                'name' => 'cats[]',
+                'label' => Mage::helper('blog')->__('Category'),
+                'title' => Mage::helper('blog')->__('Category'),
+                'required' => true,
+                'style' => 'height:100px',
+                'values' => $categories,
             )
         );
 
@@ -98,27 +98,27 @@ class Themevast_Blog_Block_Manage_Blog_Edit_Tab_Form extends Mage_Adminhtml_Bloc
             'status',
             'select',
             array(
-                 'label'              => Mage::helper('blog')->__('Status'),
-                 'name'               => 'status',
-                 'values'             => array(
-                     array(
-                         'value' => 1,
-                         'label' => Mage::helper('blog')->__('Enabled'),
-                     ),
-                     array(
-                         'value' => 2,
-                         'label' => Mage::helper('blog')->__('Disabled'),
-                     ),
-                     array(
-                         'value' => 3,
-                         'label' => Mage::helper('blog')->__('Hidden'),
-                     ),
-                 ),
-                 'after_element_html' => '<span class="hint">'
-                     . Mage::helper('blog')->__(
-                         "Hidden pages won't be shown in blog but still can be accessed directly"
-                     )
-                     . '</span>',
+                'label' => Mage::helper('blog')->__('Status'),
+                'name' => 'status',
+                'values' => array(
+                    array(
+                        'value' => 1,
+                        'label' => Mage::helper('blog')->__('Enabled'),
+                    ),
+                    array(
+                        'value' => 2,
+                        'label' => Mage::helper('blog')->__('Disabled'),
+                    ),
+                    array(
+                        'value' => 3,
+                        'label' => Mage::helper('blog')->__('Hidden'),
+                    ),
+                ),
+                'after_element_html' => '<span class="hint">'
+                    . Mage::helper('blog')->__(
+                        "Hidden pages won't be shown in blog but still can be accessed directly"
+                    )
+                    . '</span>',
             )
         );
 
@@ -126,23 +126,23 @@ class Themevast_Blog_Block_Manage_Blog_Edit_Tab_Form extends Mage_Adminhtml_Bloc
             'comments',
             'select',
             array(
-                 'label'              => Mage::helper('blog')->__('Enable Comments'),
-                 'name'               => 'comments',
-                 'values'             => array(
-                     array(
-                         'value' => 0,
-                         'label' => Mage::helper('blog')->__('Enabled'),
-                     ),
-                     array(
-                         'value' => 1,
-                         'label' => Mage::helper('blog')->__('Disabled'),
-                     ),
-                 ),
-                 'after_element_html' => '<span class="hint">'
-                     . Mage::helper('blog')->__(
-                         'Disabling will close the post to new comments'
-                     )
-                     . '</span>',
+                'label' => Mage::helper('blog')->__('Enable Comments'),
+                'name' => 'comments',
+                'values' => array(
+                    array(
+                        'value' => 0,
+                        'label' => Mage::helper('blog')->__('Enabled'),
+                    ),
+                    array(
+                        'value' => 1,
+                        'label' => Mage::helper('blog')->__('Disabled'),
+                    ),
+                ),
+                'after_element_html' => '<span class="hint">'
+                    . Mage::helper('blog')->__(
+                        'Disabling will close the post to new comments'
+                    )
+                    . '</span>',
             )
         );
 
@@ -150,11 +150,23 @@ class Themevast_Blog_Block_Manage_Blog_Edit_Tab_Form extends Mage_Adminhtml_Bloc
             'tags',
             'text',
             array(
-                 'name'               => 'tags',
-                 'label'              => Mage::helper('blog')->__('Products ASINs'),
-                 'title'              => Mage::helper('blog')->__('Products ASINs'),
-                 'style'              => 'width:700px;',
-                 'after_element_html' => Mage::helper('blog')->__('Use comma as separator'),
+                'name' => 'tags',
+                'label' => Mage::helper('blog')->__('Tags'),
+                'title' => Mage::helper('blog')->__('tags'),
+                'style' => 'width:700px;',
+                'after_element_html' => Mage::helper('blog')->__('Use comma as separator'),
+            )
+        );
+
+        $fieldset->addField(
+            'products',
+            'text',
+            array(
+                'name' => 'products',
+                'label' => Mage::helper('blog')->__('Products ASINs'),
+                'title' => Mage::helper('blog')->__('Products ASINs'),
+                'style' => 'width:700px;',
+                'after_element_html' => Mage::helper('blog')->__('Use comma as separator'),
             )
         );
 
@@ -176,11 +188,11 @@ class Themevast_Blog_Block_Manage_Blog_Edit_Tab_Form extends Mage_Adminhtml_Bloc
                 'short_content',
                 'editor',
                 array(
-                     'name'   => 'short_content',
-                     'label'  => Mage::helper('blog')->__('Short Content'),
-                     'title'  => Mage::helper('blog')->__('Short Content'),
-                     'style'  => 'width:700px; height:100px;',
-                     'config' => $config,
+                    'name' => 'short_content',
+                    'label' => Mage::helper('blog')->__('Short Content'),
+                    'title' => Mage::helper('blog')->__('Short Content'),
+                    'style' => 'width:700px; height:100px;',
+                    'config' => $config,
                 )
             );
         }
@@ -188,11 +200,11 @@ class Themevast_Blog_Block_Manage_Blog_Edit_Tab_Form extends Mage_Adminhtml_Bloc
             'post_content',
             'editor',
             array(
-                 'name'   => 'post_content',
-                 'label'  => Mage::helper('blog')->__('Content'),
-                 'title'  => Mage::helper('blog')->__('Content'),
-                 'style'  => 'width:700px; height:500px;',
-                 'config' => $config
+                'name' => 'post_content',
+                'label' => Mage::helper('blog')->__('Content'),
+                'title' => Mage::helper('blog')->__('Content'),
+                'style' => 'width:700px; height:500px;',
+                'config' => $config
             )
         );
 
