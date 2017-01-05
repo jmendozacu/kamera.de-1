@@ -151,8 +151,8 @@ class Themevast_Blog_Block_Manage_Blog_Edit_Tab_Form extends Mage_Adminhtml_Bloc
             'text',
             array(
                  'name'               => 'tags',
-                 'label'              => Mage::helper('blog')->__('Tags'),
-                 'title'              => Mage::helper('blog')->__('tags'),
+                 'label'              => Mage::helper('blog')->__('Products ASINs'),
+                 'title'              => Mage::helper('blog')->__('Products ASINs'),
                  'style'              => 'width:700px;',
                  'after_element_html' => Mage::helper('blog')->__('Use comma as separator'),
             )

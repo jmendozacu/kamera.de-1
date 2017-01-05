@@ -3,7 +3,11 @@
     <div class="postWrapper">
         <div class="postContentText"><?php echo $post->getPostContent(); ?></div>
         <?php echo $this->getBookmarkHtml($post) ?>
-        <div class="tags"><?php echo Mage::getBlockSingleton('blog/blog')->getTagsHtml($post) ?></div>
+
+        <div class="products">
+            <?php echo Mage::getBlockSingleton('blog/blog')->getPostProductsHtml($post) ?>
+        </div>
+
         <div class="postDetails">
             <?php $postCats = $post->getCats(); ?>
             <?php if (!empty($postCats)): ?>
