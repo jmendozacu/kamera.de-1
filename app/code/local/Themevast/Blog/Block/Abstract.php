@@ -104,8 +104,13 @@ abstract class Themevast_Blog_Block_Abstract extends Mage_Core_Block_Template
             $collection = Mage::getResourceModel('catalog/product_collection');
             $collection
                 ->addAttributeToSelect('*')
-                ->addAttributeToFilter('sku', array('in' => $asins))
-                ->load();
+                ->addAttributeToFilter('sku', array('in' => $asins));
+
+            $collection
+                ->getSelect()
+                ->order(new Zend_Db_Expr('FIELD(sku, ' . "'" . implode("','", $asins) . "'" .')'));
+
+            $collection->load();
 
             if ($collection->count()) {
                 return $this
