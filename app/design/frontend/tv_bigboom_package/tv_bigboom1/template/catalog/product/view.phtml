@@ -35,6 +35,8 @@
 <?php $_product = $this->getProduct(); ?>
 <?php $amazonAttributes = json_decode($_product->getData('amazon_attributes'), true); ?>
 
+<?php $priceNew = Mage::getResourceModel('catalog/product')->getAttributeRawValue($_product->getId(), 'price', 0);  ?>
+<?php $priceUsed = Mage::getResourceModel('catalog/product')->getAttributeRawValue($_product->getId(), 'price_used', 0); ?>
 
 <div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
 
@@ -60,12 +62,7 @@
                         <?php echo $this->getChildHtml('addto') ?>
                     </div>
 
-                    <div class="ratings">
-                        <div class="rating-box">
-                            <div class="rating"
-                                 style="width:<?php echo ($_product->getRating() / 5) * 100 ?>%"></div>
-                        </div>
-                    </div>
+                    <?php echo Mage::helper('amazonia')->renderRating($_product); ?>
 
                     <div class="row f-right">
                         <?php echo $this->getChildHtml('sharewithsocial_sharelinks') ?>
@@ -95,23 +92,23 @@
 
                     <div class="add-to-box">
 
-                        <?php if ($_product->getPrice() > 0) : ?>
+                        <?php if (!empty($priceNew) && floatval($priceNew) > 0) : ?>
                             <span class="price-box row">
                             <span class="price-label col-md-4 new"><?php echo $this->__("Lowest New Price:");?></span>
                             <span class="price col-md-8">
                                 <span class="col-md-8">
-                                      <?php echo Mage::helper('core')->currency($_product->getPrice(), true, false); ?>
+                                      <?php echo Mage::helper('core')->currency($priceNew, true, false); ?>
                                 </span>
                             </span>
                         </span>
                         <?php endif; ?>
 
-                        <?php if ($_product->getPriceUsed() > 0) : ?>
+                        <?php if (!empty($priceUsed) && floatval($priceUsed) > 0) : ?>
                             <span class="price-box row">
                             <span class="price-label col-md-4 used"><?php echo $this->__("Lowest Used Price:");?></span>
                             <span class="price col-md-8">
                                 <span class="col-md-8">
-                                     <?php echo Mage::helper('core')->currency($_product->getPriceUsed(), true, false); ?>
+                                     <?php echo Mage::helper('core')->currency($priceUsed, true, false); ?>
                                 </span>
                             </span>
                         </span>

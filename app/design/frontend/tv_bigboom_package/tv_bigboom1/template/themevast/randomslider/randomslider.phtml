@@ -15,11 +15,8 @@ $_helper = $this->helper('catalog/output');
         // getConfig
         $widthImage = $this->getConfig('widthImage') ? $this->getConfig('widthImage') : 135;
         $heightImage = $this->getConfig('heightImage') ? $this->getConfig('heightImage') : 135;
-        $price = $this->getConfig('price');
-        $cart = $this->getConfig('cart');
         $compare = $this->getConfig('compare');
         $wishlist = $this->getConfig('wishlist');
-        $review = $this->getConfig('review');
         $rows = $this->getConfig('rows');
         $class = ($rows > 1) ? '.slide-multirows' : '.products-grid';
         ?>
@@ -52,25 +49,10 @@ $_helper = $this->helper('catalog/output');
                     <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>"
                                                 title="<?php echo $_productNameStripped; ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name'); ?></a>
                     </h2>
-                    <?php if ($review): ?>
-                        <?php echo $this->getReviewsSummaryHtml($_product) ?>
-                    <?php endif; ?>
-                    <?php if ($price): ?>
-                        <?php echo $this->getPriceHtml($_product, true) ?>
-                    <?php endif; ?>
-                    <?php if ($cart): ?>
-                        <?php if ($_product->isSaleable()): ?>
-                            <p>
-                                <button type="button" title="<?php echo $this->__('Add to Cart') ?>"
-                                        class="button btn-cart"
-                                        onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')">
-                                    <span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
-                            </p>
-                        <?php else: ?>
-                            <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span>
-                            </p>
-                        <?php endif; ?>
-                    <?php endif; ?>
+
+                    <?php echo Mage::helper('amazonia')->renderRating($_product); ?>
+                    <?php echo Mage::helper('amazonia')->renderPrice($_product); ?>
+
                     <?php if ($compare || $wishlist): ?>
                         <ul class="add-to-links">
                             <?php if ($wishlist): ?>
@@ -106,4 +88,3 @@ $_helper = $this->helper('catalog/output');
         $footer_assets->addItem('js','themevast/randomslider.js');
     ?>
 <?php endif ?>
-

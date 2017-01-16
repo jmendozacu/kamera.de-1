@@ -46,8 +46,8 @@ abstract class Themevast_Blog_Block_Abstract extends Mage_Core_Block_Template
                     $this->getBlogUrl(
                         null,
                         array(
-                             self::$_catUriParam  => $category->getIdentifier(),
-                             self::$_postUriParam => $item->getIdentifier()
+                            self::$_catUriParam => $category->getIdentifier(),
+                            self::$_postUriParam => $item->getIdentifier()
                         )
                     )
                 );
@@ -62,7 +62,7 @@ abstract class Themevast_Blog_Block_Abstract extends Mage_Core_Block_Template
             } elseif ($readMoreCount) {
                 $strManager = new Themevast_Blog_Helper_Substring(
                     array(
-                         'input' => self::$_helper->filterWYS($item->getPostContent())
+                        'input' => self::$_helper->filterWYS($item->getPostContent())
                     )
                 );
                 $content = $strManager->getHtmlSubstr($readMoreCount);
@@ -92,6 +92,37 @@ abstract class Themevast_Blog_Block_Abstract extends Mage_Core_Block_Template
         }
     }
 
+    public function getPostProductsHtml($post)
+    {
+        if (trim($post->getProducts())) {
+
+            $asins = explode(',', $post->getProducts());
+            array_walk_recursive($asins, function (&$value) {
+                $value = trim($value);
+            });
+
+            $collection = Mage::getResourceModel('catalog/product_collection');
+            $collection
+                ->addAttributeToSelect('*')
+                ->addAttributeToFilter('sku', array('in' => $asins));
+
+            $collection
+                ->getSelect()
+                ->order(new Zend_Db_Expr('FIELD(sku, ' . "'" . implode("','", $asins) . "'" .')'));
+
+            $collection->load();
+
+            if ($collection->count()) {
+                return $this
+                    ->setTemplate('themevast/blog/post_products.phtml')
+                    ->setProducts($collection)
+                    ->setPost($post)
+                    ->renderView();
+            }
+
+        }
+    }
+
     public function getCrumbs()
     {
         if (self::$_helper->isCrumbs()) {
@@ -102,7 +133,7 @@ abstract class Themevast_Blog_Block_Abstract extends Mage_Core_Block_Template
                     array(
                         'label' => $this->__('Home'),
                         'title' => $this->__('Go to Home Page'),
-                        'link'  => Mage::getBaseUrl(),
+                        'link' => Mage::getBaseUrl(),
                     )
                 );
             }
@@ -140,10 +171,10 @@ abstract class Themevast_Blog_Block_Abstract extends Mage_Core_Block_Template
         $this->_helper('blog/toolbar')->create(
             $this,
             array(
-                'orders'        => array('created_time' => $this->__('Created At'), 'user' => $this->__('Added By')),
+                'orders' => array('created_time' => $this->__('Created At'), 'user' => $this->__('Added By')),
                 'default_order' => 'created_time',
-                'dir'           => 'desc',
-                'limits'        => self::$_helper->postsPerPage(),
+                'dir' => 'desc',
+                'limits' => self::$_helper->postsPerPage(),
             )
         );
 
@@ -230,7 +261,7 @@ abstract class Themevast_Blog_Block_Abstract extends Mage_Core_Block_Template
             $category['posts'] = explode(',', $category['posts']);
             $category['data'] = array(
                 'title' => $category['title'],
-                'url'   => $this->getBlogUrl(null, array(self::$_catUriParam => $category['identifier']))
+                'url' => $this->getBlogUrl(null, array(self::$_catUriParam => $category['identifier']))
             );
         }
 

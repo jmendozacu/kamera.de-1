@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <affilinet_index_index>
+        <reference name="content">
+            <block type="affilinet/index" name="affilinet" template="affilinet/price_comparison.phtml"/>
+        </reference>
+    </affilinet_index_index>
+</layout>   
+	

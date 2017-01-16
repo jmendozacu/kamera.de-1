@@ -2,13 +2,11 @@
 
 require_once(Mage::getBaseDir() . '/vendor/autoload.php');
 
-use Symfony\Component\Console\Formatter\OutputFormatter;
-use Symfony\Component\Console\Output\ConsoleOutput;
+use ApaiIO\ApaiIO;
 use ApaiIO\Configuration\GenericConfiguration;
 use ApaiIO\Operations\Lookup;
-use ApaiIO\Operations\Search;
 use GuzzleHttp\Client;
-use ApaiIO\ApaiIO;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 
 /**
@@ -16,6 +14,9 @@ use ApaiIO\ApaiIO;
  */
 class Colibo_Amazonia_Model_Sync
 {
+
+    const CHUNK_SIZE = 1000;
+
 
     /** @var  array $asins */
     protected $asins;
@@ -42,10 +43,12 @@ class Colibo_Amazonia_Model_Sync
     public function sync()
     {
         $collection = Mage::getModel('catalog/product')->getCollection()
-            ->addAttributeToSelect(array('sku', 'updated_at'), 'inner')
-            ->addAttributeToFilter('updated_at', array('lt' => date('Y-m-d H:i:s', strtotime('-1 days'))));
+            ->addAttributeToSelect(array('sku', 'updated_at'), 'inner');
 
-        $collection->getSelect()->limit(100);
+        $collection->getSelect()
+            ->order('updated_at', 'ASC')
+            ->limit(self::CHUNK_SIZE);
+
         Mage::getSingleton('core/resource_iterator')->walk($collection->getSelect(), array(array($this, 'productWalker')));
 
         $amazonData = $this->getAmazonData();
@@ -89,36 +92,45 @@ class Colibo_Amazonia_Model_Sync
             ->setRequest($request)
             ->setResponseTransformer(new \ApaiIO\ResponseTransformer\XmlToSimpleXmlObject());
 
-        foreach (array_chunk(array_keys($this->asins), 10) as $asins) {
+        foreach (array_keys($this->asins) as $asin) {
 
             try {
 
                 /** Build Lookup Request */
                 $apaiIO = new ApaiIO($conf);
                 $lookup = new Lookup();
-                $lookup->setItemId($asins);
+                $lookup->setItemId($asin);
                 $lookup->setResponseGroup(['OfferSummary', 'Reviews']);
                 $formattedResponse = $apaiIO->runOperation($lookup);
 
-            } catch (\Exception $e) {
-                $this->output->writeln('<error>ApaiIO Lookup Error: ' . implode(',', $asins) . ' - ' . $e->getMessage() . '</error>');
-                continue;
-            }
+                /** Validate Response */
+                $errors = $formattedResponse->Items->Request->Errors->Error ?: null;
+                if (!empty($errors)) {
+                    foreach ($errors as $error) {
 
-            /** Validate Response */
-            $errors = $formattedResponse->Items->Request->Errors->Error ?: null;
-            if (!empty($errors)) {
-                foreach ($errors as $error) {
-                    $this->output->writeln('<error>' . $error->Message . ' (code: ' . $error->Code . ')</error>');
+                        $this->output->writeln('<error>' . $error->Message . ' (code: ' . $error->Code . ')</error>');
+
+                        /** Update Failed Product: updated_at field */
+                        if ($error->Code == 'AWS.InvalidParameterValue') {
+                            $response[$asin] = ['data' => []];
+                        }
+
+                    }
+                    continue;
                 }
-                continue;
-            }
 
-            /** Process Found Products */
-            $items = $formattedResponse->Items->Item;
-            foreach ($items as $item) {
-                $item = Mage::helper('amazonia')->xml2array($item);
-                $response[$item['ASIN']] = ['data' => $item];
+                /** Process Found Products */
+                $items = $formattedResponse->Items->Item;
+                foreach ($items as $item) {
+                    $item = Mage::helper('amazonia')->xml2array($item);
+                    $response[$item['ASIN']] = ['data' => $item];
+                }
+
+            } catch (\GuzzleHttp\Exception\ServerException $e) {
+                continue;
+            } catch (\Exception $e) {
+                $this->output->writeln('<error>ApaiIO Lookup Error: ' . $asin . ' - ' . $e->getMessage() . '</error>');
+                continue;
             }
         }
 
@@ -181,7 +193,6 @@ class Colibo_Amazonia_Model_Sync
 
                 /** Update Products Change Date */
                 $query = "UPDATE " . $table . " SET updated_at = :updated_at WHERE sku = :sku;";
-
                 $binds = [
                     ':updated_at' => Varien_Date::now(),
                     ':sku' => $asin
