@@ -42,3 +42,5 @@ try {
 }
 
 $output->writeln('<question>Done.</question>');
+$output->writeln('<question>Done.</question>');
+$output->writeln('<question>Done.</question>');
