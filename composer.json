@@ -5,6 +5,7 @@
         "guzzlehttp/guzzle": "^6.2",
         "symfony/console": "^3.1",
         "sunra/php-simple-html-dom-parser": "^1.5",
-        "campo/random-user-agent": "^1.1"
+        "campo/random-user-agent": "^1.1",
+        "affilinet/productdata-php-sdk": "^1.0"
     }
 }

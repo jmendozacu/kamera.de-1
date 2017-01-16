@@ -127,7 +127,6 @@ class Colibo_Amazonia_Model_Sync
                 }
 
             } catch (\GuzzleHttp\Exception\ServerException $e) {
-                $this->output->writeln('<error>ApaiIO Lookup Error: ' . $asin . ' - ' . $e->getResponse()->getStatusCode() . '. ' . $e->getResponse()->getReasonPhrase() . '</error>');
                 continue;
             } catch (\Exception $e) {
                 $this->output->writeln('<error>ApaiIO Lookup Error: ' . $asin . ' - ' . $e->getMessage() . '</error>');

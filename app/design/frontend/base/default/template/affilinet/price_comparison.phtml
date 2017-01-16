@@ -1,0 +1,29 @@
+<div class="prices_comparison">
+    <?php /** @var Affilinet\ProductData\Responses\ResponseElements\Product $product */ ?>
+    <?php foreach ($this->getProducts() as $product): ?>
+
+        <div class="shop-logo">
+            <?php foreach ($product->getLogos() as $logo) : ?>
+                <img src="<?php echo $logo->getUrl(); ?>"
+                     width="<?php echo $logo->getWidth(); ?>"
+                     height="<?php echo $logo->getHeight(); ?>"
+                     alt="<?php echo $product->getShopTitle(); ?>">
+            <?php endforeach; ?>
+        </div>
+        <div class="shop-title">
+            <?php echo $product->getShopTitle(); ?>
+        </div>
+        <div class="product-price">
+            <?php echo $product->getPriceInformation()->getDisplayPrice(); ?>
+        </div>
+        <div class="product-change-date">
+            <?php echo $product->getLastProductChange()->format('d.m.Y'); ?>
+        </div>
+        <div class="affilinet-deeplink">
+            <a href="<?php echo $product->getDeeplink() ?>" target="_blank">
+                <?php echo $this->__('Zum Shop'); ?>
+            </a>
+        </div>
+
+    <?php endforeach; ?>
+</div>
