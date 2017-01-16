@@ -89,36 +89,38 @@ class Colibo_Amazonia_Model_Sync
             ->setRequest($request)
             ->setResponseTransformer(new \ApaiIO\ResponseTransformer\XmlToSimpleXmlObject());
 
-        foreach (array_chunk(array_keys($this->asins), 10) as $asins) {
+        foreach (array_keys($this->asins) as $asin) {
 
             try {
 
                 /** Build Lookup Request */
                 $apaiIO = new ApaiIO($conf);
                 $lookup = new Lookup();
-                $lookup->setItemId($asins);
+                $lookup->setItemId($asin);
                 $lookup->setResponseGroup(['OfferSummary', 'Reviews']);
                 $formattedResponse = $apaiIO->runOperation($lookup);
 
-            } catch (\Exception $e) {
-                $this->output->writeln('<error>ApaiIO Lookup Error: ' . implode(',', $asins) . ' - ' . $e->getMessage() . '</error>');
-                continue;
-            }
-
-            /** Validate Response */
-            $errors = $formattedResponse->Items->Request->Errors->Error ?: null;
-            if (!empty($errors)) {
-                foreach ($errors as $error) {
-                    $this->output->writeln('<error>' . $error->Message . ' (code: ' . $error->Code . ')</error>');
+                /** Validate Response */
+                $errors = $formattedResponse->Items->Request->Errors->Error ?: null;
+                if (!empty($errors)) {
+                    foreach ($errors as $error) {
+                        $this->output->writeln('<error>' . $error->Message . ' (code: ' . $error->Code . ')</error>');
+                    }
+                    continue;
                 }
-                continue;
-            }
 
-            /** Process Found Products */
-            $items = $formattedResponse->Items->Item;
-            foreach ($items as $item) {
-                $item = Mage::helper('amazonia')->xml2array($item);
-                $response[$item['ASIN']] = ['data' => $item];
+                /** Process Found Products */
+                $items = $formattedResponse->Items->Item;
+                foreach ($items as $item) {
+                    $item = Mage::helper('amazonia')->xml2array($item);
+                    $response[$item['ASIN']] = ['data' => $item];
+                }
+
+            } catch (\GuzzleHttp\Exception\ServerException $e) {
+
+            } catch (\Exception $e) {
+                $this->output->writeln('<error>ApaiIO Lookup Error: ' . implode(',', $asin) . ' - ' . $e->getMessage() . '</error>');
+                continue;
             }
         }
 
