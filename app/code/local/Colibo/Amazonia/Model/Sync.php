@@ -2,13 +2,11 @@
 
 require_once(Mage::getBaseDir() . '/vendor/autoload.php');
 
-use Symfony\Component\Console\Formatter\OutputFormatter;
-use Symfony\Component\Console\Output\ConsoleOutput;
+use ApaiIO\ApaiIO;
 use ApaiIO\Configuration\GenericConfiguration;
 use ApaiIO\Operations\Lookup;
-use ApaiIO\Operations\Search;
 use GuzzleHttp\Client;
-use ApaiIO\ApaiIO;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 
 /**
@@ -42,10 +40,12 @@ class Colibo_Amazonia_Model_Sync
     public function sync()
     {
         $collection = Mage::getModel('catalog/product')->getCollection()
-            ->addAttributeToSelect(array('sku', 'updated_at'), 'inner')
-            ->addAttributeToFilter('updated_at', array('lt' => date('Y-m-d H:i:s', strtotime('-1 days'))));
+            ->addAttributeToSelect(array('sku', 'updated_at'), 'inner');
 
-        $collection->getSelect()->limit(100);
+        $collection->getSelect()
+            ->order('updated_at', 'ASC')
+            ->limit(500);
+
         Mage::getSingleton('core/resource_iterator')->walk($collection->getSelect(), array(array($this, 'productWalker')));
 
         $amazonData = $this->getAmazonData();
