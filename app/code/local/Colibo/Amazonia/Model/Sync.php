@@ -15,6 +15,9 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 class Colibo_Amazonia_Model_Sync
 {
 
+    const CHUNK_SIZE = 1000;
+
+
     /** @var  array $asins */
     protected $asins;
 
@@ -44,7 +47,7 @@ class Colibo_Amazonia_Model_Sync
 
         $collection->getSelect()
             ->order('updated_at', 'ASC')
-            ->limit(500);
+            ->limit(self::CHUNK_SIZE);
 
         Mage::getSingleton('core/resource_iterator')->walk($collection->getSelect(), array(array($this, 'productWalker')));
 
@@ -104,7 +107,14 @@ class Colibo_Amazonia_Model_Sync
                 $errors = $formattedResponse->Items->Request->Errors->Error ?: null;
                 if (!empty($errors)) {
                     foreach ($errors as $error) {
+
                         $this->output->writeln('<error>' . $error->Message . ' (code: ' . $error->Code . ')</error>');
+
+                        /** Update Failed Product: updated_at field */
+                        if ($error->Code == 'AWS.InvalidParameterValue') {
+                            $response[$asin] = ['data' => []];
+                        }
+
                     }
                     continue;
                 }
@@ -117,9 +127,10 @@ class Colibo_Amazonia_Model_Sync
                 }
 
             } catch (\GuzzleHttp\Exception\ServerException $e) {
-
+                $this->output->writeln('<error>ApaiIO Lookup Error: ' . $asin . ' - ' . $e->getResponse()->getStatusCode() . '. ' . $e->getResponse()->getReasonPhrase() . '</error>');
+                continue;
             } catch (\Exception $e) {
-                $this->output->writeln('<error>ApaiIO Lookup Error: ' . implode(',', $asin) . ' - ' . $e->getMessage() . '</error>');
+                $this->output->writeln('<error>ApaiIO Lookup Error: ' . $asin . ' - ' . $e->getMessage() . '</error>');
                 continue;
             }
         }
@@ -183,7 +194,6 @@ class Colibo_Amazonia_Model_Sync
 
                 /** Update Products Change Date */
                 $query = "UPDATE " . $table . " SET updated_at = :updated_at WHERE sku = :sku;";
-
                 $binds = [
                     ':updated_at' => Varien_Date::now(),
                     ':sku' => $asin
